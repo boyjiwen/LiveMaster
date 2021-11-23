@@ -250,15 +250,91 @@ void ObsWrapper::AddCaptureWindow(String^ name, String^ winName)
 String^ ObsWrapper::GetConfigString(String^ section, String^ name)
 {
     pin_ptr<const wchar_t> convertSection = PtrToStringChars(section);
-    const wchar_t* constScetion = convertSection;
-
     pin_ptr<const wchar_t> convertName = PtrToStringChars(name);
-    const wchar_t* constName = convertName;
 
-    std::string sValue = config_get_string(ObsMain::Instance()->basicConfig(), ToUtf8(constScetion).c_str(), ToUtf8(constName).c_str());
+    const char* value = config_get_string(ObsMain::Instance()->basicConfig(), ToUtf8(convertSection).c_str(), ToUtf8(convertName).c_str());
+
+    if (!value)
+        return "";
+    else
+        return gcnew String(FromUtf8(value).c_str());
+}
+
+bool ObsWrapper::GetConfigBool(String^ section, String^ name)
+{
+    pin_ptr<const wchar_t> convertSection = PtrToStringChars(section);
+    pin_ptr<const wchar_t> convertName = PtrToStringChars(name);
+
+    bool bRet = config_get_bool(ObsMain::Instance()->basicConfig(), ToUtf8(convertSection).c_str(), ToUtf8(convertName).c_str());
+    return bRet;
+}
+
+LONG64 ObsWrapper::GetConfigInt(String^ section, String^ name)
+{
+    pin_ptr<const wchar_t> convertSection = PtrToStringChars(section);
+    pin_ptr<const wchar_t> convertName = PtrToStringChars(name);
+
+    LONG64 iRet = config_get_int(ObsMain::Instance()->basicConfig(), ToUtf8(convertSection).c_str(), ToUtf8(convertName).c_str());
+    return iRet;
+}
+
+ULONG64 ObsWrapper::GetConfigUInt(String^ section, String^ name)
+{
+    pin_ptr<const wchar_t> convertSection = PtrToStringChars(section);
+    pin_ptr<const wchar_t> convertName = PtrToStringChars(name);
+
+    LONG64 iRet = config_get_uint(ObsMain::Instance()->basicConfig(), ToUtf8(convertSection).c_str(), ToUtf8(convertName).c_str());
+    return iRet;
+}
+
+double ObsWrapper::GetConfigDouble(String^ section, String^ name)
+{
+    pin_ptr<const wchar_t> convertSection = PtrToStringChars(section);
+    pin_ptr<const wchar_t> convertName = PtrToStringChars(name);
+
+    double dRet = config_get_double(ObsMain::Instance()->basicConfig(), ToUtf8(convertSection).c_str(), ToUtf8(convertName).c_str());
+    return dRet;
+}
+
+void ObsWrapper::SetConfigString(String^ section, String^ name, String^ value)
+{
+    pin_ptr<const wchar_t> cSection = PtrToStringChars(section);
+    pin_ptr<const wchar_t> cName = PtrToStringChars(name);
+    pin_ptr<const wchar_t> cValue = PtrToStringChars(name);
     
-    String^ retValue = gcnew String(FromUtf8(sValue.c_str()).c_str());
-    return retValue;
+    config_set_string(ObsMain::Instance()->basicConfig(), ToUtf8(cSection).c_str(), ToUtf8(cName).c_str(), ToUtf8(cValue).c_str());
+}
+
+void ObsWrapper::SetConfigBool(String^ section, String^ name, bool value)
+{
+    pin_ptr<const wchar_t> cSection = PtrToStringChars(section);
+    pin_ptr<const wchar_t> cName = PtrToStringChars(name);    
+
+    config_set_bool(ObsMain::Instance()->basicConfig(), ToUtf8(cSection).c_str(), ToUtf8(cName).c_str(), value);
+}
+
+void ObsWrapper::SetConfigInt(String^ section, String^ name, LONG64 value)
+{
+    pin_ptr<const wchar_t> cSection = PtrToStringChars(section);
+    pin_ptr<const wchar_t> cName = PtrToStringChars(name);
+
+    config_set_int(ObsMain::Instance()->basicConfig(), ToUtf8(cSection).c_str(), ToUtf8(cName).c_str(), value);
+}
+
+void ObsWrapper::SetConfigUInt(String^ section, String^ name, ULONG64 value)
+{
+    pin_ptr<const wchar_t> cSection = PtrToStringChars(section);
+    pin_ptr<const wchar_t> cName = PtrToStringChars(name);
+
+    config_set_uint(ObsMain::Instance()->basicConfig(), ToUtf8(cSection).c_str(), ToUtf8(cName).c_str(), value);
+}
+
+void ObsWrapper::SetConfigDouble(String^ section, String^ name, double value)
+{
+    pin_ptr<const wchar_t> cSection = PtrToStringChars(section);
+    pin_ptr<const wchar_t> cName = PtrToStringChars(name);
+
+    config_set_double(ObsMain::Instance()->basicConfig(), ToUtf8(cSection).c_str(), ToUtf8(cName).c_str(), value);
 }
 
 

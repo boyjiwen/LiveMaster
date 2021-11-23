@@ -53,14 +53,20 @@ namespace ObsMaster.Dialog
             gr.Children.Add(tb);
             
         }
-
-        private void InitStream()
+                                                   
+        private void InitStreamConfig()
         {
-            string v1 = vm.ObsCore.GetConfigString("Stream", "url");
-            string v2 = vm.ObsCore.GetConfigString("Stream", "Name");
-
             tbStreamUrl.Text = vm.ObsCore.GetConfigString("Stream", "url");
-            tbStreamPassword.Text = vm.ObsCore.GetConfigString("Stream", "Name"); 
+            tbStreamPassword.Text = vm.ObsCore.GetConfigString("Stream", "Name");
+        }
+
+        private void SaveStreamConfig()
+        {
+            string vUrl = tbStreamUrl.Text;
+            string vPwd = tbStreamPassword.Text;
+
+            vm.ObsCore.SetConfigString("Stream", "url", vUrl);
+            vm.ObsCore.SetConfigString("Stream", "url", vPwd);
         }
 
 
@@ -68,7 +74,7 @@ namespace ObsMaster.Dialog
         {
             if (bool.Parse(e.NewValue.ToString()))
             {
-                InitStream();
+                InitStreamConfig();
             }
         }
     }

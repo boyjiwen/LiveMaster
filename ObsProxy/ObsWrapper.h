@@ -49,8 +49,19 @@ public:
 	void AddCaptureWindow(String^ name, String^ winName);
 
 
-	//	取配置相关
+	//	Config相关
 	String^ GetConfigString(String^ section, String^ name);
+	bool GetConfigBool(String^ section, String^ name);
+	LONG64 GetConfigInt(String^ section, String^ name);
+	ULONG64 GetConfigUInt(String^ section, String^ name);
+	double GetConfigDouble(String^ section, String^ name);
+
+	void SetConfigString(String^ section, String^ name, String^ value);
+	void SetConfigBool(String^ section, String^ name, bool value);
+	void SetConfigInt(String^ section, String^ name, LONG64 value);
+	void SetConfigUInt(String^ section, String^ name, ULONG64 value);
+	void SetConfigDouble(String^ section, String^ name, double value);
+	
 
 
 
