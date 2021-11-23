@@ -71,14 +71,15 @@
             </StackPanel>
             <!--推流-->
             <StackPanel Grid.Column="1" Background="White"
-                  Visibility="{Binding Path=IsChecked,ElementName=pushRadio,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                  Visibility="{Binding Path=IsChecked,ElementName=pushRadio,Converter={x:Static vt:BoolToVisibility.Instance}}"
+                        IsVisibleChanged="IsStreamViewVisibleChanged">
                 <Grid Margin="50,20,50,10" Height="22" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>                    
                     <TextBlock Text="服务器" Padding="5,0" VerticalAlignment="Center" TextAlignment="Right"/>
-                    <TextBox Grid.Column="1"  />
+                    <TextBox x:Name="tbStreamUrl" Grid.Column="1"  />
                 </Grid>
                 <Grid Margin="50,10,50,10" Height="22" >
                     <Grid.ColumnDefinitions>
@@ -86,7 +87,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="串流密码" Padding="5,0" VerticalAlignment="Center" TextAlignment="Right" />
-                    <TextBox Grid.Column="1"  />
+                    <TextBox x:Name="tbStreamPassword" Grid.Column="1"  />
                 </Grid>
 
             </StackPanel>

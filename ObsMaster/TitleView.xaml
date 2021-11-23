@@ -14,8 +14,9 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="15,0" >
-            <Image Source="/resources/logotext.png" Stretch="None" />
-            
+            <!--<Image Source="/resources/logotext.png" Stretch="None" />-->
+            <TextBlock FontSize="16" Text="开播工具" VerticalAlignment="Center" />
+
         </StackPanel>        
 
     </Grid>

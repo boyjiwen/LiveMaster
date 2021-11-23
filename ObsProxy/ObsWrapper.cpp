@@ -247,6 +247,20 @@ void ObsWrapper::AddCaptureWindow(String^ name, String^ winName)
     m_core->AddWindowCapture(ToUtf8(constName).c_str(), ToUtf8(constWinName).c_str());        
 }
 
+String^ ObsWrapper::GetConfigString(String^ section, String^ name)
+{
+    pin_ptr<const wchar_t> convertSection = PtrToStringChars(section);
+    const wchar_t* constScetion = convertSection;
+
+    pin_ptr<const wchar_t> convertName = PtrToStringChars(name);
+    const wchar_t* constName = convertName;
+
+    std::string sValue = config_get_string(ObsMain::Instance()->basicConfig(), ToUtf8(constScetion).c_str(), ToUtf8(constName).c_str());
+    
+    String^ retValue = gcnew String(FromUtf8(sValue.c_str()).c_str());
+    return retValue;
+}
+
 
 void ObsWrapper::CallLoadSceneFinish()
 {

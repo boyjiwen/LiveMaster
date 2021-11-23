@@ -67,16 +67,16 @@
             </Grid.RowDefinitions>
 
             <!--高光时刻-->
-            <ui:FXLIconButton Content="高光时刻" Style="{StaticResource fxliconStyle}"
+            <!--<ui:FXLIconButton Content="高光时刻" Style="{StaticResource fxliconStyle}"
                                   Icon="/Resources/menu_hl_normal.png" HoverIcon="/Resources/menu_hl_normal.png"
                                   PushIcon="/Resources/menu_hl_normal.png" CheckIcon="/Resources/menu_hl_hover.png"                              
-                                  Click="FXLIconButton_Click" />
+                                  Click="FXLIconButton_Click" />-->
 
             <!--直播设置-->
-            <ui:FXLIconButton Grid.Row="1" Content="直播设置" Style="{StaticResource fxliconStyle}"
-                                  Icon="/Resources/menu_edit_normal.png" HoverIcon="/Resources/menu_edit_normal.png"
-                                  PushIcon="/Resources/menu_edit_normal.png" CheckIcon="/Resources/menu_edit_hover.png"  
-                                  Click="FXLIconButton_Click" />
+            <ui:FXLIconButton Grid.Row="1" Content="直播设置" Style="{StaticResource fxliconStyle}" IsChecked="True"
+                            Icon="/Resources/menu_edit_normal.png" HoverIcon="/Resources/menu_edit_normal.png"
+                            PushIcon="/Resources/menu_edit_normal.png" CheckIcon="/Resources/menu_edit_hover.png"  
+                            Click="FXLIconButton_Click" />
             
             <!--场景-->
             <Grid Grid.Row="2">

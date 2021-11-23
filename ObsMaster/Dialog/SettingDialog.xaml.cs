@@ -19,10 +19,14 @@ namespace ObsMaster.Dialog
     /// </summary>
     public partial class SettingDialog 
     {
+        private ViewModel.MainVM vm;
+
         public SettingDialog()
         {
             InitializeComponent();
+            vm = ViewModel.MainVM.Instance;
             this.Loaded += SettingDialog_Loaded;
+
         }
 
         protected override void OnCloseButtonClicked()
@@ -48,6 +52,24 @@ namespace ObsMaster.Dialog
             tb.VerticalAlignment = VerticalAlignment.Center;
             gr.Children.Add(tb);
             
+        }
+
+        private void InitStream()
+        {
+            string v1 = vm.ObsCore.GetConfigString("Stream", "url");
+            string v2 = vm.ObsCore.GetConfigString("Stream", "Name");
+
+            tbStreamUrl.Text = vm.ObsCore.GetConfigString("Stream", "url");
+            tbStreamPassword.Text = vm.ObsCore.GetConfigString("Stream", "Name"); 
+        }
+
+
+        private void IsStreamViewVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (bool.Parse(e.NewValue.ToString()))
+            {
+                InitStream();
+            }
         }
     }
 }

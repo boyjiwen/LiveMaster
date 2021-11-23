@@ -49,6 +49,10 @@ public:
 	void AddCaptureWindow(String^ name, String^ winName);
 
 
+	//	»°≈‰÷√œ‡πÿ
+	String^ GetConfigString(String^ section, String^ name);
+
+
 
 
 public:
