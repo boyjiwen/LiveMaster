@@ -1,0 +1,283 @@
+#include "pch.h"
+#include "api/ObsUtils.h"
+
+
+
+
+#include "ObsWrapper.h"
+
+
+
+//#include <vcclr.h>
+//#include <list>
+//#include "TSceneItem.h"
+
+
+
+
+
+
+void ObsWrapper::Init()
+{
+    m_core = new ObsCore();
+    m_core->InitObsCore(this);
+}
+
+void ObsWrapper::InitObs()
+{
+    m_core->MakeUserDirs();
+    m_core->InitGlobalConfig();
+    m_core->MakeUserProfileDirs();
+    m_core->InitObs();
+}
+
+void ObsWrapper::SaveProject()
+{
+    m_core->SaveProject();
+}
+
+void ObsWrapper::SaveConfig()
+{
+    m_core->SaveConfig();
+}
+
+void ObsWrapper::InitWindow(long hwnd, int w, int h)
+{
+    m_core->InitObsWindow(hwnd, w, h);
+}
+
+void ObsWrapper::SetWindowPos(long x, long y, long w, long h)
+{
+    m_core->SetWindowPos(x, y, w, h);
+}
+
+void ObsWrapper::LoadScene()
+{
+    m_core->LoadScene();
+}
+
+void ObsWrapper::CreateScene(String^ name)
+{
+    pin_ptr<const wchar_t> convertName = PtrToStringChars(name);
+    //std::wstring newName = convertName;
+
+    std::string utf8Name = ToUtf8(convertName);
+
+    bool bExistName = false;
+    for (size_t i = 0; i < m_core->scenes().size(); i++)
+    {
+        if (strcmp(m_core->scenes()[i]->name(), utf8Name.c_str()) == 0)
+        {
+            bExistName = true;
+            return;
+        }
+    }
+
+    utf8Name = GenerateSourceName(utf8Name);   
+    m_core->AddScene(utf8Name.c_str(), true);    
+}
+
+void ObsWrapper::GetScenes(List<SceneData^>^ li)
+{
+    for (size_t i = 0; i < m_core->scenes().size(); i++)
+    {
+        SceneData^ data = gcnew SceneData();
+        data->index = i;
+
+        OBSSource source = obs_scene_get_source(m_core->scenes()[i]->scene);
+        data->name = gcnew String(FromUtf8(obs_source_get_name(source)).c_str());
+
+        li->Add(data);
+    }
+}
+
+void ObsWrapper::ChangeScene(int idx)
+{
+    if (idx >= 0 && idx < m_core->scenes().size())
+    {
+        OBSScene scene = m_core->scenes()[idx]->scene;
+        m_core->SetCurrentScene(scene);
+
+        OBSSource source = obs_scene_get_source(scene);
+        std::wstring ss = FromUtf8(obs_source_get_name(source));
+
+        OnEventCurrentScene(gcnew String(ss.c_str()));
+    }   
+}
+
+void ObsWrapper::SetSceneItemVisibile(int idx, bool visible)
+{
+    ObsSceneItemList& itemList = m_core->sceneItemList();
+    itemList.SetVisible(idx, visible);
+}
+
+void ObsWrapper::RemoveSceneItem(int idx)
+{
+    ObsSceneItemList& itemList = m_core->sceneItemList();
+    itemList.Remove(idx);
+}
+
+void ObsWrapper::SelectSceneItem(int idx)
+{
+    ObsSceneItemList& itemList = m_core->sceneItemList();
+    itemList.Select(idx);
+}
+
+void ObsWrapper::StartStream()
+{
+    if (!m_core->StreamActive())
+    {
+        m_core->StartStreaming();
+    }
+}
+
+void ObsWrapper::StopStream() {
+    m_core->StopStreaming();
+    //  m_obs->StopRecording();
+}
+
+void ObsWrapper::StartRecording()
+{
+   /* System::Threading::Tasks::Task::Factory->StartNew(() -> void {
+
+    });*/
+    //System::Threading::Tasks::Task::Factory->StartNew((Action<String^>^)( gcnew System::Action<String^>(this, &ObsWrapper::TestCall)), L"3333");
+
+  
+   // System::Threading::Tasks::Task::Factory->StartNew(gcnew System::Action<Object^>(this, &ObsWrapper::TestCall), (Object^)L"ddd");
+    
+}
+
+void ObsWrapper::StopRecording()
+{
+    m_core->StopRecording();
+}
+
+
+//  ÆÁÄ»²¶×½
+void ObsWrapper::GetMonitor(System::Collections::IList^ vMonitors)
+{
+    std::vector<std::wstring> vArrays;
+    EnumMonitor(vArrays);    
+
+    for (size_t i = 0; i < vArrays.size(); i++)
+    {
+        vMonitors->Add(gcnew String(vArrays[i].c_str()));
+    }
+}
+
+void ObsWrapper::GetMonitors(List<CLI_MinitorItem^>^ vItems)
+{
+    obs_properties_t* prop = obs_properties_by_id("monitor_capture");
+    if (prop)
+    {
+        obs_property_t* monitors = obs_properties_get(prop, "monitor");
+
+        size_t  count = obs_property_list_item_count(monitors);
+        for (size_t i = 0; i < count; i++)
+        {
+            const char* name = obs_property_list_item_name(monitors, i);
+            int id = obs_property_list_item_int(monitors, i);
+
+            CLI_MinitorItem^ it = gcnew CLI_MinitorItem();
+            it->Id = id;
+            it->Name = gcnew String(FromUtf8(name).c_str());
+            vItems->Add(it);
+
+            blog(LOG_INFO, "EnumMonitor:%s  %d", name, id);
+        }
+        obs_properties_destroy(prop);
+    }
+}
+
+
+void ObsWrapper::AddCaptureScreen(String^ name, int index, bool isSelect)
+{
+    pin_ptr<const wchar_t> convertedValue = PtrToStringChars(name);
+    const wchar_t* constValue = convertedValue;
+
+    m_core->AddCaptureScreen(ToUtf8(constValue).c_str(), index, isSelect);
+}
+
+//  ´°¿Ú
+void ObsWrapper::GetWindows(List<CLI_WindowItem^>^ vItems)
+{
+    obs_properties_t* prop = obs_properties_by_id("window_capture");
+    if (prop)
+    {
+        obs_property_t* property = obs_properties_get(prop, "window");
+
+        if (property) {
+            const char* name = obs_property_name(property);
+            obs_property_type type = obs_property_get_type(property);
+            const char* desc = obs_property_description(property);
+
+            blog(LOG_INFO, "[%s]:%s", name, desc);
+
+            if (strcmp(name, "window") == 0 && type == OBS_PROPERTY_LIST)
+            {
+                size_t  count = obs_property_list_item_count(property);
+                for (size_t i = 0; i < count; i++)
+                {
+                    const char* name = obs_property_list_item_name(property, i);
+                    const char* window = obs_property_list_item_string(property, i);
+
+                    CLI_WindowItem^ it = gcnew CLI_WindowItem();
+                    it->Name = gcnew String(FromUtf8(name).c_str());
+                    it->WinName = gcnew String(FromUtf8(window).c_str());
+
+                    vItems->Add(it);
+
+                    blog(LOG_INFO, "GameProcess:%s  %s", name, window);
+                }
+            }
+        }
+        obs_properties_destroy(prop);
+    }
+}
+
+void ObsWrapper::AddCaptureWindow(String^ name, String^ winName)
+{
+    pin_ptr<const wchar_t> convertName = PtrToStringChars(name);
+    const wchar_t* constName = convertName;
+
+    pin_ptr<const wchar_t> convertWinName = PtrToStringChars(winName);
+    const wchar_t* constWinName = convertWinName;
+
+    m_core->AddWindowCapture(ToUtf8(constName).c_str(), ToUtf8(constWinName).c_str());        
+}
+
+
+void ObsWrapper::CallLoadSceneFinish()
+{
+    OBSScene scene = m_core->GetCurrentScene();
+    OBSSource source = obs_scene_get_source(scene);
+    std::wstring ss = FromUtf8(obs_source_get_name(source));
+
+    OnEventCurrentScene(gcnew String(ss.c_str()));
+}
+
+void ObsWrapper::CallReloadSceneItemList(void* data)
+{
+    ObsSceneItemList* itemList = (ObsSceneItemList*)data;
+    if (itemList == nullptr) return;
+
+    List<SceneItem^>^ li = gcnew List<SceneItem^>();
+    for (size_t i = 0; i < itemList->Count(); i++)
+    {
+        SceneItem^ it = gcnew SceneItem();
+        it->Name = marshal_as<String^>(FromUtf8(ObsSceneItemList::itemName(itemList->Get(i))));
+        it->bVisible = ObsSceneItemList::itemVisible(itemList->Get(i));
+        it->bSelected = ObsSceneItemList::itemSelected(itemList->Get(i));
+        li->Add(it);
+    }
+    this->OnEventReloadSceneItemList(li);
+}
+
+//System::Threading::Tasks::Task::Factory->StartNew(gcnew System::Action<Object^>(this, &ObsWrapper::TestCall), (Object^)L"ddd");
+
+void ObsWrapper::CallAddScene(void* data)
+{
+    std::wstring* name = (std::wstring*)(data);
+    
+}
