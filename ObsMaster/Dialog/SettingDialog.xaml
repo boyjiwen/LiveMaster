@@ -1,0 +1,104 @@
+﻿<wnd:SWWindow x:Class="ObsMaster.Dialog.SettingDialog"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:local="clr-namespace:ObsMaster.Dialog"
+            xmlns:wnd="clr-namespace:HuyaFX.UI.Wnd"
+              xmlns:ui="clr-namespace:HuyaFX.UI.Controls.Buttons"
+              xmlns:vt="clr-namespace:HuyaFX.UI.Converter"
+            Style="{DynamicResource SWWindowStyle}"
+            mc:Ignorable="d"
+            WindowStartupLocation="CenterOwner"
+            WindowControlsGridBackground="#e0e1ea"
+            ResizeMode="NoResize"
+              TitleBarHeight="45"
+            Title="设置" Height="450" Width="700">
+    <wnd:SWWindow.Resources>
+        
+        <ResourceDictionary Source="/UI/Wnd/SWStyles.xaml"/>
+        <!--FXTextRadio Style-->
+        <!--<Style TargetType="{x:Type ui:FXTextRadio}">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HoverBackground" Value="Transparent"/>
+            <Setter Property="PushBackground" Value="#ffffff"/>
+
+        </Style>-->
+        
+        
+    </wnd:SWWindow.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--分隔线-->
+        <Grid Grid.Row="1" Background="#11000000" />
+        <!--按钮-->
+        <Grid Grid.Row="2" Height="50">
+            <StackPanel Margin="20,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Width="80" Height="30" Content="应用" />
+
+            </StackPanel>
+        </Grid>
+        <!--Content-->
+        <Grid Background="#ededf3" >
+            <Grid.Resources>
+                <Style TargetType="{x:Type ui:FXTextRadio}">
+                    <Setter Property="Height" Value="38"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="HoverBackground" Value="Transparent"/>
+                    <Setter Property="PushBackground" Value="#ffffff"/>
+                    <Setter Property="Foreground" Value="#888888"/>
+                    <Setter Property="HoverForeground" Value="#777777"/>
+                    <Setter Property="PushForeground" Value="#333333"/>
+                </Style>              
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!--Button-->
+            <StackPanel>
+                <ui:FXTextRadio x:Name="pushRadio" IsChecked="True"
+                                Content="推流" />
+                <ui:FXTextRadio x:Name="outputRadio" Content="输出" />
+                <ui:FXTextRadio x:Name="audioRadio" Content="音频" />
+                <ui:FXTextRadio x:Name="videoRadio" Content="视频" />
+            </StackPanel>
+            <!--推流-->
+            <StackPanel Grid.Column="1" Background="White"
+                  Visibility="{Binding Path=IsChecked,ElementName=pushRadio,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                <Grid Margin="50,20,50,10" Height="22" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>                    
+                    <TextBlock Text="服务器" Padding="5,0" VerticalAlignment="Center" TextAlignment="Right"/>
+                    <TextBox Grid.Column="1"  />
+                </Grid>
+                <Grid Margin="50,10,50,10" Height="22" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="串流密码" Padding="5,0" VerticalAlignment="Center" TextAlignment="Right" />
+                    <TextBox Grid.Column="1"  />
+                </Grid>
+
+            </StackPanel>
+            <Grid Grid.Column="1" Background="Red"
+                  Visibility="{Binding Path=IsChecked,ElementName=outputRadio,Converter={x:Static vt:BoolToVisibility.Instance}}"/>
+            <Grid Grid.Column="1" Background="AliceBlue"
+                  Visibility="{Binding Path=IsChecked,ElementName=audioRadio,Converter={x:Static vt:BoolToVisibility.Instance}}"/>
+            <Grid Grid.Column="1" Background="DarkBlue"
+                  Visibility="{Binding Path=IsChecked,ElementName=videoRadio,Converter={x:Static vt:BoolToVisibility.Instance}}"/>
+
+
+
+        </Grid>
+    </Grid>
+</wnd:SWWindow>

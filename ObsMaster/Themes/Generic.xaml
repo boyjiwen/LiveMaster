@@ -1,0 +1,102 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ObsMaster.UI"
+    xmlns:vt="clr-namespace:HuyaFX.UI.Converter" >
+    
+    <!--UIIconButton-->
+    <Style TargetType="{x:Type local:UIIconButton}">
+        <Setter Property="Width" Value="{Binding Width}" />
+        <Setter Property="Height" Value="{Binding Height}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:UIIconButton}">
+                    <Border Background="#01000000" >
+                        <Image x:Name="bm" 
+                               Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                               Source="{TemplateBinding Icon}"  />
+                       
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bm" Property="Source" 
+                                    Value="{Binding HoverIcon,RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bm" Property="Source" 
+                                    Value="{Binding PushIcon,RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bm" Property="Source" 
+                                    Value="{Binding DisableIcon,RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--UISceneListboxItem-->
+    <Style TargetType="{x:Type local:UISceneListboxItem}">
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Background" Value="AliceBlue"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:UISceneListboxItem}">
+                    <Border Background="{TemplateBinding Background}" 
+                            >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>                                
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+
+                            <StackPanel x:Name="stackLayout" Grid.Column="1" Orientation="Horizontal" Visibility="Collapsed" >
+                                <local:UIIconButton x:Name="btnShow" Width="16" Height="16" Margin="2,0"
+                                                    Visibility="{Binding Visible,Converter={x:Static vt:BoolToVisibility.Instance}}"
+                                                    Icon="Resources/Scene/show_1.png"
+                                                    HoverIcon="Resources/Scene/show_2.png"
+                                                    PushIcon="Resources/Scene/show_3.png" />
+                                <local:UIIconButton x:Name="btnHide" Width="16" Height="16" Margin="2,0"
+                                                    Visibility="{Binding Visible,Converter={x:Static vt:BoolToVisibility.Instance},ConverterParameter=-}"
+                                                    Icon="Resources/Scene/hide_1.png"
+                                                    HoverIcon="Resources/Scene/hide_2.png"
+                                                    PushIcon="Resources/Scene/hide_3.png" />
+                                <local:UIIconButton x:Name="btnDelete" Width="16" Height="16" Margin="2,0,4,0"
+                                                    Icon="Resources/Scene/delete_1.png"
+                                                    HoverIcon="Resources/Scene/delete_2.png"
+                                                    PushIcon="Resources/Scene/delete_3.png" />
+                            </StackPanel>
+
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True" >
+                            <Setter TargetName="stackLayout" Property="Visibility" Value="Visible"/>
+                            <Setter Property="Background" Value="#feffffff"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Red"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>                
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ObsMaster;Component/UI/Buttons/ButtonsStyle.xaml"  />
+        <ResourceDictionary Source="pack://application:,,,/ObsMaster;Component/UI/Wnd/SWStyles.xaml"  />
+        
+    </ResourceDictionary.MergedDictionaries>
+    
+    
+   
+</ResourceDictionary>

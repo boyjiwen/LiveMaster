@@ -1,0 +1,235 @@
+﻿<UserControl x:Class="ObsMaster.PluginsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ObsMaster"
+             xmlns:ui="clr-namespace:HuyaFX.UI.Controls.Buttons"
+             xmlns:localui="clr-namespace:ObsMaster.UI"
+             mc:Ignorable="d" 
+             Width="200"
+             d:DesignHeight="450" d:DesignWidth="220">
+    <UserControl.Resources>
+        <!--FXLIconButton-->
+        <Style TargetType="{x:Type ui:FXLIconButton}" x:Key="fxliconStyle">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="IconWidth" Value="30"/>
+            <Setter Property="IconHeight" Value="30"/>
+            <Setter Property="IconMargin" Value="15,0,15,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#11000000"/>
+            <Setter Property="Background" Value="#ededf3"/>
+            <Setter Property="HoverBackground" Value="White"/>
+            <Setter Property="CheckBackground" Value="#a559e1"/>
+            <Setter Property="CheckForeground" Value="White"/>
+        </Style>
+        <!--FXLIconButton SceneItem -->
+        <Style TargetType="{x:Type ui:FXLIconButton}" x:Key="sceneitSyle">
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="HoverBackground" Value="#55555555"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="IconWidth" Value="20"/>
+            <Setter Property="IconHeight" Value="20"/>
+            <Setter Property="IconMargin" Value="12,0,6,0"/>
+            
+        </Style>
+        
+        
+        <!--FXIconButton-->
+        <Style TargetType="{x:Type ui:FXIconButton}" x:Key="iconbtnStyle">
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>         
+        </Style>
+        <!--FXTopIconButton-->
+        <Style TargetType="{x:Type ui:FXTopIconButton}" x:Key="topiconStyle">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Width" Value="76"/>
+            <Setter Property="Height" Value="76"/>
+            <Setter Property="BorderRadius" Value="12"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HoverBackground" Value="#f1f1f7"/>
+            <Setter Property="PushBackground" Value="#f1f1f7"/>
+            <Setter Property="IconWidth" Value="30"/>
+            <Setter Property="IconHeight" Value="30"/>
+            <Setter Property="Margin" Value="7,0"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Border BorderThickness="1,0,1,0" BorderBrush="#11000000" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--高光时刻-->
+            <ui:FXLIconButton Content="高光时刻" Style="{StaticResource fxliconStyle}"
+                                  Icon="/Resources/menu_hl_normal.png" HoverIcon="/Resources/menu_hl_normal.png"
+                                  PushIcon="/Resources/menu_hl_normal.png" CheckIcon="/Resources/menu_hl_hover.png"                              
+                                  Click="FXLIconButton_Click" />
+
+            <!--直播设置-->
+            <ui:FXLIconButton Grid.Row="1" Content="直播设置" Style="{StaticResource fxliconStyle}"
+                                  Icon="/Resources/menu_edit_normal.png" HoverIcon="/Resources/menu_edit_normal.png"
+                                  PushIcon="/Resources/menu_edit_normal.png" CheckIcon="/Resources/menu_edit_hover.png"  
+                                  Click="FXLIconButton_Click" />
+            
+            <!--场景-->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="我的场景" Height="32" Padding="12,8" FontSize="14" Foreground="#9f9f9f" />
+                <Grid Grid.Row="2" Height="32" Background="#ededf3" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ui:FXIconButton x:Name="SceneToolButton" Style="{StaticResource iconbtnStyle}" ToolTip="添加源"
+                                     Icon="/Resources/sceneitem-add.png"
+                                     HoverIcon="/Resources/sceneitem-add.png"
+                                     PushIcon="/Resources/sceneitem-add.png"
+                                     Click="OnSceneToolClicked" />
+                    <ui:FXIconButton Grid.Column="1" Style="{StaticResource iconbtnStyle}" ToolTip="上移"
+                                     Icon="/Resources/sceneitem-moveup.png"
+                                     HoverIcon="/Resources/sceneitem-moveup.png"
+                                     PushIcon="/Resources/sceneitem-moveup.png"
+                                     />
+                    <ui:FXIconButton Grid.Column="2" Style="{StaticResource iconbtnStyle}" ToolTip="下移"
+                                     Icon="/Resources/sceneitem-movedown.png"
+                                     HoverIcon="/Resources/sceneitem-movedown.png"
+                                     PushIcon="/Resources/sceneitem-movedown.png"
+                                     />
+                    <ui:FXIconButton Grid.Column="3" Style="{StaticResource iconbtnStyle}" ToolTip="背景库"
+                                     Icon="/Resources/sceneitem-skin.png"
+                                     HoverIcon="/Resources/sceneitem-skin.png"
+                                     PushIcon="/Resources/sceneitem-skin.png"
+                                     />
+
+
+                </Grid>
+                
+                <!--Popup-->
+                <Popup x:Name="ToolPopup" StaysOpen="False" Focusable="True" AllowsTransparency="True" 
+                       HorizontalOffset="-13" VerticalOffset="-4" Placement="Top" 
+                       PlacementTarget="{Binding ElementName=SceneToolButton}" >
+                    <Popup.Resources>
+                        <Style TargetType="{x:Type ui:FXLIconButton}" BasedOn="{StaticResource sceneitSyle}" />
+                    </Popup.Resources>
+                    <Border BorderThickness="1" BorderBrush="#999f9f9f">
+                        <StackPanel Width="130" Background="White" >
+                            <ui:FXLIconButton Content="游戏捕捉"                                             
+                                              Icon="/Resources/plugins/game.png" 
+                                              HoverIcon="/Resources/plugins/game.png" 
+                                              PushIcon="/Resources/plugins/game.png" 
+                                              Click="HideToolPopupClicked"/>
+                            <ui:FXLIconButton Content="摄像头" 
+                                              Icon="/Resources/plugins/camera.png" 
+                                              HoverIcon="/Resources/plugins/camera.png" 
+                                              PushIcon="/Resources/plugins/camera.png" 
+                                              Click="HideToolPopupClicked"/>
+                            <ui:FXLIconButton Content="图片" 
+                                              Icon="/Resources/plugins/picture.png" 
+                                              HoverIcon="/Resources/plugins/picture.png" 
+                                              PushIcon="/Resources/plugins/picture.png" 
+                                              Click="HideToolPopupClicked"/>
+                            <ui:FXLIconButton Content="文字" 
+                                              Icon="/Resources/plugins/character.png" 
+                                              HoverIcon="/Resources/plugins/character.png" 
+                                              PushIcon="/Resources/plugins/character.png" 
+                                              Click="HideToolPopupClicked"/>
+                            <ui:FXLIconButton Content="窗口捕捉" 
+                                              Icon="/Resources/plugins/window.png" 
+                                              HoverIcon="/Resources/plugins/window.png" 
+                                              PushIcon="/Resources/plugins/window.png" 
+                                              Click="HideToolPopupClicked"
+                                              Command="{Binding WindowCaptureCmd}"/>
+                            <ui:FXLIconButton Content="显示器捕捉"
+                                              Icon="/Resources/plugins/screen.png" 
+                                              HoverIcon="/Resources/plugins/screen.png" 
+                                              PushIcon="/Resources/plugins/screen.png" 
+                                              Click="HideToolPopupClicked"
+                                              Command="{Binding MonitorCaptureCmd}"/>
+                            <ui:FXLIconButton Content="浏览器捕捉" 
+                                              Icon="/Resources/plugins/browser.png" 
+                                              HoverIcon="/Resources/plugins/browser.png" 
+                                              PushIcon="/Resources/plugins/browser.png"
+                                              Click="HideToolPopupClicked"/>
+
+
+                        </StackPanel>
+                    </Border>
+                    
+                </Popup>
+
+
+                <ScrollViewer Grid.Row="1" MinHeight="84" MaxHeight="168"
+                              HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" >
+                    <ItemsControl Grid.Row="1" Width="198" Padding="0"
+                                  ItemsSource="{Binding VSceneItems}" 
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <localui:UISceneListboxItem ShowButtonClicked="UISceneListboxItem_ShowButtonClicked" 
+                                                            HideButtonClicked="UISceneListboxItem_HideButtonClicked"
+                                                            DeleteButtonClicked="UISceneListboxItem_DeleteButtonClicked"
+                                                            Click="UISceneListboxItem_Click" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>  
+            </Grid>
+
+            <!--直播素材-->
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="直播素材" Height="32" Padding="12,8" FontSize="14" Foreground="#9f9f9f" />
+
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto" >
+                    <StackPanel>                        
+                        <WrapPanel HorizontalAlignment="Center" >
+                            <ui:FXTopIconButton Style="{StaticResource topiconStyle}" 
+                                    Icon="/Resources/plugins/giftmission.png"
+                                    HoverIcon="/Resources/plugins/giftmission1.png"
+                                    PushIcon="/Resources/plugins/giftmission1.png"
+                                    Content="礼物任务" />
+
+                            <ui:FXTopIconButton Style="{StaticResource topiconStyle}" 
+                                    Icon="/Resources/plugins/danmushow.png"
+                                    HoverIcon="/Resources/plugins/danmushow1.png"
+                                    PushIcon="/Resources/plugins/danmushow1.png"
+                                    Content="弹幕显示" />
+
+                            <ui:FXTopIconButton Style="{StaticResource topiconStyle}" 
+                                    Icon="/Resources/plugins/danmushow.png"
+                                    HoverIcon="/Resources/plugins/danmushow1.png"
+                                    PushIcon="/Resources/plugins/danmushow1.png"
+                                    Content="弹幕显示" />
+                            <ui:FXTopIconButton Style="{StaticResource topiconStyle}" 
+                                    Icon="/Resources/plugins/danmushow.png"
+                                    HoverIcon="/Resources/plugins/danmushow1.png"
+                                    PushIcon="/Resources/plugins/danmushow1.png"
+                                    Content="弹幕显示" />
+
+                        </WrapPanel>
+                        
+                    </StackPanel>
+                    
+                </ScrollViewer>
+
+            </Grid>            
+        </Grid>
+    </Border>
+</UserControl>

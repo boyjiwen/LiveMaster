@@ -1,0 +1,129 @@
+﻿<wnd:SWWindow x:Class="ObsMaster.MainWindow"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+            xmlns:ui="clr-namespace:ObsMaster.UI"       
+            xmlns:wnd="clr-namespace:HuyaFX.UI.Wnd"
+            xmlns:local="clr-namespace:ObsMaster"
+            mc:Ignorable="d"
+            WindowStartupLocation="CenterScreen"      
+              Style="{DynamicResource SWWindowStyle}"
+            Title="MainWindow" Height="720" Width="1280">
+    <wnd:SWWindow.Resources>
+        <ResourceDictionary Source="/UI/Wnd/SWStyles.xaml"/>        
+        
+    </wnd:SWWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Height="1" Background="#11000000" BorderThickness="0,0,1,0"  />
+
+        <!--内容-->
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <local:PluginsView Margin="10,0" />
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <local:ObsView x:Name="obsView" />
+                <local:ToolView Grid.Row="1" />
+            </Grid>
+
+
+            <Grid Background="Purple" Visibility="Collapsed" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Margin="6,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding SceneName}" FontSize="12" 
+                           VerticalAlignment="Center" TextAlignment="Center" />
+                    <ui:UIIconButton x:Name="ButtonSceneAdd" Grid.Column="1" Width="18" Height="18"
+                                 Icon="/Resources/Scene/add_1.png" HoverIcon="/Resources/Scene/add_2.png" PushIcon="/Resources/Scene/add_3.png"
+                                 Click="AddSceneClicked" />
+
+                    <Popup x:Name="ScenePopup" StaysOpen="False" Focusable="True" AllowsTransparency="True" 
+                       HorizontalOffset="24" VerticalOffset="24" Placement="Left" 
+                       PlacementTarget="{Binding ElementName=ButtonSceneAdd}" >
+                        <StackPanel Width="100" Background="Red" >
+                            <Button Width="100" Height="30" Content="新建场景" Click="PopupHideClicked" 
+                                Command="{Binding CreateSceneCmd}" />
+                            <ItemsControl ItemsSource="{Binding VSceneMenuItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Width="100" Height="30" Content="{Binding Name}" Tag="{Binding}" 
+                                            Command="{Binding DataContext.ChangeSceneCmd,ElementName=ScenePopup}"
+                                            CommandParameter="{Binding Path=Tag,RelativeSource={RelativeSource Mode=Self}}"
+                                            Click="PopupHideClicked"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Popup>
+                </Grid>
+
+                <ListBox Grid.Row="1" Width="220" Padding="0"
+                     ItemsSource="{Binding VSceneItems}" 
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     SelectionChanged="ListBox_SelectionChanged" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ui:UISceneListboxItem ShowButtonClicked="UISceneListboxItem_ShowButtonClicked" 
+                                               HideButtonClicked="UISceneListboxItem_HideButtonClicked"
+                                               DeleteButtonClicked="UISceneListboxItem_DeleteButtonClicked"
+                                               Click="UISceneListboxItem_Click" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <Grid Grid.Column="1" Visibility="Collapsed" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="88"/>
+                </Grid.RowDefinitions>
+                <!--<WindowsFormsHost x:Name="FormsHost" SizeChanged="FormsHost_SizeChanged" Background="DarkBlue" >
+                    <wf:Panel x:Name="HostPanel"   />
+                </WindowsFormsHost>-->
+
+                <!--操作工具栏-->
+                <StackPanel Grid.Row="1" Orientation="Horizontal"  >
+                    <Button Height="80" Width="80" Content="屏幕" Click="OnMonitorClicked" />
+                    <Button Height="80" Width="80" Content="窗口" Click="OnWindowClicked" />
+
+                    <!--<Image Source="/Resources/show_1.png" Width="16" Height="16" />-->
+
+                    <Button Height="80" Width="80" Content="开始开播" Click="OnStartLiveClicked"/>
+                    <Button Height="80" Width="80" Content="停止开播" Click="OnStopLiveClicked"/>
+
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+
+        <!--状态栏-->
+        <local:StateView Grid.Row="2" />
+    </Grid>    
+   
+</wnd:SWWindow>

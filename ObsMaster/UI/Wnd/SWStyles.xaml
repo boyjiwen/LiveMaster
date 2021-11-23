@@ -1,0 +1,95 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fa="http://schemas.fontawesome.io/icons/"
+                    xmlns:ui="clr-namespace:HuyaFX.UI.Controls.Buttons"
+                    xmlns:local="clr-namespace:HuyaFX.UI.Wnd"
+                    >
+    <!--xmlns:ui="clr-namespace:HuyaFX.UI.UI"-->
+    
+    <Style TargetType="{x:Type ui:FXIconButton}" x:Key="WndBtnSytle">
+        <Setter Property="Width" Value="34"/>
+        <Setter Property="Height" Value="34"/>
+    </Style>
+    
+    <Style TargetType="local:SWWindow" x:Key="SWWindowStyle">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="WindowControlsGridBackground" Value="White"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="MinHeight" Value="100"/>
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="TitleBarHeight" Value="45"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome GlassFrameThickness="1" 
+                              ResizeBorderThickness="3"
+                              CaptionHeight="0"/>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:SWWindow}">
+
+                    <Grid Background="Transparent" x:Name="WindowRoot">
+
+                        <Grid x:Name="LayoutRoot"
+                              Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--TitleBar-->
+                            <Grid x:Name="PART_HeaderBar" Height="{TemplateBinding TitleBarHeight}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid x:Name="WndTitleLayout" Background="#01ffffff"/>
+
+                                <Grid x:Name="WindowControlsGrid" Grid.Column="1" 
+                                      Background="{TemplateBinding WindowControlsGridBackground}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="34"/>
+                                        <ColumnDefinition Width="34"/>
+                                        <ColumnDefinition Width="34"/>
+                                        <ColumnDefinition Width="12"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <ui:FXIconButton x:Name="MinimizeButton" Grid.Column="0" Style="{StaticResource WndBtnSytle}" 
+                                                     Icon="/UI/Wnd/Resources/min.png"
+                                                     HoverIcon="/UI/Wnd/Resources/minhover.png"
+                                                     PushIcon="/UI/Wnd/Resources/minpush.png" />
+
+                                    <ui:FXIconButton x:Name="MaximizeButton" Grid.Column="1" Style="{StaticResource WndBtnSytle}" 
+                                                     Icon="/UI/Wnd/Resources/max.png"
+                                                     HoverIcon="/UI/Wnd/Resources/maxhover.png"
+                                                     PushIcon="/UI/Wnd/Resources/maxpush.png" />
+
+                                    <ui:FXIconButton x:Name="RestoreButton" Grid.Column="1" Style="{StaticResource WndBtnSytle}" 
+                                                     Visibility="Collapsed"
+                                                     Icon="/UI/Wnd/Resources/max2.png"
+                                                     HoverIcon="/UI/Wnd/Resources/max2hover.png"
+                                                     PushIcon="/UI/Wnd/Resources/max2push.png" />
+
+                                    <ui:FXIconButton x:Name="CloseButton" Grid.Column="2" Style="{StaticResource WndBtnSytle}" 
+                                                     Icon="/UI/Wnd/Resources/close.png"
+                                                     HoverIcon="/UI/Wnd/Resources/closehover.png"
+                                                     PushIcon="/UI/Wnd/Resources/closepush.png" />
+                                </Grid>
+                            </Grid>
+
+                            <Grid x:Name="PART_MainContentGrid"
+                                  Grid.Row="1"
+                                  Panel.ZIndex="10">
+                                <ContentPresenter x:Name="PART_MainContentPresenter" Grid.Row="1"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,174 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net5.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<PlatformTarget>x86</PlatformTarget>
+		<OutputPath>..\build\bin\Debug\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<PlatformTarget>x86</PlatformTarget>
+		<OutputPath>..\build\bin\Release\</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\appsetting.png" />
+	  <None Remove="Resources\appsetting_hover.png" />
+	  <None Remove="Resources\delete.png" />
+	  <None Remove="Resources\delete_hover.png" />
+	  <None Remove="Resources\logo.png" />
+	  <None Remove="Resources\logoText.png" />
+	  <None Remove="Resources\loudspeaker.png" />
+	  <None Remove="Resources\menu_edit_hover.png" />
+	  <None Remove="Resources\menu_edit_normal.png" />
+	  <None Remove="Resources\menu_hl_hover.png" />
+	  <None Remove="Resources\menu_hl_normal.png" />
+	  <None Remove="Resources\ontv.png" />
+	  <None Remove="Resources\plugins\blindbox.png" />
+	  <None Remove="Resources\plugins\blindbox1.png" />
+	  <None Remove="Resources\plugins\browser.png" />
+	  <None Remove="Resources\plugins\camera.png" />
+	  <None Remove="Resources\plugins\character.png" />
+	  <None Remove="Resources\plugins\danmushow.png" />
+	  <None Remove="Resources\plugins\danmushow1.png" />
+	  <None Remove="Resources\plugins\game.png" />
+	  <None Remove="Resources\plugins\giftbang.png" />
+	  <None Remove="Resources\plugins\giftbang1.png" />
+	  <None Remove="Resources\plugins\giftmission.png" />
+	  <None Remove="Resources\plugins\giftmission1.png" />
+	  <None Remove="Resources\plugins\giftshow.png" />
+	  <None Remove="Resources\plugins\giftshow1.png" />
+	  <None Remove="Resources\plugins\picture.png" />
+	  <None Remove="Resources\plugins\screen.png" />
+	  <None Remove="Resources\plugins\subtitle.png" />
+	  <None Remove="Resources\plugins\subtitle1.png" />
+	  <None Remove="Resources\plugins\suppertext.png" />
+	  <None Remove="Resources\plugins\suppertext1.png" />
+	  <None Remove="Resources\plugins\thanklist.png" />
+	  <None Remove="Resources\plugins\thanklist1.png" />
+	  <None Remove="Resources\plugins\vote.png" />
+	  <None Remove="Resources\plugins\vote1.png" />
+	  <None Remove="Resources\plugins\votedraw.png" />
+	  <None Remove="Resources\plugins\votedraw1.png" />
+	  <None Remove="Resources\plugins\window.png" />
+	  <None Remove="Resources\sceneitem-add.png" />
+	  <None Remove="Resources\sceneitem-movedown.png" />
+	  <None Remove="Resources\sceneitem-moveup.png" />
+	  <None Remove="Resources\sceneitem-skin.png" />
+	  <None Remove="Resources\Scene\add_1.png" />
+	  <None Remove="Resources\Scene\add_2.png" />
+	  <None Remove="Resources\Scene\add_3.png" />
+	  <None Remove="Resources\Scene\delete_1.png" />
+	  <None Remove="Resources\Scene\delete_2.png" />
+	  <None Remove="Resources\Scene\delete_3.png" />
+	  <None Remove="Resources\Scene\hide_1.png" />
+	  <None Remove="Resources\Scene\hide_2.png" />
+	  <None Remove="Resources\Scene\hide_3.png" />
+	  <None Remove="Resources\Scene\show_2.png" />
+	  <None Remove="Resources\Scene\show_3.png" />
+	  <None Remove="Resources\show.png" />
+	  <None Remove="Resources\show_1.png" />
+	  <None Remove="UI\Wnd\Resources\close.png" />
+	  <None Remove="UI\Wnd\Resources\closehover.png" />
+	  <None Remove="UI\Wnd\Resources\closepush.png" />
+	  <None Remove="UI\Wnd\Resources\max.png" />
+	  <None Remove="UI\Wnd\Resources\max2.png" />
+	  <None Remove="UI\Wnd\Resources\max2hover.png" />
+	  <None Remove="UI\Wnd\Resources\max2push.png" />
+	  <None Remove="UI\Wnd\Resources\maxhover.png" />
+	  <None Remove="UI\Wnd\Resources\maxpush.png" />
+	  <None Remove="UI\Wnd\Resources\min.png" />
+	  <None Remove="UI\Wnd\Resources\minhover.png" />
+	  <None Remove="UI\Wnd\Resources\minpush.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ObsProxy\ObsProxy.vcxproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="View\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\appsetting.png" />
+	  <Resource Include="Resources\appsetting_hover.png" />
+	  <Resource Include="Resources\delete.png" />
+	  <Resource Include="Resources\logo.png" />
+	  <Resource Include="Resources\logoText.png" />
+	  <Resource Include="Resources\loudspeaker.png" />
+	  <Resource Include="Resources\menu_edit_hover.png" />
+	  <Resource Include="Resources\menu_edit_normal.png" />
+	  <Resource Include="Resources\menu_hl_hover.png" />
+	  <Resource Include="Resources\menu_hl_normal.png" />
+	  <Resource Include="Resources\ontv.png" />
+	  <Resource Include="Resources\plugins\blindbox.png" />
+	  <Resource Include="Resources\plugins\blindbox1.png" />
+	  <Resource Include="Resources\plugins\browser.png" />
+	  <Resource Include="Resources\plugins\camera.png" />
+	  <Resource Include="Resources\plugins\character.png" />
+	  <Resource Include="Resources\plugins\danmushow.png" />
+	  <Resource Include="Resources\plugins\danmushow1.png" />
+	  <Resource Include="Resources\plugins\game.png" />
+	  <Resource Include="Resources\plugins\giftbang.png" />
+	  <Resource Include="Resources\plugins\giftbang1.png" />
+	  <Resource Include="Resources\plugins\giftmission.png" />
+	  <Resource Include="Resources\plugins\giftmission1.png" />
+	  <Resource Include="Resources\plugins\giftshow.png" />
+	  <Resource Include="Resources\plugins\giftshow1.png" />
+	  <Resource Include="Resources\plugins\picture.png" />
+	  <Resource Include="Resources\plugins\screen.png" />
+	  <Resource Include="Resources\plugins\subtitle.png" />
+	  <Resource Include="Resources\plugins\subtitle1.png" />
+	  <Resource Include="Resources\plugins\suppertext.png" />
+	  <Resource Include="Resources\plugins\suppertext1.png" />
+	  <Resource Include="Resources\plugins\thanklist.png" />
+	  <Resource Include="Resources\plugins\thanklist1.png" />
+	  <Resource Include="Resources\plugins\vote.png" />
+	  <Resource Include="Resources\plugins\vote1.png" />
+	  <Resource Include="Resources\plugins\votedraw.png" />
+	  <Resource Include="Resources\plugins\votedraw1.png" />
+	  <Resource Include="Resources\plugins\window.png" />
+	  <Resource Include="Resources\sceneitem-add.png" />
+	  <Resource Include="Resources\sceneitem-movedown.png" />
+	  <Resource Include="Resources\sceneitem-moveup.png" />
+	  <Resource Include="Resources\sceneitem-skin.png" />
+	  <Resource Include="Resources\Scene\add_1.png" />
+	  <Resource Include="Resources\Scene\add_2.png" />
+	  <Resource Include="Resources\Scene\add_3.png" />
+	  <Resource Include="Resources\Scene\delete_1.png" />
+	  <Resource Include="Resources\Scene\delete_2.png" />
+	  <Resource Include="Resources\Scene\delete_3.png" />
+	  <Resource Include="Resources\Scene\hide_1.png" />
+	  <Resource Include="Resources\Scene\hide_2.png" />
+	  <Resource Include="Resources\Scene\hide_3.png" />
+	  <Resource Include="Resources\Scene\show_2.png" />
+	  <Resource Include="Resources\Scene\show_3.png" />
+	  <Resource Include="Resources\show.png" />
+	  <Resource Include="Resources\Scene\show_1.png" />
+	  <Resource Include="UI\Wnd\Resources\close.png" />
+	  <Resource Include="UI\Wnd\Resources\closehover.png" />
+	  <Resource Include="UI\Wnd\Resources\closepush.png" />
+	  <Resource Include="UI\Wnd\Resources\max.png" />
+	  <Resource Include="UI\Wnd\Resources\max2.png" />
+	  <Resource Include="UI\Wnd\Resources\max2hover.png" />
+	  <Resource Include="UI\Wnd\Resources\max2push.png" />
+	  <Resource Include="UI\Wnd\Resources\maxhover.png" />
+	  <Resource Include="UI\Wnd\Resources\maxpush.png" />
+	  <Resource Include="UI\Wnd\Resources\min.png" />
+	  <Resource Include="UI\Wnd\Resources\minhover.png" />
+	  <Resource Include="UI\Wnd\Resources\minpush.png" />
+	</ItemGroup>
+
+</Project>
