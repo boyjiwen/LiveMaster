@@ -40,7 +40,8 @@
         <!--按钮-->
         <Grid Grid.Row="2" Height="50">
             <StackPanel Margin="20,0" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Width="80" Height="30" Content="应用" />
+                <Button Width="80" Height="30" Content="应用"
+                        Click="OnConfirmClick"/>
 
             </StackPanel>
         </Grid>
@@ -63,7 +64,7 @@
             </Grid.ColumnDefinitions>
             <!--Button-->
             <StackPanel>
-                <ui:FXTextRadio x:Name="pushRadio" IsChecked="True"
+                <ui:FXTextRadio x:Name="pushRadio" Checked="pushRadio_Checked"
                                 Content="推流" />
                 <ui:FXTextRadio x:Name="outputRadio" Content="输出" />
                 <ui:FXTextRadio x:Name="audioRadio" Content="音频" />
@@ -71,8 +72,7 @@
             </StackPanel>
             <!--推流-->
             <StackPanel Grid.Column="1" Background="White"
-                  Visibility="{Binding Path=IsChecked,ElementName=pushRadio,Converter={x:Static vt:BoolToVisibility.Instance}}"
-                        IsVisibleChanged="IsStreamViewVisibleChanged">
+                        Visibility="{Binding Path=IsChecked,ElementName=pushRadio,Converter={x:Static vt:BoolToVisibility.Instance}}">
                 <Grid Margin="50,20,50,10" Height="22" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="70"/>

@@ -20,6 +20,7 @@ namespace ObsMaster.Dialog
     public partial class SettingDialog 
     {
         private ViewModel.MainVM vm;
+        private Action ActSaveConfig;
 
         public SettingDialog()
         {
@@ -33,7 +34,7 @@ namespace ObsMaster.Dialog
         {
             base.OnCloseButtonClicked();
 
-            SaveStreamConfig();
+            //  SaveStreamConfig();
 
             Close(); 
         }
@@ -54,7 +55,9 @@ namespace ObsMaster.Dialog
             tb.FontSize = 16;
             tb.VerticalAlignment = VerticalAlignment.Center;
             gr.Children.Add(tb);
-            
+
+
+            pushRadio.IsChecked = true;
         }
                                                    
         private void InitStreamConfig()
@@ -73,12 +76,15 @@ namespace ObsMaster.Dialog
         }
 
 
-        private void IsStreamViewVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void pushRadio_Checked(object sender, RoutedEventArgs e)
         {
-            if (bool.Parse(e.NewValue.ToString()))
-            {
-                InitStreamConfig();
-            }
+            InitStreamConfig();
+            ActSaveConfig = SaveStreamConfig;
+        }
+
+        private void OnConfirmClick(object sender, RoutedEventArgs e)
+        {
+            ActSaveConfig?.Invoke();
         }
     }
 }
