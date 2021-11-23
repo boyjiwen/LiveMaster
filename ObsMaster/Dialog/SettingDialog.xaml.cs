@@ -32,6 +32,9 @@ namespace ObsMaster.Dialog
         protected override void OnCloseButtonClicked()
         {
             base.OnCloseButtonClicked();
+
+            SaveStreamConfig();
+
             Close(); 
         }
 
@@ -56,17 +59,17 @@ namespace ObsMaster.Dialog
                                                    
         private void InitStreamConfig()
         {
-            tbStreamUrl.Text = vm.ObsCore.GetConfigString("Stream", "url");
+            tbStreamUrl.Text = vm.ObsCore.GetConfigString("Stream", "Url");
             tbStreamPassword.Text = vm.ObsCore.GetConfigString("Stream", "Name");
         }
 
         private void SaveStreamConfig()
         {
             string vUrl = tbStreamUrl.Text;
-            string vPwd = tbStreamPassword.Text;
+            string vKey = tbStreamPassword.Text;
 
-            vm.ObsCore.SetConfigString("Stream", "url", vUrl);
-            vm.ObsCore.SetConfigString("Stream", "url", vPwd);
+            vm.ObsCore.SetConfigString("Stream", "Url", vUrl);
+            vm.ObsCore.SetConfigString("Stream", "Name", vKey);
         }
 
 

@@ -300,7 +300,7 @@ void ObsWrapper::SetConfigString(String^ section, String^ name, String^ value)
 {
     pin_ptr<const wchar_t> cSection = PtrToStringChars(section);
     pin_ptr<const wchar_t> cName = PtrToStringChars(name);
-    pin_ptr<const wchar_t> cValue = PtrToStringChars(name);
+    pin_ptr<const wchar_t> cValue = PtrToStringChars(value);
     
     config_set_string(ObsMain::Instance()->basicConfig(), ToUtf8(cSection).c_str(), ToUtf8(cName).c_str(), ToUtf8(cValue).c_str());
 }
