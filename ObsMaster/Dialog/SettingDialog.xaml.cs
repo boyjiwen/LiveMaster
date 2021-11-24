@@ -141,12 +141,17 @@ namespace ObsMaster.Dialog
 
         private void InitRecordConfig()
         {
+            var path = vm.ObsCore.GetConfigString("AdvOut", "RecFilePath");
+            var formet = vm.ObsCore.GetConfigString("AdvOut", "RecFormat");
 
+            tbRecordPath.Text = path;
+            cbRecordFormat.Text = formet;
         }
 
         private void SaveRecordConfig()
         {
-
+            vm.ObsCore.SetConfigString("AdvOut", "RecFilePath", tbRecordPath.Text);
+            vm.ObsCore.SetConfigString("AdvOut", "RecFormat", cbRecordFormat.Text);
         }
 
 

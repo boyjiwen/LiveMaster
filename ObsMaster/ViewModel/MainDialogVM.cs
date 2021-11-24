@@ -135,6 +135,23 @@ namespace ObsMaster.ViewModel
         }
 
 
+        //  图片捕捉
+        private DelegateCommand _pictureCaptureCmd;
+        public DelegateCommand PictureCaptureCmd
+        {
+            get
+            {
+                return _pictureCaptureCmd ?? (_pictureCaptureCmd = new DelegateCommand((obj) =>
+                {
+                    var wnd = new Dialog.ASPictureDialog();
+                    wnd.DataContext = this; 
+                    wnd.Owner = MainWnd;    
+                    wnd.Show();
+                }));
+            }
+        }
+
+
 
         //  开始开播
         public void StartStream()

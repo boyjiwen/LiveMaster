@@ -9,6 +9,7 @@
              mc:Ignorable="d" 
              Width="200"
              d:DesignHeight="450" d:DesignWidth="220">
+    
     <UserControl.Resources>
         <!--FXLIconButton-->
         <Style TargetType="{x:Type ui:FXLIconButton}" x:Key="fxliconStyle">
@@ -34,9 +35,7 @@
             <Setter Property="IconHeight" Value="20"/>
             <Setter Property="IconMargin" Value="12,0,6,0"/>
             
-        </Style>
-        
-        
+        </Style>                
         <!--FXIconButton-->
         <Style TargetType="{x:Type ui:FXIconButton}" x:Key="iconbtnStyle">
             <Setter Property="Width" Value="24"/>
@@ -140,7 +139,8 @@
                                               Icon="/Resources/plugins/picture.png" 
                                               HoverIcon="/Resources/plugins/picture.png" 
                                               PushIcon="/Resources/plugins/picture.png" 
-                                              Click="HideToolPopupClicked"/>
+                                              Click="HideToolPopupClicked"
+                                              Command="{Binding PictureCaptureCmd}"/>
                             <ui:FXLIconButton Content="文字" 
                                               Icon="/Resources/plugins/character.png" 
                                               HoverIcon="/Resources/plugins/character.png" 
