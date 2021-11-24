@@ -20,6 +20,8 @@ namespace ObsMaster.Dialog
     public partial class ASPictureDialog 
     {
         private ViewModel.MainVM vm;
+        public string FilePath { get; set; }
+        public int iResult { get; set; } = -1;
 
         public ASPictureDialog()
         {
@@ -72,6 +74,8 @@ namespace ObsMaster.Dialog
 
         private void OnOkClick(object sender, RoutedEventArgs e)
         {
+            FilePath = tbFilePath.Text;
+            iResult = 0;
             Close();
         }
 

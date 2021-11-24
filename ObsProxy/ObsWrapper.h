@@ -48,6 +48,10 @@ public:
 	void GetWindows(List<CLI_WindowItem^>^ vItems);
 	void AddCaptureWindow(String^ name, String^ winName);
 
+	//	添加图片源
+	void AddImageSource(String^ url, int alpha);
+	
+
 
 	//	Config相关
 	String^ GetConfigString(String^ section, String^ name);

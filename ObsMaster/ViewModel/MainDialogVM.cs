@@ -145,8 +145,12 @@ namespace ObsMaster.ViewModel
                 {
                     var wnd = new Dialog.ASPictureDialog();
                     wnd.DataContext = this; 
-                    wnd.Owner = MainWnd;    
-                    wnd.Show();
+                    wnd.Owner = MainWnd;
+                    wnd.ShowDialog();
+                    if (wnd.iResult == 0)
+                    {
+                        ObsCore.AddImageSource(wnd.FilePath, 100);
+                    }
                 }));
             }
         }

@@ -247,6 +247,12 @@ void ObsWrapper::AddCaptureWindow(String^ name, String^ winName)
     m_core->AddWindowCapture(ToUtf8(constName).c_str(), ToUtf8(constWinName).c_str());        
 }
 
+void ObsWrapper::AddImageSource(String^ url, int alpha)
+{
+    pin_ptr<const wchar_t> cUrl = PtrToStringChars(url);
+    ObsMain::Instance()->AddImage(ToUtf8(cUrl).c_str(), alpha);    
+}
+
 String^ ObsWrapper::GetConfigString(String^ section, String^ name)
 {
     pin_ptr<const wchar_t> convertSection = PtrToStringChars(section);
