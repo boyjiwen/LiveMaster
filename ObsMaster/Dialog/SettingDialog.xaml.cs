@@ -75,16 +75,108 @@ namespace ObsMaster.Dialog
             vm.ObsCore.SetConfigString("Stream", "Name", vKey);
         }
 
+        private void GetResolution(string ss, out ulong x, out ulong y)
+        {
+            int i1 = ss.IndexOf('x');
+            int i2 = ss.IndexOf(' ');
+
+            string s1 = ss.Substring(0, i1);
+            string s2 = ss.Substring(i1 + 1, i2 - i1);
+
+            x = ulong.Parse(s1);
+            y = ulong.Parse(s2);
+        }
+
+        private void InitVideoConfig() 
+        {
+            //  base    
+            var cx = vm.ObsCore.GetConfigUInt("Video", "BaseCX");
+            var cy = vm.ObsCore.GetConfigUInt("Video", "BaseCY");
+            var ocx = vm.ObsCore.GetConfigUInt("Video", "OutputCX");
+            var ocy = vm.ObsCore.GetConfigUInt("Video", "OutputCY");
+            var fps = vm.ObsCore.GetConfigUInt("Video", "FPSInt");
+            var rate = vm.ObsCore.GetConfigUInt("SimpleOutput", "VBitrate");
+            var encoder = vm.ObsCore.GetConfigString("SimpleOutput", "StreamEncoder");
+
+            tbFPS.Text = fps > 10 ? fps.ToString() : "30";
+
+            string scxy = string.Format($"{cx}x{cy}  {cy}P");
+            string soxy = string.Format($"{ocx}x{ocy}  {ocy}P");
+            cbBaseResolution.Text = scxy;
+            cbOutResolution.Text = soxy;
+            tbRate.Text = rate.ToString();
+            cbEncoder.Text = encoder == "x264" ? "软件编码" : "硬件编码";
+        }
+
+        private void SaveVideoConfig()
+        {
+            GetResolution(cbBaseResolution.Text, out var cx, out var cy);
+            vm.ObsCore.SetConfigUInt("Video", "BaseCX", cx);
+            vm.ObsCore.SetConfigUInt("Video", "BaseCY", cy);
+
+            GetResolution(cbOutResolution.Text, out var ox, out var oy);
+            vm.ObsCore.SetConfigUInt("Video", "OutputCX", ox);
+            vm.ObsCore.SetConfigUInt("Video", "OutputCY", oy);
+
+            ulong.TryParse(tbFPS.Text, out var fps);
+            vm.ObsCore.SetConfigUInt("Video", "FPSInt", fps);
+
+            ulong.TryParse(tbRate.Text, out var rate);
+            vm.ObsCore.SetConfigUInt("SimpleOutput", "VBitrate", rate);
+
+            var sEncoder = cbEncoder.Text == "软件编码" ? "x264" : "qsv";
+            vm.ObsCore.SetConfigString("SimpleOutput", "StreamEncoder", sEncoder);
+        }
+
+        private void InitAudioConfig()
+        {
+
+
+        }
+
+        private void SaveAudioConfig()
+        {
+
+        }
+
+        private void InitRecordConfig()
+        {
+
+        }
+
+        private void SaveRecordConfig()
+        {
+
+        }
+
+
+        private void OnConfirmClick(object sender, RoutedEventArgs e)
+        {
+            ActSaveConfig?.Invoke();
+        }
 
         private void pushRadio_Checked(object sender, RoutedEventArgs e)
         {
             InitStreamConfig();
             ActSaveConfig = SaveStreamConfig;
+        }        
+
+        private void videoRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            InitVideoConfig();
+            ActSaveConfig = SaveVideoConfig;
         }
 
-        private void OnConfirmClick(object sender, RoutedEventArgs e)
+        private void audioRadio_Checked(object sender, RoutedEventArgs e)
         {
-            ActSaveConfig?.Invoke();
+            InitAudioConfig();
+            ActSaveConfig = SaveAudioConfig;
+        }
+
+        private void recordRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            InitRecordConfig();
+            ActSaveConfig = SaveRecordConfig;
         }
     }
 }

@@ -7,6 +7,7 @@
             xmlns:wnd="clr-namespace:HuyaFX.UI.Wnd"
               xmlns:ui="clr-namespace:HuyaFX.UI.Controls.Buttons"
               xmlns:vt="clr-namespace:HuyaFX.UI.Converter"
+              xmlns:sys="System"
             Style="{DynamicResource SWWindowStyle}"
             mc:Ignorable="d"
             WindowStartupLocation="CenterOwner"
@@ -15,17 +16,29 @@
               TitleBarHeight="45"
             Title="设置" Height="450" Width="700">
     <wnd:SWWindow.Resources>
-        
-        <ResourceDictionary Source="/UI/Wnd/SWStyles.xaml"/>
-        <!--FXTextRadio Style-->
-        <!--<Style TargetType="{x:Type ui:FXTextRadio}">
-            <Setter Property="Height" Value="38"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="HoverBackground" Value="Transparent"/>
-            <Setter Property="PushBackground" Value="#ffffff"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/Wnd/SWStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-        </Style>-->
-        
+            <!--FXTextRadio-->
+            <Style TargetType="{x:Type ui:FXTextRadio}">
+                <Setter Property="Height" Value="38"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="HoverBackground" Value="Transparent"/>
+                <Setter Property="PushBackground" Value="#ffffff"/>
+                <Setter Property="Foreground" Value="#888888"/>
+                <Setter Property="HoverForeground" Value="#777777"/>
+                <Setter Property="PushForeground" Value="#333333"/>
+            </Style>
+
+            <!--TextBox-->
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Padding" Value="2,4,0,0"/>                
+            </Style>
+            
+        </ResourceDictionary>
         
     </wnd:SWWindow.Resources>
     
@@ -34,7 +47,248 @@
             <RowDefinition />
             <RowDefinition Height="1"/>
             <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>        
+        <!--Content-->
+        <Grid Background="#ededf3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!--Button-->
+            <StackPanel>
+                <ui:FXTextRadio x:Name="pushRadio" Checked="pushRadio_Checked"
+                                Content="推流" />
+                <ui:FXTextRadio x:Name="videoRadio" Checked="videoRadio_Checked"
+                                Content="视频" />
+                <ui:FXTextRadio x:Name="audioRadio" Checked="audioRadio_Checked"
+                                Content="音频" />
+                <ui:FXTextRadio x:Name="recordRadio" Checked="recordRadio_Checked"
+                                Content="录制" />
+            
+            </StackPanel>
+            <Grid Grid.Column="1" Background="White">
+                <!--推流设置-->
+                <StackPanel Visibility="{Binding Path=IsChecked,ElementName=pushRadio,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                    <GroupBox Header="通用" Margin="10" Padding="10" >
+                        <StackPanel>
+                            <Grid  >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="服务器" Padding="5,0" VerticalAlignment="Center" TextAlignment="Right"/>
+                                <TextBox x:Name="tbStreamUrl" Grid.Column="1"  />
+                            </Grid>
+                            <Grid  Margin="0,15" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="串流密码" Padding="5,0" VerticalAlignment="Center" TextAlignment="Right" />
+                                <TextBox x:Name="tbStreamPassword" Grid.Column="1"  />
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+                <!--视频设置-->
+                <StackPanel Grid.Column="1" 
+                      Visibility="{Binding Path=IsChecked,ElementName=videoRadio,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                    <GroupBox Header="通用" Margin="10" Padding="10" >
+                        <StackPanel>
+                            <!--基础分辨率-->
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="基础(画布)分辨率" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <ComboBox x:Name="cbBaseResolution" Grid.Column="1" Height="30" Padding="7" SelectedIndex="0" >
+                                    <ComboBoxItem Content="1920x1080  1080P"/>
+                                    <ComboBoxItem Content="1280x720  720P"/>
+                                    <ComboBoxItem Content="960x540  540P"/>
+                                    <ComboBoxItem Content="720x480  480P"/>
+                                    <ComboBoxItem Content="640x360  360P"/>
+                                </ComboBox>
+                            </Grid>
+                            <!--输出(缩放)分辨率-->
+                            <Grid Margin="0,15,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="输出(缩放)分辨率" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <ComboBox x:Name="cbOutResolution" Grid.Column="1" Height="30" Padding="7" SelectedIndex="0" >
+                                    <ComboBoxItem Content="1920x1080  1080P"/>
+                                    <ComboBoxItem Content="1280x720  720P"/>
+                                    <ComboBoxItem Content="960x540  540P"/>
+                                    <ComboBoxItem Content="720x480  480P"/>
+                                    <ComboBoxItem Content="640x360  360P"/>
+                                </ComboBox>
+                            </Grid>
+                            <!--帧率-->
+                            <Grid Margin="0,15,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="帧率" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <TextBox x:Name="tbFPS" Grid.Column="1" />
+                            </Grid>
+                            <!--码率-->
+                            <Grid Margin="0,15,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="码率" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <TextBox x:Name="tbRate" Grid.Column="1"/>
+                            </Grid>
+                            <!--编码器-->
+                            <Grid Margin="0,15,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="编码器" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <ComboBox x:Name="cbEncoder" Grid.Column="1" Height="30" Padding="7" SelectedIndex="0" >
+                                    <ComboBoxItem Content="软件编码"/>
+                                    <ComboBoxItem Content="硬件编码"/>
+                                </ComboBox>
+                            </Grid>
+                            
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+                <!--音频设置-->
+                <StackPanel Grid.Column="1"
+                            Visibility="{Binding Path=IsChecked,ElementName=audioRadio,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                    <GroupBox  Header="通用" Margin="10" Padding="10" >
+                        <StackPanel>
+                            <!--采样率-->
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="采样率" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <ComboBox Grid.Column="1" Height="30" Padding="7" SelectedIndex="0" >
+                                    <ComboBoxItem Content="44.1khz"/>
+                                    <ComboBoxItem Content="48khz"/>
+                                </ComboBox>
+                            </Grid>
+                            <!--比特率-->
+                            <Grid Margin="0,15,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="比特率" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <ComboBox Grid.Column="1" Height="30" Padding="7" SelectedIndex="3" >
+                                    <ComboBoxItem Content="64"/>
+                                    <ComboBoxItem Content="96"/>
+                                    <ComboBoxItem Content="128"/>
+                                    <ComboBoxItem Content="160"/>
+                                    <ComboBoxItem Content="192"/>
+                                    <ComboBoxItem Content="224"/>
+                                    <ComboBoxItem Content="256"/>
+                                    <ComboBoxItem Content="288"/>
+                                    <ComboBoxItem Content="320"/>
+                                </ComboBox>
+                            </Grid>
+                            <!--声道-->
+                            <Grid Margin="0,15,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="声道" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <ComboBox Grid.Column="1" Height="30" Padding="7" SelectedIndex="1" >
+                                    <ComboBoxItem Content="单声道"/>
+                                    <ComboBoxItem Content="立体声"/>
+                                    <ComboBoxItem Content="2.1"/>
+                                    <ComboBoxItem Content="4.0"/>
+                                    <ComboBoxItem Content="4.1"/>
+                                    <ComboBoxItem Content="5.1"/>
+                                    <ComboBoxItem Content="7.1"/>
+                                </ComboBox>
+                            </Grid>
+
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+                <!--输出设置-->
+                <StackPanel Grid.Column="1" Background="White"
+                            Visibility="{Binding Path=IsChecked,ElementName=outputRadio,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                    <GroupBox Header="串流" Margin="10" Padding="10" >
+                        <StackPanel>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="视频比特率" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <TextBox Grid.Column="1"  />
+                            </Grid>
+                            <Grid Margin="0,12,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="编码器" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <TextBox Grid.Column="1"  />
+                            </Grid>
+                            <Grid Margin="0,12,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="音频比特率" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <TextBox Grid.Column="1"  />
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="录像" Margin="10" Padding="10">
+                        <StackPanel>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="录像路径" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <TextBox Grid.Column="1"  />
+                                <Button Grid.Column="2" Width="60" Height="28" Content="浏览" Margin="5,0,0,0" />
+                            </Grid>
+                            <CheckBox Content="生成没有空格的文件名" Margin="32,12,0,0" />
+                            <Grid Margin="0,12,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition/>                                   
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="录像格式" FontSize="12" Padding="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <!--<TextBox Grid.Column="1"  />-->
+                                <ComboBox Grid.Column="1" Height="30" Padding="7" >
+                                    <ComboBoxItem Content="flv"/>
+                                    <ComboBoxItem Content="mp4"/>
+                                    <ComboBoxItem Content="mkv"/>
+                                </ComboBox>
+
+                            </Grid>
+                        </StackPanel>
+                        
+                    </GroupBox>
+                    
+                </StackPanel>
+                
+              
+
+            </Grid>
+           
+
+
+        </Grid>
+
         <!--分隔线-->
         <Grid Grid.Row="1" Background="#11000000" />
         <!--按钮-->
@@ -44,62 +298,6 @@
                         Click="OnConfirmClick"/>
 
             </StackPanel>
-        </Grid>
-        <!--Content-->
-        <Grid Background="#ededf3" >
-            <Grid.Resources>
-                <Style TargetType="{x:Type ui:FXTextRadio}">
-                    <Setter Property="Height" Value="38"/>
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="HoverBackground" Value="Transparent"/>
-                    <Setter Property="PushBackground" Value="#ffffff"/>
-                    <Setter Property="Foreground" Value="#888888"/>
-                    <Setter Property="HoverForeground" Value="#777777"/>
-                    <Setter Property="PushForeground" Value="#333333"/>
-                </Style>              
-            </Grid.Resources>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <!--Button-->
-            <StackPanel>
-                <ui:FXTextRadio x:Name="pushRadio" Checked="pushRadio_Checked"
-                                Content="推流" />
-                <ui:FXTextRadio x:Name="outputRadio" Content="输出" />
-                <ui:FXTextRadio x:Name="audioRadio" Content="音频" />
-                <ui:FXTextRadio x:Name="videoRadio" Content="视频" />
-            </StackPanel>
-            <!--推流-->
-            <StackPanel Grid.Column="1" Background="White"
-                        Visibility="{Binding Path=IsChecked,ElementName=pushRadio,Converter={x:Static vt:BoolToVisibility.Instance}}">
-                <Grid Margin="50,20,50,10" Height="22" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>                    
-                    <TextBlock Text="服务器" Padding="5,0" VerticalAlignment="Center" TextAlignment="Right"/>
-                    <TextBox x:Name="tbStreamUrl" Grid.Column="1"  />
-                </Grid>
-                <Grid Margin="50,10,50,10" Height="22" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="串流密码" Padding="5,0" VerticalAlignment="Center" TextAlignment="Right" />
-                    <TextBox x:Name="tbStreamPassword" Grid.Column="1"  />
-                </Grid>
-
-            </StackPanel>
-            <Grid Grid.Column="1" Background="Red"
-                  Visibility="{Binding Path=IsChecked,ElementName=outputRadio,Converter={x:Static vt:BoolToVisibility.Instance}}"/>
-            <Grid Grid.Column="1" Background="AliceBlue"
-                  Visibility="{Binding Path=IsChecked,ElementName=audioRadio,Converter={x:Static vt:BoolToVisibility.Instance}}"/>
-            <Grid Grid.Column="1" Background="DarkBlue"
-                  Visibility="{Binding Path=IsChecked,ElementName=videoRadio,Converter={x:Static vt:BoolToVisibility.Instance}}"/>
-
-
-
         </Grid>
     </Grid>
 </wnd:SWWindow>
