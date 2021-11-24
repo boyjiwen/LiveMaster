@@ -27,7 +27,7 @@
            
             <TextBlock Text="客服QQ群：888888" Padding="20,0"  />
             <Image Stretch="None" Source="/resources/loudspeaker.png" />
-            <TextBlock Text="欢迎使用小葫芦直播助手，请在直播工具中添加摄像头，选择小葫芦直播助手。" Padding="5,0"  />
+            <TextBlock Text="欢迎使用直播助手，请在直播工具中添加摄像头，选择直播助手。" Padding="5,0"  />
         </StackPanel>
 
         <StackPanel Grid.Column="1" Orientation="Horizontal">
