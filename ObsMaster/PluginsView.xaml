@@ -134,7 +134,8 @@
                                               Icon="/Resources/plugins/camera.png" 
                                               HoverIcon="/Resources/plugins/camera.png" 
                                               PushIcon="/Resources/plugins/camera.png" 
-                                              Click="HideToolPopupClicked"/>
+                                              Click="HideToolPopupClicked"
+                                              Command="{Binding CameraCmd}"/>
                             <ui:FXLIconButton Content="图片" 
                                               Icon="/Resources/plugins/picture.png" 
                                               HoverIcon="/Resources/plugins/picture.png" 

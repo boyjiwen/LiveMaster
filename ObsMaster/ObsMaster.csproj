@@ -171,4 +171,10 @@
 	  <Resource Include="UI\Wnd\Resources\minpush.png" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Page Update="Dialog\ASCameraDialog.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	</ItemGroup>
+
 </Project>

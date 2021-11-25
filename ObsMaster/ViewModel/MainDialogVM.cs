@@ -137,7 +137,25 @@ namespace ObsMaster.ViewModel
             }
         }
 
-
+		//摄像头
+		private DelegateCommand _cameraCmd;
+		public DelegateCommand CameraCmd
+        {
+			get
+			{
+				return _cameraCmd ?? (_cameraCmd = new DelegateCommand((obj) =>
+				{
+					try
+					{
+                        var wnd = new Dialog.ASCameraDialog();
+						wnd.DataContext = this;
+						wnd.Owner = MainWnd;
+						wnd.ShowDialog();
+					}
+                    catch { }
+				}));
+			}
+		}
 
         //  开始开播
         public void StartStream()
