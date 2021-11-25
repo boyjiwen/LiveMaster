@@ -19,12 +19,20 @@
     
     <Grid  >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1" Margin="15,0" Orientation="Horizontal" >
-            <Grid Width="1" Margin="12,12" Background="#11000000"   />
+        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+        <ui:FXIconButton Width="24" Height="24" Margin="0,0,8,0" ToolTip="弹幕助手"
+                            Icon="/Resources/appsetting.png"
+                            HoverIcon="/Resources/appsetting_hover.png"
+                            PushIcon="/Resources/appsetting_hover.png"
+                            Command="{Binding RollingCommentsCommandCmd}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Margin="15,0" Orientation="Horizontal">
+            <Grid Width="1" Margin="12,12" Background="#11000000"/>
 
             <ui:FXIconButton Width="24" Height="24" Margin="20,0,8,0" ToolTip="麦克风"
                              Icon="/Resources/appsetting.png"

@@ -4,9 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ObsMaster"
+             xmlns:ui="clr-namespace:HuyaFX.UI.Controls.Buttons"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="800">
-    <Grid Background="White"  >
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ui:FXLIconButton}" x:Key="sceneitSyle">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="HoverBackground" Value="#10000000"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="IconWidth" Value="20"/>
+            <Setter Property="IconHeight" Value="20"/>
+            <Setter Property="IconMargin" Value="12,0,6,0"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -16,8 +31,55 @@
         <StackPanel Orientation="Horizontal" Margin="15,0" >
             <!--<Image Source="/resources/logotext.png" Stretch="None" />-->
             <TextBlock FontSize="16" Text="开播工具" VerticalAlignment="Center" />
+        </StackPanel>
 
-        </StackPanel>        
+        <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <ui:FXIconButton x:Name="btnMenu" Width="24" Height="24" Margin="10,0,10,0" ToolTip="菜单"
+                            Icon="/Resources/appsetting.png"
+                            HoverIcon="/Resources/appsetting_hover.png"
+                            PushIcon="/Resources/appsetting_hover.png"
+                            Click="OnClickMenu"/>
 
+            <Popup x:Name="MenuPopup" IsOpen="False" StaysOpen="False" Focusable="True"
+                   AllowsTransparency="True" Placement="Top" 
+                   VerticalOffset="16" HorizontalOffset="-134"
+                   PlacementTarget="{Binding ElementName=btnMenu}" >
+                <Popup.Resources>
+                    <Style TargetType="{x:Type ui:FXLIconButton}" BasedOn="{StaticResource sceneitSyle}" />
+                </Popup.Resources>
+                <Border BorderThickness="1" BorderBrush="#999f9f9f">
+                    <StackPanel Orientation="Vertical" Background="White" FlowDirection="LeftToRight">
+                        <ui:FXLIconButton Content="设置中心"                                         
+                                              Icon="/Resources/plugins/game.png" 
+                                              HoverIcon="/Resources/plugins/game.png" 
+                                              PushIcon="/Resources/plugins/game.png" 
+                                              />
+                        <ui:FXLIconButton Content="使用教程" 
+                                              Icon="/Resources/plugins/camera.png" 
+                                              HoverIcon="/Resources/plugins/camera.png" 
+                                              PushIcon="/Resources/plugins/camera.png" 
+                                              />
+                        <ui:FXLIconButton Content="问题反馈" 
+                                              Icon="/Resources/plugins/picture.png" 
+                                              HoverIcon="/Resources/plugins/picture.png" 
+                                              PushIcon="/Resources/plugins/picture.png" 
+                                             />
+                        <ui:FXLIconButton Content="关于我们" 
+                                              Icon="/Resources/plugins/character.png" 
+                                              HoverIcon="/Resources/plugins/character.png" 
+                                              PushIcon="/Resources/plugins/character.png" 
+                                              />
+                        <ui:FXLIconButton Content="开播助手官网" Margin="0 0 0 10"
+                                              Icon="/Resources/plugins/window.png" 
+                                              HoverIcon="/Resources/plugins/window.png" 
+                                              PushIcon="/Resources/plugins/window.png" 
+                                              />
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+            <ui:FXTextButton Content="登录|注册" Margin="20,0,10,0" Foreground="#9f9f9f"/>
+        </StackPanel>
+        <Grid Grid.Column="2" Width="1" Margin="8,8" Background="#11000000"/>
     </Grid>
 </UserControl>
