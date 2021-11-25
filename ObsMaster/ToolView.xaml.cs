@@ -24,5 +24,15 @@ namespace ObsMaster
         {
             InitializeComponent();
         }
-    }
+
+		private void volumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		{
+
+		}
+
+		private void micSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		{
+
+		}
+	}
 }

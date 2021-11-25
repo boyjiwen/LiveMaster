@@ -8,6 +8,15 @@
              mc:Ignorable="d" 
              Height="60"         
              d:DesignHeight="76" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ObsMaster;Component/UI/Horizontal_Slider.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid  >
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -17,7 +26,27 @@
         <StackPanel Grid.Column="1" Margin="15,0" Orientation="Horizontal" >
             <Grid Width="1" Margin="12,12" Background="#11000000"   />
 
-            <ui:FXIconButton Width="24" Height="24" Margin="20,0,0,0"
+            <ui:FXIconButton Width="24" Height="24" Margin="20,0,8,0" ToolTip="麦克风"
+                             Icon="/Resources/appsetting.png"
+                             HoverIcon="/Resources/appsetting_hover.png"
+                             PushIcon="/Resources/appsetting_hover.png"
+                             Command="{Binding MicCommandCmd}"/>
+
+            <Slider Grid.Column="1" x:Name="micSlider" VerticalAlignment="Center" Height="20" Width="80" Minimum="0" Maximum="100" 
+                        TickFrequency="1" Cursor="Hand" IsMoveToPointEnabled="True" Style="{StaticResource Horizontal_Slider}" 
+                    ValueChanged="micSlider_ValueChanged" Value="{Binding iVolume}"/>
+
+            <ui:FXIconButton Width="24" Height="24" Margin="20,0,8,0" ToolTip="音量"
+                             Icon="/Resources/appsetting.png"
+                             HoverIcon="/Resources/appsetting_hover.png"
+                             PushIcon="/Resources/appsetting_hover.png"
+                             Command="{Binding VolumeCommandCmd}"/>
+
+            <Slider Grid.Column="1" x:Name="volumeSlider" VerticalAlignment="Center" Height="20" Width="80" Minimum="0" Maximum="100" 
+                        TickFrequency="1" Cursor="Hand" IsMoveToPointEnabled="True" Style="{StaticResource Horizontal_Slider}" 
+                    ValueChanged="volumeSlider_ValueChanged" Value="{Binding iVolume}"/>
+
+            <ui:FXIconButton Width="24" Height="24" Margin="30,0,0,0" ToolTip="设置"
                              Icon="/Resources/appsetting.png"
                              HoverIcon="/Resources/appsetting_hover.png"
                              PushIcon="/Resources/appsetting_hover.png"
@@ -34,7 +63,6 @@
                              BorderBrush="#822db7" HoverBorderBrush="#822db7" PushBorderBrush="#822dcc"
                              Foreground="#722db7" HoverForeground="#822db7" PushForeground="#822dcc"                            
                              Content="开始录像" />
-
         </StackPanel>
     </Grid>
 </UserControl>
