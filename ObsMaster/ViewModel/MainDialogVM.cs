@@ -45,21 +45,12 @@ namespace ObsMaster.ViewModel
         
 
         //  屏幕捕捉
-        public ObservableCollection<Model.MMonitorItem> VMonitorItems { get; set; } = new ObservableCollection<Model.MMonitorItem>();
+        public ObservableCollection<Model.MScreenItem> VMonitorItems { get; set; } = new ObservableCollection<Model.MScreenItem>();
         public void ShowMonitor()
         {
-            var monitorWnd = new Dialog.MonitorDialog();
+            var monitorWnd = new Dialog.ASScreenDialog();
             monitorWnd.DataContext = this;
-            monitorWnd.Owner = MainWnd;
-
-            List<CLI_MinitorItem> ls = new List<CLI_MinitorItem>();
-            ObsCore.GetMonitors(ls);
-
-            VMonitorItems.Clear();
-            foreach (var v in ls)
-            {
-                VMonitorItems.Add(new Model.MMonitorItem() { Id = v.Id, Name = v.Name, });
-            }
+            monitorWnd.Owner = MainWnd;            
 
             monitorWnd.ShowDialog();
         }
@@ -70,18 +61,9 @@ namespace ObsMaster.ViewModel
             get {
                 return _monitorCaptureCmd ?? (_monitorCaptureCmd = new DelegateCommand((obj) =>
                 {
-                    var monitorWnd = new Dialog.MonitorDialog();
+                    var monitorWnd = new Dialog.ASScreenDialog();
                     monitorWnd.DataContext = this;
                     monitorWnd.Owner = MainWnd;
-
-                    List<CLI_MinitorItem> ls = new List<CLI_MinitorItem>();
-                    ObsCore.GetMonitors(ls);
-
-                    VMonitorItems.Clear();
-                    foreach (var v in ls)
-                    {
-                        VMonitorItems.Add(new Model.MMonitorItem() { Id = v.Id, Name = v.Name, });
-                    }
 
                     monitorWnd.ShowDialog();
                 }));

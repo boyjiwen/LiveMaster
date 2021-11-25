@@ -32,7 +32,7 @@ namespace ObsMaster.Model
         public bool Selected { get; set; }
     }
 
-    public class MMonitorItem
+    public class MScreenItem
     {
         public int Id { get; set; }
         public string Name { get; set; }
