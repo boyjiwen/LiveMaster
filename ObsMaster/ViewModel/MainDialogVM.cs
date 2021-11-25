@@ -75,7 +75,7 @@ namespace ObsMaster.ViewModel
         public ObservableCollection<Model.MWindowItem> VCaptureWindowItems { get; set; } = new ObservableCollection<Model.MWindowItem>();
         public void ShowCaptureWindow()
         {
-            var captureWnd = new Dialog.WinCaptureDialog();
+            var captureWnd = new Dialog.ASWindowDialog();
             captureWnd.DataContext = this;
             captureWnd.Owner = MainWnd;
 
@@ -98,7 +98,7 @@ namespace ObsMaster.ViewModel
             {
                 return _windowCaptureCmd ?? (_windowCaptureCmd = new DelegateCommand((obj) =>
                 {
-                    var captureWnd = new Dialog.WinCaptureDialog();
+                    var captureWnd = new Dialog.ASWindowDialog();
                     captureWnd.DataContext = this;
                     captureWnd.Owner = MainWnd;
 

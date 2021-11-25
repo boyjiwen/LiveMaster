@@ -33,10 +33,10 @@ namespace ObsMaster.Dialog
         {
             InitializeComponent();
             vm = ViewModel.MainVM.Instance;
-            this.Loaded += MonitorDialog_Loaded;
+            this.Loaded += ScreenDialog_Loaded;
         }
 
-        private void MonitorDialog_Loaded(object sender, RoutedEventArgs e)
+        private void ScreenDialog_Loaded(object sender, RoutedEventArgs e)
         {
             Grid gr = new Grid();
             gr.Background = new SolidColorBrush(Color.FromRgb(0xe0, 0xe1, 0xea));
