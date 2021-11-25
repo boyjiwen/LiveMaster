@@ -53,27 +53,27 @@
                                               Icon="/Resources/plugins/game.png" 
                                               HoverIcon="/Resources/plugins/game.png" 
                                               PushIcon="/Resources/plugins/game.png" 
-                                              />
+                                              Click="HideMenuPopupClicked"/>
                         <ui:FXLIconButton Content="使用教程" 
                                               Icon="/Resources/plugins/camera.png" 
                                               HoverIcon="/Resources/plugins/camera.png" 
                                               PushIcon="/Resources/plugins/camera.png" 
-                                              />
+                                              Click="HideMenuPopupClicked"/>
                         <ui:FXLIconButton Content="问题反馈" 
                                               Icon="/Resources/plugins/picture.png" 
                                               HoverIcon="/Resources/plugins/picture.png" 
                                               PushIcon="/Resources/plugins/picture.png" 
-                                             />
+                                              Click="HideMenuPopupClicked"/>
                         <ui:FXLIconButton Content="关于我们" 
                                               Icon="/Resources/plugins/character.png" 
                                               HoverIcon="/Resources/plugins/character.png" 
                                               PushIcon="/Resources/plugins/character.png" 
-                                              />
+                                              Click="HideMenuPopupClicked"/>
                         <ui:FXLIconButton Content="开播助手官网" Margin="0 0 0 10"
                                               Icon="/Resources/plugins/window.png" 
                                               HoverIcon="/Resources/plugins/window.png" 
                                               PushIcon="/Resources/plugins/window.png" 
-                                              />
+                                              Click="HideMenuPopupClicked"/>
                     </StackPanel>
                 </Border>
             </Popup>

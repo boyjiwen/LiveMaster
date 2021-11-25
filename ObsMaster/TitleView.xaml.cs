@@ -33,5 +33,14 @@ namespace ObsMaster
 			}
 			catch { }
 		}
+
+		private void HideMenuPopupClicked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				MenuPopup.IsOpen = false;
+			}
+			catch { }
+		}
 	}
 }
