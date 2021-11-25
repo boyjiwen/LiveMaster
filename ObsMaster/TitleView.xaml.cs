@@ -24,5 +24,23 @@ namespace ObsMaster
         {
             InitializeComponent();
         }
-    }
+
+		private void OnClickMenu(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				MenuPopup.IsOpen = true;
+			}
+			catch { }
+		}
+
+		private void HideMenuPopupClicked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				MenuPopup.IsOpen = false;
+			}
+			catch { }
+		}
+	}
 }
