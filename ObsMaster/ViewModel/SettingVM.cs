@@ -19,6 +19,14 @@ namespace ObsMaster.ViewModel
 			set { Set("iMicVolume", ref _iMicVolume, value); }
 		}
 
+		//麦克风是否被禁用状态
+		private bool _bMicUnable = false;
+		public bool bMicUnable
+		{
+			get { return _bMicUnable; }
+			set { Set("bMicUnable", ref _bMicUnable, value); }
+		}
+
 		//音量
 		public int iOldMicVolume { get; set; } = 50;
 		private int _iVolume = 50;
@@ -28,5 +36,12 @@ namespace ObsMaster.ViewModel
 			set { Set("iVolume", ref _iVolume, value); }
 		}
 
+		//音量是否被禁用状态
+		private bool _bVolumeUnable = false;
+		public bool bVolumeUnable
+		{
+			get { return _bVolumeUnable; }
+			set { Set("bVolumeUnable", ref _bVolumeUnable, value); }
+		}
 	}
 }
