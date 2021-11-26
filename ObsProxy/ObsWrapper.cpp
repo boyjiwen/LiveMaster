@@ -123,6 +123,18 @@ void ObsWrapper::SelectSceneItem(int idx)
     itemList.Select(idx);
 }
 
+void ObsWrapper::MoveUp(int idx)
+{
+    ObsSceneItemList& itemList = m_core->sceneItemList();
+    itemList.MoveUp(idx);
+}
+
+void ObsWrapper::MoveDown(int idx)
+{
+    ObsSceneItemList& itemList = m_core->sceneItemList();
+    itemList.MoveDown(idx);
+}
+
 void ObsWrapper::StartStream()
 {
     if (!m_core->StreamActive())
@@ -363,6 +375,10 @@ void ObsWrapper::CallReloadSceneItemList(void* data)
     {
         SceneItem^ it = gcnew SceneItem();
         it->Name = marshal_as<String^>(FromUtf8(ObsSceneItemList::itemName(itemList->Get(i))));
+        
+        obs_source_t* source = obs_sceneitem_get_source(itemList->Get(i));
+        it->Id = marshal_as<String^>(FromUtf8(obs_source_get_id(source)));
+
         it->bVisible = ObsSceneItemList::itemVisible(itemList->Get(i));
         it->bSelected = ObsSceneItemList::itemSelected(itemList->Get(i));
         li->Add(it);

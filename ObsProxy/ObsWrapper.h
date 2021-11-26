@@ -30,6 +30,8 @@ public:
 	void SetSceneItemVisibile(int idx, bool visible);
 	void RemoveSceneItem(int idx);
 	void SelectSceneItem(int idx);
+	void MoveUp(int idx);
+	void MoveDown(int idx);
 	
 
 	//	推流相关

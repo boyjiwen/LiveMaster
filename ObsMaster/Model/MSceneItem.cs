@@ -22,6 +22,8 @@ namespace ObsMaster.Model
     {
         public string Name { get; set; }
 
+        public string Id { get; set; }
+
         private bool _visible = true;
         public bool Visible
         {
@@ -29,7 +31,14 @@ namespace ObsMaster.Model
             set { Set("Visible", ref _visible, value); }
         }
 
-        public bool Selected { get; set; }
+        //public bool Selected { get; set; }
+        private bool _selected = false;
+        public bool Selected
+        {
+            get { return _selected; }
+            set { Set("Selected", ref _selected, value); }
+        }
+
     }
 
     public class MScreenItem
