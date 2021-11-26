@@ -23,18 +23,34 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="View\**" />
+	  <EmbeddedResource Remove="View\**" />
+	  <None Remove="View\**" />
+	  <Page Remove="View\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\appsetting.png" />
 	  <None Remove="Resources\appsetting_hover.png" />
+	  <None Remove="Resources\danmupro.png" />
+	  <None Remove="Resources\danmupro_hover.png" />
 	  <None Remove="Resources\delete.png" />
 	  <None Remove="Resources\delete_hover.png" />
 	  <None Remove="Resources\logo.png" />
 	  <None Remove="Resources\logoText.png" />
 	  <None Remove="Resources\loudspeaker.png" />
+	  <None Remove="Resources\loudspeakr.png" />
+	  <None Remove="Resources\loudspeakr_mute.png" />
+	  <None Remove="Resources\loudspeakr_unable.png" />
 	  <None Remove="Resources\menu_edit_hover.png" />
 	  <None Remove="Resources\menu_edit_normal.png" />
 	  <None Remove="Resources\menu_hl_hover.png" />
 	  <None Remove="Resources\menu_hl_normal.png" />
+	  <None Remove="Resources\mic.png" />
+	  <None Remove="Resources\mic_mute.png" />
+	  <None Remove="Resources\mic_unable.png" />
 	  <None Remove="Resources\ontv.png" />
+	  <None Remove="Resources\pluginsetting.png" />
 	  <None Remove="Resources\plugins\blindbox.png" />
 	  <None Remove="Resources\plugins\blindbox1.png" />
 	  <None Remove="Resources\plugins\browser.png" />
@@ -77,8 +93,17 @@
 	  <None Remove="Resources\Scene\hide_3.png" />
 	  <None Remove="Resources\Scene\show_2.png" />
 	  <None Remove="Resources\Scene\show_3.png" />
+	  <None Remove="Resources\setting\about.png" />
+	  <None Remove="Resources\setting\course.png" />
+	  <None Remove="Resources\setting\expand.png" />
+	  <None Remove="Resources\setting\expand_hover.png" />
+	  <None Remove="Resources\setting\huya.png" />
+	  <None Remove="Resources\setting\log.png" />
+	  <None Remove="Resources\setting\qa.png" />
+	  <None Remove="Resources\setting\setting.png" />
 	  <None Remove="Resources\show.png" />
 	  <None Remove="Resources\show_1.png" />
+	  <None Remove="Resources\volume.png" />
 	  <None Remove="UI\Wnd\Resources\close.png" />
 	  <None Remove="UI\Wnd\Resources\closehover.png" />
 	  <None Remove="UI\Wnd\Resources\closepush.png" />
@@ -98,21 +123,26 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="View\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Resource Include="Resources\appsetting.png" />
 	  <Resource Include="Resources\appsetting_hover.png" />
+	  <Resource Include="Resources\danmupro.png" />
+	  <Resource Include="Resources\danmupro_hover.png" />
 	  <Resource Include="Resources\delete.png" />
 	  <Resource Include="Resources\logo.png" />
 	  <Resource Include="Resources\logoText.png" />
 	  <Resource Include="Resources\loudspeaker.png" />
+	  <Resource Include="Resources\loudspeakr.png" />
+	  <Resource Include="Resources\loudspeakr_mute.png" />
+	  <Resource Include="Resources\loudspeakr_unable.png" />
 	  <Resource Include="Resources\menu_edit_hover.png" />
 	  <Resource Include="Resources\menu_edit_normal.png" />
 	  <Resource Include="Resources\menu_hl_hover.png" />
 	  <Resource Include="Resources\menu_hl_normal.png" />
+	  <Resource Include="Resources\mic.png" />
+	  <Resource Include="Resources\mic_mute.png" />
+	  <Resource Include="Resources\mic_unable.png" />
 	  <Resource Include="Resources\ontv.png" />
+	  <Resource Include="Resources\pluginsetting.png" />
 	  <Resource Include="Resources\plugins\blindbox.png" />
 	  <Resource Include="Resources\plugins\blindbox1.png" />
 	  <Resource Include="Resources\plugins\browser.png" />
@@ -155,6 +185,14 @@
 	  <Resource Include="Resources\Scene\hide_3.png" />
 	  <Resource Include="Resources\Scene\show_2.png" />
 	  <Resource Include="Resources\Scene\show_3.png" />
+	  <Resource Include="Resources\setting\about.png" />
+	  <Resource Include="Resources\setting\course.png" />
+	  <Resource Include="Resources\setting\expand.png" />
+	  <Resource Include="Resources\setting\expand_hover.png" />
+	  <Resource Include="Resources\setting\huya.png" />
+	  <Resource Include="Resources\setting\log.png" />
+	  <Resource Include="Resources\setting\qa.png" />
+	  <Resource Include="Resources\setting\setting.png" />
 	  <Resource Include="Resources\show.png" />
 	  <Resource Include="Resources\Scene\show_1.png" />
 	  <Resource Include="UI\Wnd\Resources\close.png" />

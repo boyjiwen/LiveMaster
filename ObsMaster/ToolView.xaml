@@ -24,10 +24,10 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-        <ui:FXIconButton Width="24" Height="24" Margin="0,0,8,0" ToolTip="弹幕助手"
-                            Icon="/Resources/appsetting.png"
-                            HoverIcon="/Resources/appsetting_hover.png"
-                            PushIcon="/Resources/appsetting_hover.png"
+        <ui:FXIconButton Width="28" Height="28" Margin="0,0,8,0" ToolTip="弹幕助手"
+                            Icon="/Resources/danmupro.png"
+                            HoverIcon="/Resources/danmupro_hover.png"
+                            PushIcon="/Resources/danmupro_hover.png"
                             Command="{Binding RollingCommentsCommandCmd}"/>
         </StackPanel>
 
@@ -35,9 +35,9 @@
             <Grid Width="1" Margin="12,12" Background="#11000000"/>
 
             <ui:FXIconButton Width="24" Height="24" Margin="20,0,8,0" ToolTip="麦克风"
-                             Icon="/Resources/appsetting.png"
-                             HoverIcon="/Resources/appsetting_hover.png"
-                             PushIcon="/Resources/appsetting_hover.png"
+                             Icon="/Resources/mic.png"
+                             HoverIcon="/Resources/mic.png"
+                             PushIcon="/Resources/mic.png"
                              Command="{Binding MicCommandCmd}"/>
 
             <Slider Grid.Column="1" x:Name="micSlider" VerticalAlignment="Center" Height="20" Width="80" Minimum="0" Maximum="100" 
@@ -45,9 +45,9 @@
                     ValueChanged="micSlider_ValueChanged" Value="{Binding iVolume}"/>
 
             <ui:FXIconButton Width="24" Height="24" Margin="20,0,8,0" ToolTip="音量"
-                             Icon="/Resources/appsetting.png"
-                             HoverIcon="/Resources/appsetting_hover.png"
-                             PushIcon="/Resources/appsetting_hover.png"
+                             Icon="/Resources/loudspeakr.png"
+                             HoverIcon="/Resources/loudspeakr.png"
+                             PushIcon="/Resources/loudspeakr.png"
                              Command="{Binding VolumeCommandCmd}"/>
 
             <Slider Grid.Column="1" x:Name="volumeSlider" VerticalAlignment="Center" Height="20" Width="80" Minimum="0" Maximum="100" 
