@@ -44,7 +44,7 @@ namespace ObsMaster.UI
     ///     <MyNamespace:UISceneListboxItem/>
     ///
     /// </summary>
-    public class UISceneListboxItem : Button
+    public class UISceneListboxItem : RadioButton
     {
         private Button _deleteButton;
         private Button _showButton;
@@ -66,6 +66,17 @@ namespace ObsMaster.UI
         public static readonly DependencyProperty IsSelectedProperty =
             DependencyProperty.Register("IsSelected", typeof(bool), typeof(UISceneListboxItem));
 
+
+
+        public ImageSource IdIcon
+        {
+            get { return (ImageSource)GetValue(IdIconProperty); }
+            set { SetValue(IdIconProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IdIcon.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IdIconProperty =
+            DependencyProperty.Register("IdIcon", typeof(ImageSource), typeof(UISceneListboxItem));
 
 
 

@@ -4,9 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ObsMaster"
+             xmlns:ui="clr-namespace:HuyaFX.UI.Controls.Buttons"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="800">
-    <Grid Background="White"  >
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ui:FXLIconButton}" x:Key="sceneitSyle">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="HoverBackground" Value="#10000000"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="IconWidth" Value="20"/>
+            <Setter Property="IconHeight" Value="20"/>
+            <Setter Property="IconMargin" Value="12,0,6,0"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -16,8 +31,89 @@
         <StackPanel Orientation="Horizontal" Margin="15,0" >
             <!--<Image Source="/resources/logotext.png" Stretch="None" />-->
             <TextBlock FontSize="16" Text="开播工具" VerticalAlignment="Center" />
+        </StackPanel>
 
-        </StackPanel>        
+        <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <ui:FXIconButton x:Name="btnMenu" Width="16" Height="16" Margin="10,0,10,0" ToolTip="菜单"
+                            Icon="/Resources/setting/expand.png"
+                            HoverIcon="/Resources/setting/expand_hover.png"
+                            PushIcon="/Resources/setting/expand_hover.png"
+                            Click="OnClickMenu"/>
 
+            <Popup x:Name="MenuPopup" IsOpen="False" StaysOpen="False" Focusable="True"
+                   AllowsTransparency="True" Placement="Bottom" 
+                   VerticalOffset="16" HorizontalOffset="-134"
+                   PlacementTarget="{Binding ElementName=btnMenu}" >
+                <Popup.Resources>
+                    <Style TargetType="{x:Type ui:FXLIconButton}" BasedOn="{StaticResource sceneitSyle}" />
+                </Popup.Resources>
+                <Border BorderThickness="1" BorderBrush="#999f9f9f">
+                    <StackPanel Orientation="Vertical" Background="White" FlowDirection="LeftToRight">
+                        <ui:FXLIconButton Content="设置中心" IconWidth="16" IconHeight="16"                                        
+                                              Icon="/Resources/setting/setting.png" 
+                                              HoverIcon="/Resources/setting/setting.png" 
+                                              PushIcon="/Resources/setting/setting.png" 
+                                              Click="HideMenuPopupClicked"/>
+                        <ui:FXLIconButton Content="使用教程" IconWidth="16" IconHeight="16"
+                                              Icon="/Resources/setting/course.png" 
+                                              HoverIcon="/Resources/setting/course.png" 
+                                              PushIcon="/Resources/setting/course.png" 
+                                              Click="HideMenuPopupClicked"/>
+                        <ui:FXLIconButton Content="问题反馈" IconWidth="16" IconHeight="16" 
+                                              Icon="/Resources/setting/qa.png" 
+                                              HoverIcon="/Resources/setting/qa.png" 
+                                              PushIcon="/Resources/setting/qa.png" 
+                                              Click="HideMenuPopupClicked"/>
+                        <ui:FXLIconButton Content="查看日志" IconWidth="16" IconHeight="16"
+                                              Icon="/Resources/setting/log.png" 
+                                              HoverIcon="/Resources/setting/log.png" 
+                                              PushIcon="/Resources/setting/log.png" 
+                                              Click="HideMenuPopupClicked"/>
+                        <ui:FXLIconButton Content="关于我们" IconWidth="16" IconHeight="16"
+                                              Icon="/Resources/setting/about.png" 
+                                              HoverIcon="/Resources/setting/about.png" 
+                                              PushIcon="/Resources/setting/about.png" 
+                                              Click="HideMenuPopupClicked"/>
+                        <ui:FXLIconButton Content="开播助手官网" Margin="0 0 0 10" IconWidth="16" IconHeight="16"
+                                              Icon="/Resources/setting/huya.png" 
+                                              HoverIcon="/Resources/setting/huya.png" 
+                                              PushIcon="/Resources/setting/huya.png" 
+                                              Click="HideMenuPopupClicked"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+            <ui:FXTextButton Content="登录|注册" Margin="20,0,10,0" Foreground="#9f9f9f" HoverForeground="#ff8800"/>
+
+            <ui:FXLIconButton Content=" 房间设置" Foreground="#9f9f9f" FontSize="12"
+                                 FlowDirection="LeftToRight" Margin="30 0 10 0"
+                                 Icon="/Resources/pluginsetting.png"
+                                 HoverIcon="/Resources/pluginsetting.png" 
+                                 PushIcon="/Resources/pluginsetting.png" 
+                                 IconWidth="30" IconHeight="30"/>
+            <Grid Margin="20 0 0 0" FlowDirection="LeftToRight" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1" Margin="18 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="房间：" Foreground="#9f9f9f"/>
+                    <TextBlock Grid.Column="1" Text="{Binding sRoomId}" Foreground="#9f9f9f"/>
+                </Grid>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="平台：" Foreground="#9f9f9f"/>
+                    <TextBlock Grid.Column="1" Text="{Binding sPlatformName}" Foreground="#9f9f9f"/>
+                </Grid>
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Column="2" Width="1" Margin="8,8" Background="#11000000"/>
     </Grid>
 </UserControl>

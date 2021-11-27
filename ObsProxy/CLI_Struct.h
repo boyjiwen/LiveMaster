@@ -16,6 +16,7 @@ public:
 public ref class SceneItem
 {
 public:
+	String^ Id;
 	String^ Name;
 	bool bVisible;
 	bool bSelected;

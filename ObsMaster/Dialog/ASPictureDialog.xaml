@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ObsMaster.Dialog"
         xmlns:wnd="clr-namespace:HuyaFX.UI.Wnd"
               Style="{DynamicResource SWWindowStyle}"
-              WindowStartupLocation="CenterScreen"
+              WindowStartupLocation="CenterOwner"
               WindowControlsGridBackground="#e0e1ea"
         mc:Ignorable="d"
         Title="添加图片源" Height="450" Width="800">

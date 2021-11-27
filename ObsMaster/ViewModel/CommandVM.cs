@@ -53,6 +53,44 @@ namespace ObsMaster.ViewModel
             }
         }
 
+        private DelegateCommand _sceneItemUpCmd;
+        public DelegateCommand SceneItemUpCmd
+        {
+            get
+            {
+                return _sceneItemUpCmd ?? (_sceneItemUpCmd = new DelegateCommand((obj) =>
+                {
+                    for (int i = 0; i < VSceneItems.Count; i++)
+                    {
+                        if (VSceneItems[i].Selected)
+                        {
+                            ObsCore.MoveUp(i);
+                            break;
+                        }                        
+                    }
+                }));
+            }
+        }
+
+        private DelegateCommand _sceneItemDownCmd;
+        public DelegateCommand SceneItemDownCmd
+        {
+            get
+            {
+                return _sceneItemDownCmd ?? (_sceneItemDownCmd = new DelegateCommand((obj) =>
+                {
+                    for (int i = 0; i < VSceneItems.Count; i++)
+                    {
+                        if (VSceneItems[i].Selected)
+                        {
+                            ObsCore.MoveDown(i);
+                            break;
+                        }
+                    }
+                }));
+            }
+        }
+
 
 
 

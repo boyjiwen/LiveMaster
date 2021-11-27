@@ -20,19 +20,112 @@ namespace ObsMaster
     /// </summary>
     public partial class ToolView : UserControl
     {
-        public ToolView()
+		private ViewModel.MainVM vm;
+		public ToolView()
         {
             InitializeComponent();
-        }
-
-		private void volumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-		{
-
+			vm = ViewModel.MainVM.Instance;
 		}
 
-		private void micSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		private async void volumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
+			try
+			{
+				await NotifyVolumeChanged();
+			}
+			catch { }
+		}
 
+		private bool bVolumeRun = false;
+		private async Task NotifyVolumeChanged()
+		{
+			try
+			{
+				if (bVolumeRun)
+					return;
+				bVolumeRun = true;
+
+				await Task.Delay(200);
+				//vm.NoticeVolume(vm.iVolume);
+				if (vm.iVolume > 0)
+					vm.iOldVolume = vm.iVolume;
+
+				bVolumeRun = false;
+			}
+			catch { }
+		}
+
+		private async void micSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		{
+			try
+			{
+				await NotifyMicVolumeChanged();
+			}
+			catch { }
+		}
+		private bool bMicVolumeRun = false;
+		private async Task NotifyMicVolumeChanged()
+		{
+			try
+			{
+				if (bMicVolumeRun)
+					return;
+				bMicVolumeRun = true;
+
+				await Task.Delay(200);
+				//vm.NoticeVolume(vm.iVolume);
+				if (vm.iMicVolume > 0)
+					vm.iOldMicVolume = vm.iMicVolume;
+
+				bMicVolumeRun = false;
+			}
+			catch { }
+		}
+
+		private void MicMuteClicked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				if (vm.iMicVolume > 0)
+					vm.iOldMicVolume = vm.iMicVolume;
+				vm.iMicVolume = 0;
+			}
+			catch { }
+		}
+
+		private void MicClicked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				if (vm.iOldMicVolume > 0)
+					vm.iMicVolume = vm.iOldMicVolume;
+				else
+					vm.iMicVolume = 50;
+			}
+			catch { }
+		}
+
+		private void VolumeMuteClicked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				if (vm.iVolume > 0)
+					vm.iOldVolume = vm.iVolume;
+				vm.iVolume = 0;
+			}
+			catch { }
+		}
+
+		private void VolumeClicked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				if (vm.iOldVolume > 0)
+					vm.iVolume = vm.iOldVolume;
+				else
+					vm.iVolume = 50;
+			}
+			catch { }
 		}
 	}
 }

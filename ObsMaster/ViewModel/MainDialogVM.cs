@@ -45,21 +45,12 @@ namespace ObsMaster.ViewModel
         
 
         //  屏幕捕捉
-        public ObservableCollection<Model.MMonitorItem> VMonitorItems { get; set; } = new ObservableCollection<Model.MMonitorItem>();
+        public ObservableCollection<Model.MScreenItem> VMonitorItems { get; set; } = new ObservableCollection<Model.MScreenItem>();
         public void ShowMonitor()
         {
-            var monitorWnd = new Dialog.MonitorDialog();
+            var monitorWnd = new Dialog.ASScreenDialog();
             monitorWnd.DataContext = this;
-            monitorWnd.Owner = MainWnd;
-
-            List<CLI_MinitorItem> ls = new List<CLI_MinitorItem>();
-            ObsCore.GetMonitors(ls);
-
-            VMonitorItems.Clear();
-            foreach (var v in ls)
-            {
-                VMonitorItems.Add(new Model.MMonitorItem() { Id = v.Id, Name = v.Name, });
-            }
+            monitorWnd.Owner = MainWnd;            
 
             monitorWnd.ShowDialog();
         }
@@ -70,18 +61,9 @@ namespace ObsMaster.ViewModel
             get {
                 return _monitorCaptureCmd ?? (_monitorCaptureCmd = new DelegateCommand((obj) =>
                 {
-                    var monitorWnd = new Dialog.MonitorDialog();
+                    var monitorWnd = new Dialog.ASScreenDialog();
                     monitorWnd.DataContext = this;
                     monitorWnd.Owner = MainWnd;
-
-                    List<CLI_MinitorItem> ls = new List<CLI_MinitorItem>();
-                    ObsCore.GetMonitors(ls);
-
-                    VMonitorItems.Clear();
-                    foreach (var v in ls)
-                    {
-                        VMonitorItems.Add(new Model.MMonitorItem() { Id = v.Id, Name = v.Name, });
-                    }
 
                     monitorWnd.ShowDialog();
                 }));
@@ -93,7 +75,7 @@ namespace ObsMaster.ViewModel
         public ObservableCollection<Model.MWindowItem> VCaptureWindowItems { get; set; } = new ObservableCollection<Model.MWindowItem>();
         public void ShowCaptureWindow()
         {
-            var captureWnd = new Dialog.WinCaptureDialog();
+            var captureWnd = new Dialog.ASWindowDialog();
             captureWnd.DataContext = this;
             captureWnd.Owner = MainWnd;
 
@@ -116,7 +98,7 @@ namespace ObsMaster.ViewModel
             {
                 return _windowCaptureCmd ?? (_windowCaptureCmd = new DelegateCommand((obj) =>
                 {
-                    var captureWnd = new Dialog.WinCaptureDialog();
+                    var captureWnd = new Dialog.ASWindowDialog();
                     captureWnd.DataContext = this;
                     captureWnd.Owner = MainWnd;
 
@@ -154,6 +136,26 @@ namespace ObsMaster.ViewModel
                 }));
             }
         }
+
+		//摄像头
+		private DelegateCommand _cameraCmd;
+		public DelegateCommand CameraCmd
+        {
+			get
+			{
+				return _cameraCmd ?? (_cameraCmd = new DelegateCommand((obj) =>
+				{
+					try
+					{
+                        var wnd = new Dialog.ASCameraDialog();
+						wnd.DataContext = this;
+						wnd.Owner = MainWnd;
+						wnd.ShowDialog();
+					}
+                    catch { }
+				}));
+			}
+		}
 
         //  文字捕捉
         private DelegateCommand _textCaptureCmd;

@@ -51,7 +51,7 @@ namespace ObsMaster.ViewModel
                 VSceneItems.Clear();
                 foreach (var item in li)
                 {
-                    VSceneItems.Add(new Model.MSceneItem() { Name = item.Name, Selected = item.bSelected, Visible = item.bVisible });
+                    VSceneItems.Add(new Model.MSceneItem() { Name = item.Name, Selected = item.bSelected, Visible = item.bVisible, Id = item.Id });
                 }
             }));
 
