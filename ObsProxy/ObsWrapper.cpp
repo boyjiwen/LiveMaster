@@ -253,6 +253,35 @@ void ObsWrapper::AddImageSource(String^ url, int alpha)
     ObsMain::Instance()->AddImage(ToUtf8(cUrl).c_str(), alpha);    
 }
 
+void ObsWrapper::AddTextSource(CLI_TextData^ data)
+{
+    ObsMain::TextData* textData = new ObsMain::TextData();
+    pin_ptr<const wchar_t> name = PtrToStringChars(data->Name);
+    textData->name = ToUtf8(name).c_str();
+    pin_ptr<const wchar_t> text = PtrToStringChars(data->Text);
+    textData->text = ToUtf8(text).c_str();
+    pin_ptr<const wchar_t> font = PtrToStringChars(data->Font);
+    textData->font = ToUtf8(font).c_str();
+    textData->color = data->Color;
+    textData->size = data->Size;
+    textData->bold = data->Bold;
+    textData->italic = data->Italic;
+    textData->extents = data->Extents;
+    textData->extents_cx = data->ExtentsCx;
+    textData->extents_wrap = data->ExtentsWrap;
+    pin_ptr<const wchar_t> align = PtrToStringChars(data->Align);
+    textData->align = ToUtf8(align).c_str();
+    pin_ptr<const wchar_t> valign = PtrToStringChars(data->Valign);
+    textData->valign = ToUtf8(valign).c_str();
+    textData->outline_size = data->OutlineSize;
+    textData->outline_color = data->OutlineColor;
+    textData->scroll_speed = data->ScrollSpeed;
+    textData->opacity = data->Opacity;
+    textData->outline_opacity = data->OutlineOpacity;
+
+    ObsMain::Instance()->AddText(textData);
+}
+
 String^ ObsWrapper::GetConfigString(String^ section, String^ name)
 {
     pin_ptr<const wchar_t> convertSection = PtrToStringChars(section);

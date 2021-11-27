@@ -51,6 +51,8 @@ public:
 	//	添加图片源
 	void AddImageSource(String^ url, int alpha);
 	
+	//	添加文字源
+	void AddTextSource(CLI_TextData^ data);
 
 
 	//	Config相关

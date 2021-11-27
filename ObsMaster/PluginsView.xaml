@@ -145,7 +145,8 @@
                                               Icon="/Resources/plugins/character.png" 
                                               HoverIcon="/Resources/plugins/character.png" 
                                               PushIcon="/Resources/plugins/character.png" 
-                                              Click="HideToolPopupClicked"/>
+                                              Click="HideToolPopupClicked"
+                                              Command="{Binding TextCaptureCmd}"/>
                             <ui:FXLIconButton Content="窗口捕捉" 
                                               Icon="/Resources/plugins/window.png" 
                                               HoverIcon="/Resources/plugins/window.png" 

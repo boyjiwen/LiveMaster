@@ -155,7 +155,65 @@ namespace ObsMaster.ViewModel
             }
         }
 
+        //  文字捕捉
+        private DelegateCommand _textCaptureCmd;
+        public DelegateCommand TextCaptureCmd
+        {
+            get
+            {
+                return _textCaptureCmd ?? (_textCaptureCmd = new DelegateCommand((obj) =>
+                {
+                    try
+                    {
+                        var wnd = new Dialog.ASTextDialog();
+                        wnd.DataContext = this;
+                        wnd.Owner = MainWnd;
+                        wnd.ShowDialog();
+                        if (wnd.iResult == 0)
+                        {
+                            string text = wnd.DisplayContentTextBox.Text;
+                            if (wnd.TextConvertComboBox.SelectedIndex == 1)
+                                text = text.ToUpper();
+                            else if (wnd.TextConvertComboBox.SelectedIndex == 2)
+                                text = text.ToLower();
 
+                            ObsCore.AddTextSource(new CLI_TextData()
+                            {
+                                Name = "文字",
+                                Text = text,
+                                Font = wnd.sFontFamilyName,
+                                Color = ColorToUInt(wnd.ForegroundColor.Color),
+                                Size = wnd.iFontSize,
+                                Bold = wnd.bBold,
+                                Italic = wnd.bItalic,
+                                Extents = wnd.CustomGridSwitch.IsChecked == true,
+                                ExtentsCx = wnd.CustomGridSwitch.IsChecked == true ? Convert.ToInt32(wnd.CustomGridWidth.Text) : 0,
+                                ExtentsWrap = wnd.CustomGridAutoWrapCheckBox.IsChecked == true,
+                                Align = (wnd.AlignModeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem).Tag.ToString(),
+                                Valign = (wnd.ValignModeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem).Tag.ToString(),
+                                OutlineSize = wnd.OutlineSwitch.IsChecked == true ? Convert.ToInt32(wnd.OutlineSizeTextBox.Text) : 0,
+                                OutlineColor = ColorToUInt(wnd.OutlineColor.Color),
+                                ScrollSpeed = Convert.ToInt32((wnd.ScrollSpeedComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem).Tag),
+                                Opacity = Convert.ToInt32(wnd.OpacityTextBox.Text),
+                                OutlineOpacity = Convert.ToInt32(wnd.OutlineOpacityTextBox.Text)
+                            });
+                        }
+                    }
+                    catch { }
+                }));
+            }
+        }
+
+        private uint ColorToUInt(System.Windows.Media.Color color)
+        {
+            try
+            {
+                uint colorref = Convert.ToUInt32(color.R + color.G * 256 + color.B * 256 * 256);
+                return colorref;
+            }
+            catch { }
+            return 0;
+        }
 
         //  开始开播
         public void StartStream()
