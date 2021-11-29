@@ -139,9 +139,9 @@ std::wstring FromUtf8(const char* str, int len)
         len = strlen(str);
 
     wchar_t* uft8 = NULL;
-    os_utf8_to_wcs_ptr(str, len, &uft8);
+    os_utf8_to_wcs_ptr(str, len, &uft8);    
 
-    std::wstring data(uft8, len);
+    std::wstring data(uft8);
 
     bfree(uft8);
     return data;
