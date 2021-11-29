@@ -5,9 +5,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ContextMenu}">
-                    <Border x:Name="Border" CornerRadius="4" Background="#333333"  BorderThickness="2">
+                    <Border x:Name="Border" CornerRadius="4" Background="White"  BorderThickness="1">
                         <Border.BorderBrush>
-                            <SolidColorBrush Color="#10000000" />
+                            <SolidColorBrush Color="#20000000" />
                         </Border.BorderBrush>
                         <ItemsPresenter/>
                     </Border>
@@ -33,7 +33,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsHighlighted" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#20FFFFFF"/>
+                            <Setter TargetName="border" Property="Background" Value="#10000000"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

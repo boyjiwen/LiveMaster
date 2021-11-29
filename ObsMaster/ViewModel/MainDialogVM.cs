@@ -246,6 +246,9 @@ namespace ObsMaster.ViewModel
 						if (VSceneItems[i].Selected)
 						{
                             VSceneItems[i].Name = text;
+                            //保证重启程序后场景名真正改变
+                            //TODO
+                            //ObsCore
                             return;
 						}
 					}
