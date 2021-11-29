@@ -181,7 +181,7 @@
 
                 <ScrollViewer x:Name="scrollViewer" Grid.Row="1" MinHeight="84" MaxHeight="168"
                               HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-                    <ItemsControl Grid.Row="1" Width="198" Padding="0" MouseRightButtonDown="ScrollViewer_RightClicked"
+                    <ItemsControl Grid.Row="1" Width="198" Padding="0"
                                   ItemsSource="{Binding VSceneItems}" 
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                         <ItemsControl.ItemTemplate>
@@ -191,19 +191,29 @@
                                                             ShowButtonClicked="UISceneListboxItem_ShowButtonClicked" 
                                                             HideButtonClicked="UISceneListboxItem_HideButtonClicked"
                                                             DeleteButtonClicked="UISceneListboxItem_DeleteButtonClicked"
-                                                            Click="UISceneListboxItem_Click" />
+                                                            Click="UISceneListboxItem_Click" 
+                                                            MouseRightButtonDown="ScrollViewer_RightClicked"/>
 
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ContextMenu>
                             <ContextMenu x:Name="contextMenu" Cursor="Hand" Margin="0 10 0 10"
                                          Style="{StaticResource ContextMenuStyle}">
-                                <MenuItem Name="menuLook" Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}" 
+                                          Visibility="{Binding bVolumeUnable,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}"
+                                          Click="UISceneListboxItem_HideButtonClicked">
+                                    <MenuItem.Header>
+                                        <TextBlock Text="显示" Height="22"/>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}" 
+                                          Visibility="{Binding bVolumeUnable,Converter={x:Static vt:BoolToVisibility.Instance}}"
+                                          Click="UISceneListboxItem_ShowButtonClicked">
                                     <MenuItem.Header>
                                         <TextBlock Text="隐藏" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Name="menuEdit" Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
                                     <MenuItem.Header>
                                         <TextBlock Text="适配屏幕" Height="22"/>
                                     </MenuItem.Header>
