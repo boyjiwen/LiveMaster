@@ -37,7 +37,9 @@ namespace HuyaFX.UI.Converter
                 case "window_capture":
                     bitmap = new BitmapImage(new Uri("/Resources/plugins/window.png", UriKind.Relative));
                     break;
-
+                case "browser_source":
+                    bitmap = new BitmapImage(new Uri("/Resources/plugins/browser.png", UriKind.Relative));
+                    break;
                 case "text_gdiplus":
                     bitmap = new BitmapImage(new Uri("/Resources/plugins/character.png", UriKind.Relative));
                     break;
