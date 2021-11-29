@@ -241,7 +241,8 @@
                                         <TextBlock Text="置于底层" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}"
+                                          Click="UISceneListboxItem_RenameClicked">
                                     <MenuItem.Header>
                                         <TextBlock Text="重命名" Height="22"/>
                                     </MenuItem.Header>

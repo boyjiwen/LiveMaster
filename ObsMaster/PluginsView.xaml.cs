@@ -180,5 +180,19 @@ namespace ObsMaster
 			}
 			catch { }
 		}
+
+		private void UISceneListboxItem_RenameClicked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				var data = ((Control)sender).DataContext as Model.MSceneItem;
+                if (data != null)
+                {
+                    var name = data.Name;
+                    vm.SceneRename(name);
+                }
+            }
+			catch { }
+		}
 	}
 }
