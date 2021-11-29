@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ObsMaster.Dialog"
+        xmlns:ui="clr-namespace:HuyaFX.UI.Controls.Buttons"
         xmlns:wnd="clr-namespace:HuyaFX.UI.Wnd"
               Style="{DynamicResource SWWindowStyle}"
               WindowStartupLocation="CenterOwner"
@@ -27,8 +28,8 @@
     <Grid Margin="15" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
         
         <!--摄像头显示区域-->
@@ -45,32 +46,32 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Width="94" FontSize="12" Text="设备" VerticalAlignment="Center" TextAlignment="Right"/>
+                    <TextBlock FontSize="12" Text="设备" VerticalAlignment="Center" TextAlignment="Right"/>
                     <ComboBox Grid.Column="1" Height="26" Padding="7" Margin="6,0,0,0"/>
                 </Grid>
-                <StackPanel Orientation="Horizontal" Margin="100 6 0 0">
-                    <Button Style="{StaticResource btnStyle}" Content="激活"/>
+                <StackPanel Orientation="Horizontal" Margin="0 16 0 0">
+                    <!--<Button Style="{StaticResource btnStyle}" Content="激活"/>
                     <Button Style="{StaticResource btnStyle}" Content="配置视频"/>
-                    <Button Style="{StaticResource btnStyle}" Content="配置Crossbar"/>
+                    <Button Style="{StaticResource btnStyle}" Content="配置Crossbar"/>-->
                     <CheckBox Content="当不显示时禁用" VerticalAlignment="Center" Cursor="Hand"/>
                 </StackPanel>
-                <Grid  Margin="0 6 0 0">
+                <!--<Grid  Margin="0 6 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Width="94" FontSize="12" Text="分辨率/帧率 类型" VerticalAlignment="Center" TextAlignment="Right"/>
                     <ComboBox Grid.Column="1" Height="26" Padding="7" Margin="6,0,0,0"/>
-                </Grid>
-                <Grid  Margin="0 6 0 0">
+                </Grid>-->
+                <Grid  Margin="0 16 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Width="94" FontSize="12" Text="分辨率" VerticalAlignment="Center" TextAlignment="Right"/>
+                    <TextBlock FontSize="12" Text="分辨率" VerticalAlignment="Center" TextAlignment="Right"/>
                     <ComboBox Grid.Column="1" Height="26" Padding="7" Margin="6,0,0,0"/>
                 </Grid>
-                <Grid  Margin="0 6 0 0">
+                <!--<Grid  Margin="0 6 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
@@ -119,22 +120,25 @@
                     <TextBlock Width="94" FontSize="12" Text="音频输出模式" VerticalAlignment="Center" TextAlignment="Right"/>
                     <ComboBox Grid.Column="1" Height="26" Padding="7" Margin="6,0,0,0"/>
                 </Grid>
-                <CheckBox Margin="98 6 0 0" Content="使用自定义的音频设备" VerticalAlignment="Center" Cursor="Hand"/>
+                <CheckBox Margin="98 6 0 0" Content="使用自定义的音频设备" VerticalAlignment="Center" Cursor="Hand"/>-->
             </StackPanel>
         </ScrollViewer>
         
         <!--顶部按钮-->
-        <Grid Grid.Row="2" Margin="0,16,0,0">
+        <Grid Grid.Row="2" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Width="100" Height="30" Content="默认"/>
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Width="100" Height="30" Content="确定" 
-                    Click="OnOkClick" />
-                <Button Width="100" Height="30" Margin="20,0,0,0" Content="取消" 
-                    Click="OnCloseClick" />
+            <!--<Button Width="100" Height="30" Content="默认"/>-->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+                <ui:FXTextButton Margin="26 0 0 0" Width="76" Height="35" Content="确定" FontSize="14" Foreground="White"
+                             Background="#722db7" HoverBackground="#822db7" HoverForeground="White" BorderRadius="2"
+                             Click="BtnOk"/>
+                <ui:FXTextButton Margin="42 0 0 0" Width="76" Height="35" Content="取消" FontSize="14" 
+                                 Foreground="#722db7" HoverForeground="#822db7" PushForeground="#822dcc" 
+                                 BorderBrush="#822db7" HoverBorderBrush="#822db7" BorderThickness="1" BorderRadius="2"
+                                 Click="BtnCancel"/>
             </StackPanel>
         </Grid>
     </Grid>

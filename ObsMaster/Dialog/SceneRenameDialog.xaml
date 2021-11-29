@@ -39,11 +39,12 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" FlowDirection="RightToLeft">
-            <ui:FXTextButton Margin="42 0 0 46" Width="76" Height="35" Content="取消" FontSize="14" Foreground="#BB000000"
-                             BorderBrush="#22000000" HoverBorderBrush="#22000000" HoverBackground="#EEEEEE" BorderThickness="1" BorderRadius="2"
+            <ui:FXTextButton Margin="42 0 0 46" Width="76" Height="35" Content="取消" FontSize="14"
+                             Foreground="#722db7" HoverForeground="#822db7" PushForeground="#822dcc" 
+                             BorderBrush="#822db7" HoverBorderBrush="#822db7" BorderThickness="1" BorderRadius="2"
                              Click="BtnCancel"/>
             <ui:FXTextButton Margin="26 0 0 46" Width="76" Height="35" Content="确定" FontSize="14" Foreground="White"
-                             Background="#EE3C3C" HoverBackground="#F84E4E" HoverForeground="White" BorderRadius="2"
+                             Background="#722db7" HoverBackground="#822db7" HoverForeground="White" BorderRadius="2"
                              Click="BtnOk"/>
         </StackPanel>
     </Grid>

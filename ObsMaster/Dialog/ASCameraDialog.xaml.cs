@@ -65,22 +65,18 @@ namespace ObsMaster.Dialog
 			catch { }
 		}
 
-		private void OnOkClick(object sender, RoutedEventArgs e)
+		private void BtnCancel(object sender, RoutedEventArgs e)
 		{
 			try
 			{
-
+				OnCloseButtonClicked();
 			}
 			catch { }
 		}
 
-		private void OnCloseClick(object sender, RoutedEventArgs e)
+		private void BtnOk(object sender, RoutedEventArgs e)
 		{
-			try
-			{
 
-			}
-			catch { }
 		}
 	}
 }
