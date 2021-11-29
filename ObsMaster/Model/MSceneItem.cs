@@ -20,9 +20,14 @@ namespace ObsMaster.Model
 
     public class MSceneItem : UICore.ViewModelBase
     {
-        public string Name { get; set; }
+        private string _name = "";
+        public string Name
+		{
+			get { return _name; }
+            set { Set("Name", ref _name, value); }
+        }
 
-        public string Id { get; set; }
+		public string Id { get; set; }
 
         private bool _visible = true;
         public bool Visible

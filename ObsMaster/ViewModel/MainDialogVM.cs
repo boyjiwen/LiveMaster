@@ -242,5 +242,34 @@ namespace ObsMaster.ViewModel
             //  ObsCore.
         }
 
+		public void SceneRename(string name)
+        {
+			try
+			{
+				var wnd = new Dialog.SceneRenameDialog();
+				wnd.DataContext = this;
+				wnd.Owner = MainWnd;
+                wnd.setSceneName(name);
+				wnd.ShowDialog();
+                if (wnd.iResult == 0)
+                {
+                    var text = wnd.SceneNameTextBox.Text;
+					for (int i = 0; i < VSceneItems.Count; i++)
+					{
+						if (VSceneItems[i].Selected)
+						{
+                            VSceneItems[i].Name = text;
+                            //保证重启程序后场景名真正改变
+                            //TODO
+                            //ObsCore
+                            return;
+						}
+					}
+				}
+
+			}
+			catch { }
+		}
+
     }
 }

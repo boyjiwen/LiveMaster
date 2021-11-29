@@ -210,6 +210,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Page Update="Dialog\SceneRenameDialog.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
 	  <Page Update="Dialog\ASCameraDialog.xaml">
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	  </Page>

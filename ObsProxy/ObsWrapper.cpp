@@ -105,6 +105,14 @@ void ObsWrapper::ChangeScene(int idx)
     }   
 }
 
+void ObsWrapper::FitToScreen()
+{
+    if (m_core)
+    {
+        m_core->FitToScreen();
+    }
+}
+
 void ObsWrapper::SetSceneItemVisibile(int idx, bool visible)
 {
     ObsSceneItemList& itemList = m_core->sceneItemList();
@@ -133,6 +141,18 @@ void ObsWrapper::MoveDown(int idx)
 {
     ObsSceneItemList& itemList = m_core->sceneItemList();
     itemList.MoveDown(idx);
+}
+
+void ObsWrapper::MoveToTop(int idx)
+{
+	ObsSceneItemList& itemList = m_core->sceneItemList();
+	itemList.MoveToTop(idx);
+}
+
+void ObsWrapper::MoveToBottom(int idx)
+{
+	ObsSceneItemList& itemList = m_core->sceneItemList();
+	itemList.MoveToBottom(idx);
 }
 
 void ObsWrapper::StartStream()

@@ -91,8 +91,20 @@ namespace ObsMaster.ViewModel
             }
         }
 
+		//弹幕助手
+		private DelegateCommand _rollingCommentsCommandCmd;
+		public DelegateCommand RollingCommentsCommandCmd
+        {
+			get
+			{
+				return _rollingCommentsCommandCmd ?? (_rollingCommentsCommandCmd = new DelegateCommand((obj) =>
+				{
+					
+
+				}));
+			}
+		}
 
 
-
-    }
+	}
 }
