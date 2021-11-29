@@ -25,6 +25,7 @@ public:
 	void CreateScene(String^ name);
 	void GetScenes(List<SceneData^>^ li);
 	void ChangeScene(int idx);
+	void FitToScreen();
 
 	//	Scene item
 	void SetSceneItemVisibile(int idx, bool visible);
@@ -32,6 +33,8 @@ public:
 	void SelectSceneItem(int idx);
 	void MoveUp(int idx);
 	void MoveDown(int idx);
+	void MoveToTop(int idx);
+	void MoveToBottom(int idx);
 	
 
 	//	推流相关

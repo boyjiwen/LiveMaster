@@ -179,9 +179,9 @@
                 </Popup>
 
 
-                <ScrollViewer x:Name="scrollViewer" Grid.Row="1" MinHeight="84" MaxHeight="168"
+                <ScrollViewer Grid.Row="1" MinHeight="84" MaxHeight="168"
                               HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-                    <ItemsControl Grid.Row="1" Width="198" Padding="0"
+                    <ItemsControl x:Name="itemsControl" Grid.Row="1" Width="198" Padding="0"
                                   ItemsSource="{Binding VSceneItems}" 
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                         <ItemsControl.ItemTemplate>
@@ -199,43 +199,46 @@
                         <ItemsControl.ContextMenu>
                             <ContextMenu x:Name="contextMenu" Cursor="Hand" Margin="0 10 0 10"
                                          Style="{StaticResource ContextMenuStyle}">
-                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}" 
-                                          Visibility="{Binding bVolumeUnable,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}"
+                                <MenuItem x:Name="MenuItemShow" Foreground="White" Style="{StaticResource MenuItemStyle}" 
                                           Click="UISceneListboxItem_HideButtonClicked">
                                     <MenuItem.Header>
                                         <TextBlock Text="显示" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}" 
-                                          Visibility="{Binding bVolumeUnable,Converter={x:Static vt:BoolToVisibility.Instance}}"
+                                <MenuItem x:Name="MenuItemHide" Foreground="White" Style="{StaticResource MenuItemStyle}" 
                                           Click="UISceneListboxItem_ShowButtonClicked">
                                     <MenuItem.Header>
                                         <TextBlock Text="隐藏" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}"
+                                          Click="UISceneListboxItem_FitToScreenClicked">
                                     <MenuItem.Header>
                                         <TextBlock Text="适配屏幕" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}"
+                                          Click="UISceneListboxItem_ItemMoveTopClicked">
                                     <MenuItem.Header>
-                                        <TextBlock Text="至于顶层" Height="22"/>
+                                        <TextBlock Text="置于顶层" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}" 
+                                          Click="UISceneListboxItem_ItemUpClicked">
                                     <MenuItem.Header>
                                         <TextBlock Text="上移一层" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}"
+                                          Click="UISceneListboxItem_ItemDownClicked">
                                     <MenuItem.Header>
                                         <TextBlock Text="下移一层" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}"
+                                          Click="UISceneListboxItem_ItemMoveBottomTopClicked">
                                     <MenuItem.Header>
-                                        <TextBlock Text="至于底层" Height="22"/>
+                                        <TextBlock Text="置于底层" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
                                 <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
@@ -243,7 +246,8 @@
                                         <TextBlock Text="重命名" Height="22"/>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}"
+                                          Click="UISceneListboxItem_DeleteButtonClicked">
                                     <MenuItem.Header>
                                         <TextBlock Text="删除" Height="22"/>
                                     </MenuItem.Header>
