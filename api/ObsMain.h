@@ -122,29 +122,51 @@ public:
 
 	struct TextData {
 		std::string name;
-		std::string text;
-		std::string font;
-		uint32_t color = 0;
-		int size = 36;
-		bool bold = false;
-		bool italic = false;
+		std::string text;		// 文本内容
+		std::string font;		// 字体
+		uint32_t color = 0;		// 字体颜色
+		int size = 36;			// 字体大小
+		bool bold = false;		// 加粗
+		bool italic = false;	// 斜体
+		bool underline = false;	// 下划线
+		bool strikeout = false;	// 删除线
+		int opacity = 0;		// 透明度
 
-		bool extents = false;//自定义文本区
-		int extents_cx = 0;//宽度
-		bool extents_wrap = false;//自动换行
-		std::string align = "center"; //left,center,right
-		std::string valign = "center";//top,center,bottom
+		// 自定义文本区
+		bool extents = false;		// 开启自定义文本区
+		int extents_cx = 0;			// 宽度
+		int extents_cy = 0;			// 高度
+		bool extents_wrap = false;	// 自动换行
 
-		//描边
-		int outline_size = 0;
-		uint32_t outline_color = 0;
+		// 对齐
+		std::string align = "center";	// left,center,right
+		std::string valign = "center";	// top,center,bottom
 
-		//滚动速度25,50,100
+		// 背景
+		uint32_t bk_color = 0;	// 背景颜色
+		int bk_opacity = 100;	// 背景透明度
+
+		// 描边
+		bool outline = false;		// 开启描边
+		int outline_size = 0;		// 描边边框宽度
+		uint32_t outline_color = 0;	// 描边颜色
+		int outline_opacity = 100;	// 描边透明度
+
+		// 滚动速度25,50,100
 		int scroll_speed = 0;
 
-		//透明度
-		int opacity = 100;
-		int outline_opacity = 100;
+		// 垂直方向排列
+		bool vertical = false;
+
+		// 渐变
+		bool gradient = false;			// 开启渐变
+		uint32_t gradient_color = 0;	// 渐变颜色
+		int gradient_opacity = 100;		// 渐变透明度
+		int gradient_direction = 90;	// 渐变方向
+
+		// 聊天模式
+		bool chatlog = true;	//是否开启聊天模式
+		int chatlog_lines = 6;	//聊天模式行数
 	};
 	bool AddText(const TextData* data);
 

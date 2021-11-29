@@ -56,7 +56,6 @@ public:
 	//	添加文字源
 	void AddTextSource(CLI_TextData^ data);
 
-
 	//	Config相关
 	String^ GetConfigString(String^ section, String^ name);
 	bool GetConfigBool(String^ section, String^ name);
@@ -87,6 +86,6 @@ public:
 
 private:
 	ObsCore* m_core;
-
+	std::string ConvertString(String^ str);
 };
 

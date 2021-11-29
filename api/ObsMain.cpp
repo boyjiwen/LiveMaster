@@ -1244,13 +1244,19 @@ bool ObsMain::AddText(const TextData* data)
 
         int flags = 0;
 
-#define OBS_FONT_BOLD      (1<<0)
-#define OBS_FONT_ITALIC    (1<<1)
+#define OBS_FONT_BOLD (1 << 0)
+#define OBS_FONT_ITALIC (1 << 1)
+#define OBS_FONT_UNDERLINE (1 << 2)
+#define OBS_FONT_STRIKEOUT (1 << 3)
 
         if (data->bold)
             flags |= OBS_FONT_BOLD;
         if (data->italic)
             flags |= OBS_FONT_ITALIC;
+        if (data->underline)
+            flags |= OBS_FONT_UNDERLINE;
+        if (data->strikeout)
+            flags |= OBS_FONT_STRIKEOUT;
 
         obs_data_set_int(font, "flags", flags);
         obs_data_set_int(font, "size", data->size);
@@ -1261,14 +1267,16 @@ bool ObsMain::AddText(const TextData* data)
     obs_data_set_string(settings, "text", data->text.c_str());
     obs_data_set_int(settings, "color", data->color);
     obs_data_set_int(settings, "opacity", data->opacity);
-    obs_data_set_int(settings, "outline_opacity", data->outline_opacity);
-
+    obs_data_set_bool(settings, "vertical", data->vertical);
+    obs_data_set_int(settings, "bk_color", data->bk_color);
+    obs_data_set_int(settings, "bk_opacity", data->bk_opacity);
 
     if (data->outline_size)
     {
         obs_data_set_bool(settings, "outline", true);
         obs_data_set_int(settings, "outline_color", data->outline_color);
         obs_data_set_int(settings, "outline_size", data->outline_size);
+        obs_data_set_int(settings, "outline_opacity", data->outline_opacity);
     }
     else
         obs_data_set_bool(settings, "outline", false);
@@ -1277,6 +1285,7 @@ bool ObsMain::AddText(const TextData* data)
     {
         obs_data_set_bool(settings, "extents", true);
         obs_data_set_int(settings, "extents_cx", data->extents_cx);
+        obs_data_set_int(settings, "extents_cy", data->extents_cy);
         obs_data_set_bool(settings, "extents_wrap", data->extents_wrap);
 
         obs_data_set_string(settings, "align", data->align.c_str());
@@ -1288,6 +1297,24 @@ bool ObsMain::AddText(const TextData* data)
         obs_data_set_string(settings, "align", "center");
         obs_data_set_string(settings, "valign", "center");
     }
+
+    if (data->chatlog)
+    {
+        obs_data_set_bool(settings, "chatlog", true);
+        obs_data_set_int(settings, "chatlog_lines", data->chatlog_lines);
+    }
+    else
+        obs_data_set_bool(settings, "chatlog", false);
+
+    if (data->gradient)
+    {
+        obs_data_set_bool(settings, "gradient", true);
+        obs_data_set_int(settings, "gradient_color", data->gradient_color);
+        obs_data_set_int(settings, "gradient_opacity", data->gradient_opacity);
+        obs_data_set_bool(settings, "gradient_direction", data->gradient_direction);
+    }
+    else
+        obs_data_set_bool(settings, "gradient", false);
 
     source = obs_source_create(type,
         GenerateSourceName(name).c_str(),

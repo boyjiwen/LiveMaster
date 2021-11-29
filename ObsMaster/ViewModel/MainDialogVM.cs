@@ -188,16 +188,29 @@ namespace ObsMaster.ViewModel
                                 Size = wnd.iFontSize,
                                 Bold = wnd.bBold,
                                 Italic = wnd.bItalic,
+                                Underline = wnd.bUnderline,
+                                Strikeout = wnd.bStrikeout,
+                                Opacity = Convert.ToInt32(wnd.OpacityTextBox.Text),
                                 Extents = wnd.CustomGridSwitch.IsChecked == true,
                                 ExtentsCx = wnd.CustomGridSwitch.IsChecked == true ? Convert.ToInt32(wnd.CustomGridWidth.Text) : 0,
+                                ExtentsCy = wnd.CustomGridSwitch.IsChecked == true ? Convert.ToInt32(wnd.CustomGridHeight.Text) : 0,
                                 ExtentsWrap = wnd.CustomGridAutoWrapCheckBox.IsChecked == true,
                                 Align = (wnd.AlignModeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem).Tag.ToString(),
                                 Valign = (wnd.ValignModeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem).Tag.ToString(),
+                                BkColor = ColorToUInt(wnd.BackgroundColor.Color),
+                                BkOpacity = Convert.ToInt32(wnd.BackgroundOpacityTextBox.Text),
+                                Outline = wnd.OutlineSwitch.IsChecked == true,
                                 OutlineSize = wnd.OutlineSwitch.IsChecked == true ? Convert.ToInt32(wnd.OutlineSizeTextBox.Text) : 0,
                                 OutlineColor = ColorToUInt(wnd.OutlineColor.Color),
+                                OutlineOpacity = Convert.ToInt32(wnd.OutlineOpacityTextBox.Text),
                                 ScrollSpeed = Convert.ToInt32((wnd.ScrollSpeedComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem).Tag),
-                                Opacity = Convert.ToInt32(wnd.OpacityTextBox.Text),
-                                OutlineOpacity = Convert.ToInt32(wnd.OutlineOpacityTextBox.Text)
+                                Vertical = wnd.VerticalCheckBox.IsChecked == true,
+                                Gradient = wnd.LinearGradientSwitch.IsChecked == true,
+                                GradientColor = ColorToUInt(wnd.LinearGradientForegroundColor.Color),
+                                GradientOpacity = Convert.ToInt32(wnd.LinearGradientDirectionTextBox.Text),
+                                GradientDirection = Convert.ToInt32(wnd.LinearGradientDirectionTextBox.Text),
+                                Chatlog = wnd.ChatModeSwitch.IsChecked == true,
+                                ChatlogLines = Convert.ToInt32(wnd.ChatModeLinesTextBox.Text)
                             });
                         }
                     }

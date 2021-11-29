@@ -173,40 +173,40 @@ namespace ObsMaster.Dialog
         }
 
         // 选择渐变颜色
-        //private void OnClickSelectLinearGradientForeground(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        ColorDialog pickColor = new ColorDialog();
-        //        if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        //        {
-        //            var background = ConvertColor(pickColor);
-        //            LinearGradientForegroundBorder.Background = background;
-        //            LinearGradientForegroundTextBlock.Text = background.ToString();
-        //            LinearGradientForegroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
-        //            LinearGradientForegroundColor = background;
-        //        }
-        //    }
-        //    catch { }
-        //}
+        private void OnClickSelectLinearGradientForeground(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ColorDialog pickColor = new ColorDialog();
+                if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var background = ConvertColor(pickColor);
+                    LinearGradientForegroundBorder.Background = background;
+                    LinearGradientForegroundTextBlock.Text = background.ToString();
+                    LinearGradientForegroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
+                    LinearGradientForegroundColor = background;
+                }
+            }
+            catch { }
+        }
 
         // 选择背景色
-        //private void OnClickSelectBackground(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        ColorDialog pickColor = new ColorDialog();
-        //        if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        //        {
-        //            var background = ConvertColor(pickColor);
-        //            BackgroundBorder.Background = background;
-        //            BackgroundTextBlock.Text = background.ToString();
-        //            BackgroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
-        //            BackgroundColor = background;
-        //        }
-        //    }
-        //    catch { }
-        //}
+        private void OnClickSelectBackground(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ColorDialog pickColor = new ColorDialog();
+                if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var background = ConvertColor(pickColor);
+                    BackgroundBorder.Background = background;
+                    BackgroundTextBlock.Text = background.ToString();
+                    BackgroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
+                    BackgroundColor = background;
+                }
+            }
+            catch { }
+        }
 
         // 选择轮廓颜色
         private void OnClickSelectOutlineColor(object sender, RoutedEventArgs e)

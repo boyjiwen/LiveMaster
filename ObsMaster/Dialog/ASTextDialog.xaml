@@ -83,16 +83,16 @@
                         <ComboBoxItem Content="小写"/>
                     </ComboBox>
                 </Grid>
-                <!--垂直移动-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
+                <!--垂直排列-->
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="垂直移动" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
-                    <CheckBox Grid.Column="1" VerticalAlignment="Center"/>
-                </Grid>-->
+                    <TextBlock Grid.Column="0" Text="垂直排列" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
+                    <CheckBox x:Name="VerticalCheckBox" Grid.Column="1" VerticalAlignment="Center"/>
+                </Grid>
                 <!--色彩-->
                 <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
                     <Grid.ColumnDefinitions>
@@ -125,7 +125,7 @@
                     </Border>
                 </Grid>
                 <!--渐变-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
@@ -133,9 +133,9 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="渐变" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
                     <CheckBox Grid.Column="1" x:Name="LinearGradientSwitch" IsChecked="False" VerticalAlignment="Center"/>
-                </Grid>-->
+                </Grid>
                 <!--渐变色-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=LinearGradientSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=LinearGradientSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
@@ -150,9 +150,9 @@
                                        BorderBrush="#669546CE" HoverBorderBrush="#889546CE" PushBorderBrush="#669546CE"
                                        Foreground="#E69546CE" HoverForeground="#E69546CE" PushForeground="#E69546CE"
                                        BorderThickness="1" BorderRadius="6" Click="OnClickSelectLinearGradientForeground"/>
-                </Grid>-->
+                </Grid>
                 <!--渐变不透明度-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=LinearGradientSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=LinearGradientSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
@@ -160,13 +160,13 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="渐变不透明度" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
-                        <TextBox Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
+                        <TextBox x:Name="LinearGradientOpacityTextBox" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                     </Border>
-                </Grid>-->
+                </Grid>
                 <!--渐变方向-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=LinearGradientSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=LinearGradientSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
@@ -174,13 +174,13 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="渐变方向" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
-                        <TextBox Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
+                        <TextBox x:Name="LinearGradientDirectionTextBox" Text="90" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                     </Border>
-                </Grid>-->
+                </Grid>
                 <!--背景颜色-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
@@ -195,9 +195,9 @@
                                        BorderBrush="#669546CE" HoverBorderBrush="#889546CE" PushBorderBrush="#669546CE"
                                        Foreground="#E69546CE" HoverForeground="#E69546CE" PushForeground="#E69546CE"
                                        BorderThickness="1" BorderRadius="6" Click="OnClickSelectBackground"/>
-                </Grid>-->
+                </Grid>
                 <!--背景不透明度-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
@@ -205,11 +205,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="背景不透明度" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
-                        <TextBox Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
+                        <TextBox x:Name="BackgroundOpacityTextBox" Text="0" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                     </Border>
-                </Grid>-->
+                </Grid>
                 <!--水平对齐-->
                 <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
                     <Grid.ColumnDefinitions>
@@ -294,7 +294,7 @@
                     </Border>
                 </Grid>
                 <!--聊天模式-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
@@ -302,9 +302,9 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="聊天模式" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
                     <CheckBox Grid.Column="1" x:Name="ChatModeSwitch" IsChecked="False" VerticalAlignment="Center"/>
-                </Grid>-->
+                </Grid>
                 <!--聊天行限制-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=ChatModeSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=ChatModeSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
@@ -312,11 +312,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="聊天行限制" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
-                        <TextBox Text="6" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
+                        <TextBox x:Name="ChatModeLinesTextBox" Text="6" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                     </Border>
-                </Grid>-->
+                </Grid>
                 <!--使用自定义文本区-->
                 <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
                     <Grid.ColumnDefinitions>
@@ -342,7 +342,7 @@
                     </Border>
                 </Grid>
                 <!--高度-->
-                <!--<Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=CustomGridSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
+                <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=CustomGridSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="108"/>
                         <ColumnDefinition/>
@@ -350,11 +350,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="高度" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
-                        <TextBox Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
+                        <TextBox x:Name="CustomGridHeight" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                     </Border>
-                </Grid>-->
+                </Grid>
                 <!--自动换行-->
                 <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=CustomGridSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
                     <Grid.ColumnDefinitions>
@@ -374,7 +374,8 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="滚动速度" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
                     <ComboBox x:Name="ScrollSpeedComboBox" Grid.Column="1">
-                        <ComboBoxItem Content="25" Tag="25" IsSelected="True"/>
+                        <ComboBoxItem Content="0" Tag="0" IsSelected="True"/>
+                        <ComboBoxItem Content="25" Tag="25"/>
                         <ComboBoxItem Content="50" Tag="50"/>
                         <ComboBoxItem Content="100" Tag="100"/>
                     </ComboBox>

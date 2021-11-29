@@ -268,28 +268,44 @@ void ObsWrapper::AddImageSource(String^ url, int alpha)
 void ObsWrapper::AddTextSource(CLI_TextData^ data)
 {
     ObsMain::TextData* textData = new ObsMain::TextData();
-    pin_ptr<const wchar_t> name = PtrToStringChars(data->Name);
-    textData->name = ToUtf8(name).c_str();
-    pin_ptr<const wchar_t> text = PtrToStringChars(data->Text);
-    textData->text = ToUtf8(text).c_str();
-    pin_ptr<const wchar_t> font = PtrToStringChars(data->Font);
-    textData->font = ToUtf8(font).c_str();
+    textData->name = ConvertString(data->Name);
+    textData->text = ConvertString(data->Text);
+    textData->font = ConvertString(data->Font);
     textData->color = data->Color;
     textData->size = data->Size;
     textData->bold = data->Bold;
     textData->italic = data->Italic;
+    textData->underline = data->Underline;
+    textData->strikeout = data->Strikeout;
+    textData->opacity = data->Opacity;
+
     textData->extents = data->Extents;
     textData->extents_cx = data->ExtentsCx;
+    textData->extents_cy = data->ExtentsCy;
     textData->extents_wrap = data->ExtentsWrap;
-    pin_ptr<const wchar_t> align = PtrToStringChars(data->Align);
-    textData->align = ToUtf8(align).c_str();
-    pin_ptr<const wchar_t> valign = PtrToStringChars(data->Valign);
-    textData->valign = ToUtf8(valign).c_str();
+
+    textData->align = ConvertString(data->Align);
+    textData->valign = ConvertString(data->Valign);
+
+    textData->bk_color = data->BkColor;
+    textData->bk_opacity = data->BkOpacity;
+
+    textData->outline = data->Outline;
     textData->outline_size = data->OutlineSize;
     textData->outline_color = data->OutlineColor;
-    textData->scroll_speed = data->ScrollSpeed;
-    textData->opacity = data->Opacity;
     textData->outline_opacity = data->OutlineOpacity;
+
+    textData->scroll_speed = data->ScrollSpeed;
+
+    textData->vertical = data->Vertical;
+
+    textData->gradient = data->Gradient;
+    textData->gradient_color = data->GradientColor;
+    textData->gradient_opacity = data->GradientOpacity;
+    textData->gradient_direction = data->GradientDirection;
+
+    textData->chatlog = data->Chatlog;
+    textData->chatlog_lines = data->ChatlogLines;
 
     ObsMain::Instance()->AddText(textData);
 }
@@ -421,4 +437,11 @@ void ObsWrapper::CallAddScene(void* data)
 {
     std::wstring* name = (std::wstring*)(data);
     
+}
+
+std::string ObsWrapper::ConvertString(String^ str)
+{
+    pin_ptr<const wchar_t> temp = PtrToStringChars(str);
+    std::string convert = ToUtf8(temp).c_str();
+    return convert;
 }
