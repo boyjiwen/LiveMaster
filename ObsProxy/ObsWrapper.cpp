@@ -155,6 +155,28 @@ void ObsWrapper::MoveToBottom(int idx)
 	itemList.MoveToBottom(idx);
 }
 
+int ObsWrapper::GetVolume(int channel)
+{
+    int volume = 50;
+    if (m_core)
+        volume = m_core->GetVolume(channel);
+    return volume;
+}
+
+void ObsWrapper::SetMuted(int channel, bool mute)
+{
+	if (m_core)
+		m_core->SetMuted(channel, mute);
+}
+
+bool  ObsWrapper::GetMuted(int channel)
+{
+    bool muted = true;
+	if (m_core)
+        muted = m_core->GetMuted(channel);
+	return muted;
+}
+
 void ObsWrapper::StartStream()
 {
     if (!m_core->StreamActive())

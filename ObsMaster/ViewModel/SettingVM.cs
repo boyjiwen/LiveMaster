@@ -10,6 +10,15 @@ namespace ObsMaster.ViewModel
 {
 	public partial class MainVM : ViewModelBase
 	{
+		public enum MicVolume
+		{
+			OUTPUT_AUDIO_CHANNEL1 = 1,
+			OUTPUT_AUDIO_CHANNEL2 = 2,
+
+			INPUT_AUDIO_CHANNEL1 = 3,
+			INPUT_AUDIO_CHANNEL2 = 4,
+			INPUT_AUDIO_CHANNEL3 = 5,
+		}
 		public int iOldVolume { get; set; } = 50;
 		//麦克风音量
 		private int _iMicVolume = 50;
@@ -20,11 +29,11 @@ namespace ObsMaster.ViewModel
 		}
 
 		//麦克风是否被禁用状态
-		private bool _bMicUnable = false;
-		public bool bMicUnable
+		private bool _bMicState = false;
+		public bool bMicState
 		{
-			get { return _bMicUnable; }
-			set { Set("bMicUnable", ref _bMicUnable, value); }
+			get { return _bMicState; }
+			set { Set("bMicState", ref _bMicState, value); }
 		}
 
 		//音量
@@ -37,11 +46,30 @@ namespace ObsMaster.ViewModel
 		}
 
 		//音量是否被禁用状态
-		private bool _bVolumeUnable = false;
-		public bool bVolumeUnable
+		private bool _bSoundState = false;
+		public bool bSoundState
 		{
-			get { return _bVolumeUnable; }
-			set { Set("bVolumeUnable", ref _bVolumeUnable, value); }
+			get { return _bSoundState; }
+			set { Set("bSoundState", ref _bSoundState, value); }
+		}
+
+		public void InitMicVolume()
+		{
+			var volume = ObsCore.GetVolume((int)MicVolume.OUTPUT_AUDIO_CHANNEL1);
+			iVolume = volume;
+		}
+
+		public void UpdateAudioState()
+		{
+			try
+			{
+				var _BSoundState = ObsCore.GetMuted((int)MicVolume.OUTPUT_AUDIO_CHANNEL1);
+				bSoundState = _BSoundState;
+
+				var _BMicState = ObsCore.GetMuted((int)MicVolume.INPUT_AUDIO_CHANNEL1);
+				bMicState = _BMicState;
+			}
+			catch { }
 		}
 
 		//房间号

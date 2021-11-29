@@ -25,6 +25,7 @@ namespace ObsMaster
         {
             InitializeComponent();
 			vm = ViewModel.MainVM.Instance;
+			vm.UpdateAudioState();
 		}
 
 		private async void volumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -86,9 +87,8 @@ namespace ObsMaster
 		{
 			try
 			{
-				if (vm.iMicVolume > 0)
-					vm.iOldMicVolume = vm.iMicVolume;
-				vm.iMicVolume = 0;
+				vm.bMicState = false;
+				vm.ObsCore.SetMuted(3, false);
 			}
 			catch { }
 		}
@@ -97,10 +97,8 @@ namespace ObsMaster
 		{
 			try
 			{
-				if (vm.iOldMicVolume > 0)
-					vm.iMicVolume = vm.iOldMicVolume;
-				else
-					vm.iMicVolume = 50;
+				vm.bMicState = true;
+				vm.ObsCore.SetMuted(3, true);
 			}
 			catch { }
 		}
@@ -109,9 +107,8 @@ namespace ObsMaster
 		{
 			try
 			{
-				if (vm.iVolume > 0)
-					vm.iOldVolume = vm.iVolume;
-				vm.iVolume = 0;
+				vm.bSoundState = false;
+				vm.ObsCore.SetMuted(1, false);
 			}
 			catch { }
 		}
@@ -120,10 +117,8 @@ namespace ObsMaster
 		{
 			try
 			{
-				if (vm.iOldVolume > 0)
-					vm.iVolume = vm.iOldVolume;
-				else
-					vm.iVolume = 50;
+				vm.bSoundState = true;
+				vm.ObsCore.SetMuted(1, true);
 			}
 			catch { }
 		}

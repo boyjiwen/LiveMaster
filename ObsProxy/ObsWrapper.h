@@ -35,7 +35,11 @@ public:
 	void MoveDown(int idx);
 	void MoveToTop(int idx);
 	void MoveToBottom(int idx);
-	
+
+	//麦克风声音模块
+	int GetVolume(int channel);
+	void SetMuted(int channel, bool mute);
+	bool GetMuted(int channel);
 
 	//	推流相关
 	void StartStream();

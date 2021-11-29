@@ -23,8 +23,6 @@ namespace ObsMaster.ViewModel
         {
             ObsCore.OnEventReloadSceneItemList += ObsCore_OnEventReloadSceneItemList;
             ObsCore.OnEventCurrentScene += ObsCore_OnEventCurrentScene;
-
-
         }
 
         private string _sceneName;

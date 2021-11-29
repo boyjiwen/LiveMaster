@@ -35,61 +35,59 @@
         <StackPanel Grid.Column="1" Margin="15,0" Orientation="Horizontal">
             <Grid Width="1" Margin="12,12" Background="#11000000"/>
 
-            <Grid  Visibility="{Binding bMicUnable,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}">
+            <!--<Grid  Visibility="{Binding bMicUnable,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}">-->
                 <ui:FXIconButton Width="24" Height="24" Margin="20,0,1,0" ToolTip="麦克风"
                              Icon="/Resources/mic.png"
                              HoverIcon="/Resources/mic.png"
                              PushIcon="/Resources/mic.png"
-                             Visibility="{Binding iMicVolume,Converter={x:Static vt:IntToVisiblility.Instance}}"
+                             Visibility="{Binding bMicState,Converter={x:Static vt:BoolToVisibility.Instance}}"
                              Click="MicMuteClicked"/>
 
                 <ui:FXIconButton Width="24" Height="24" Margin="20,0,1,0" ToolTip="麦克风"
                              Icon="/Resources/mic_mute.png"
                              HoverIcon="/Resources/mic_mute.png"
                              PushIcon="/Resources/mic_mute.png"
-                             Visibility="{Binding iMicVolume,Converter={x:Static vt:IntToVisiblility.Instance}, ConverterParameter=-}"
+                             Visibility="{Binding bMicState,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}"
                              Click="MicClicked"/>
-            </Grid>
+            <!--</Grid>-->
             
-            <ui:FXIconButton Width="24" Height="24" Margin="20,0,1,0" ToolTip="麦克风"
+            <!--<ui:FXIconButton Width="24" Height="24" Margin="20,0,1,0" ToolTip="麦克风"
                              Icon="/Resources/mic_unable.png"
                              HoverIcon="/Resources/mic_unable.png"
                              PushIcon="/Resources/mic_unable.png"
                              Visibility="{Binding bMicUnable,Converter={x:Static vt:BoolToVisibility.Instance}}"
-                             Click="MicClicked"/>
+                             Click="MicClicked"/>-->
 
             <Slider Grid.Column="1" x:Name="micSlider" VerticalAlignment="Center" Height="20" Width="80" Minimum="0" Maximum="100"
                     TickFrequency="1" Cursor="Hand" IsMoveToPointEnabled="True" Style="{StaticResource Horizontal_Slider}" 
-                    ValueChanged="micSlider_ValueChanged" Value="{Binding iMicVolume}"
-                    Visibility="{Binding bMicUnable,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}"/>
+                    ValueChanged="micSlider_ValueChanged" Value="{Binding iMicVolume}"/>
 
-            <Grid Visibility="{Binding bVolumeUnable,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}">
+            <!--<Grid Visibility="{Binding bVolumeUnable,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}">-->
                 <ui:FXIconButton Width="24" Height="24" Margin="20,0,4,0" ToolTip="音量"
                              Icon="/Resources/loudspeakr.png"
                              HoverIcon="/Resources/loudspeakr.png"
                              PushIcon="/Resources/loudspeakr.png"
-                              Visibility="{Binding iVolume,Converter={x:Static vt:IntToVisiblility.Instance}}"
+                             Visibility="{Binding bSoundState,Converter={x:Static vt:BoolToVisibility.Instance}}"
                              Click="VolumeMuteClicked"/>
 
                 <ui:FXIconButton Width="24" Height="24" Margin="20,0,4,0" ToolTip="音量"
                              Icon="/Resources/loudspeakr_mute.png"
                              HoverIcon="/Resources/loudspeakr_mute.png"
                              PushIcon="/Resources/loudspeakr_mute.png"
-                             Visibility="{Binding iVolume,Converter={x:Static vt:IntToVisiblility.Instance}, ConverterParameter=-}"
+                             Visibility="{Binding bSoundState,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}"
                              Click="VolumeClicked"/>
-            </Grid>
+            <!--</Grid>-->
             
-            <ui:FXIconButton Width="24" Height="24" Margin="20,0,4,0" ToolTip="音量"
+            <!--<ui:FXIconButton Width="24" Height="24" Margin="20,0,4,0" ToolTip="音量"
                              Icon="/Resources/loudspeakr_unable.png"
                              HoverIcon="/Resources/loudspeakr_unable.png"
                              PushIcon="/Resources/loudspeakr_unable.png"
                              Visibility="{Binding bVolumeUnable,Converter={x:Static vt:BoolToVisibility.Instance}}"
-                             Click="VolumeClicked"/>
+                             Click="VolumeClicked"/>-->
 
             <Slider Grid.Column="1" x:Name="volumeSlider" VerticalAlignment="Center" Height="20" Width="80" Minimum="0" Maximum="100" 
                     TickFrequency="1" Cursor="Hand" IsMoveToPointEnabled="True" Style="{StaticResource Horizontal_Slider}" 
-                    ValueChanged="volumeSlider_ValueChanged" Value="{Binding iVolume}"
-                    Visibility="{Binding bVolumeUnable,Converter={x:Static vt:BoolToVisibility.Instance}, ConverterParameter=-}"/>
+                    ValueChanged="volumeSlider_ValueChanged" Value="{Binding iVolume}"/>
 
             <ui:FXIconButton Width="24" Height="24" Margin="30,0,0,0" ToolTip="设置"
                              Icon="/Resources/appsetting.png"
