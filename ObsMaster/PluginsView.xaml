@@ -10,51 +10,56 @@
              mc:Ignorable="d" 
              Width="200"
              d:DesignHeight="450" d:DesignWidth="220">
-    
+
     <UserControl.Resources>
-        <!--FXLIconButton-->
-        <Style TargetType="{x:Type ui:FXLIconButton}" x:Key="fxliconStyle">
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="Height" Value="48"/>
-            <Setter Property="IconWidth" Value="30"/>
-            <Setter Property="IconHeight" Value="30"/>
-            <Setter Property="IconMargin" Value="15,0,15,0"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#11000000"/>
-            <Setter Property="Background" Value="#ededf3"/>
-            <Setter Property="HoverBackground" Value="White"/>
-            <Setter Property="CheckBackground" Value="#a559e1"/>
-            <Setter Property="CheckForeground" Value="White"/>
-        </Style>
-        <!--FXLIconButton SceneItem -->
-        <Style TargetType="{x:Type ui:FXLIconButton}" x:Key="sceneitSyle">
-            <Setter Property="Width" Value="140"/>
-            <Setter Property="Height" Value="28"/>
-            <Setter Property="HoverBackground" Value="#55555555"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="IconWidth" Value="20"/>
-            <Setter Property="IconHeight" Value="20"/>
-            <Setter Property="IconMargin" Value="12,0,6,0"/>
-            
-        </Style>                
-        <!--FXIconButton-->
-        <Style TargetType="{x:Type ui:FXIconButton}" x:Key="iconbtnStyle">
-            <Setter Property="Width" Value="24"/>
-            <Setter Property="Height" Value="24"/>         
-        </Style>
-        <!--FXTopIconButton-->
-        <Style TargetType="{x:Type ui:FXTopIconButton}" x:Key="topiconStyle">
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Width" Value="76"/>
-            <Setter Property="Height" Value="76"/>
-            <Setter Property="BorderRadius" Value="12"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="HoverBackground" Value="#f1f1f7"/>
-            <Setter Property="PushBackground" Value="#f1f1f7"/>
-            <Setter Property="IconWidth" Value="30"/>
-            <Setter Property="IconHeight" Value="30"/>
-            <Setter Property="Margin" Value="7,0"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ObsMaster;Component/UI/ContextMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--FXLIconButton-->
+            <Style TargetType="{x:Type ui:FXLIconButton}" x:Key="fxliconStyle">
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Height" Value="48"/>
+                <Setter Property="IconWidth" Value="30"/>
+                <Setter Property="IconHeight" Value="30"/>
+                <Setter Property="IconMargin" Value="15,0,15,0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#11000000"/>
+                <Setter Property="Background" Value="#ededf3"/>
+                <Setter Property="HoverBackground" Value="White"/>
+                <Setter Property="CheckBackground" Value="#a559e1"/>
+                <Setter Property="CheckForeground" Value="White"/>
+            </Style>
+            <!--FXLIconButton SceneItem -->
+            <Style TargetType="{x:Type ui:FXLIconButton}" x:Key="sceneitSyle">
+                <Setter Property="Width" Value="140"/>
+                <Setter Property="Height" Value="28"/>
+                <Setter Property="HoverBackground" Value="#55555555"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="IconWidth" Value="20"/>
+                <Setter Property="IconHeight" Value="20"/>
+                <Setter Property="IconMargin" Value="12,0,6,0"/>
+
+            </Style>
+            <!--FXIconButton-->
+            <Style TargetType="{x:Type ui:FXIconButton}" x:Key="iconbtnStyle">
+                <Setter Property="Width" Value="24"/>
+                <Setter Property="Height" Value="24"/>
+            </Style>
+            <!--FXTopIconButton-->
+            <Style TargetType="{x:Type ui:FXTopIconButton}" x:Key="topiconStyle">
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="Width" Value="76"/>
+                <Setter Property="Height" Value="76"/>
+                <Setter Property="BorderRadius" Value="12"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="HoverBackground" Value="#f1f1f7"/>
+                <Setter Property="PushBackground" Value="#f1f1f7"/>
+                <Setter Property="IconWidth" Value="30"/>
+                <Setter Property="IconHeight" Value="30"/>
+                <Setter Property="Margin" Value="7,0"/>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     
     <Border BorderThickness="1,0,1,0" BorderBrush="#11000000" >
@@ -174,9 +179,9 @@
                 </Popup>
 
 
-                <ScrollViewer Grid.Row="1" MinHeight="84" MaxHeight="168"
-                              HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" >
-                    <ItemsControl Grid.Row="1" Width="198" Padding="0"
+                <ScrollViewer x:Name="scrollViewer" Grid.Row="1" MinHeight="84" MaxHeight="168"
+                              HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl Grid.Row="1" Width="198" Padding="0" MouseRightButtonDown="ScrollViewer_RightClicked"
                                   ItemsSource="{Binding VSceneItems}" 
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                         <ItemsControl.ItemTemplate>
@@ -187,8 +192,54 @@
                                                             HideButtonClicked="UISceneListboxItem_HideButtonClicked"
                                                             DeleteButtonClicked="UISceneListboxItem_DeleteButtonClicked"
                                                             Click="UISceneListboxItem_Click" />
+
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
+                        <ItemsControl.ContextMenu>
+                            <ContextMenu x:Name="contextMenu" Cursor="Hand" Margin="0 10 0 10"
+                                         Style="{StaticResource ContextMenuStyle}">
+                                <MenuItem Name="menuLook" Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                    <MenuItem.Header>
+                                        <TextBlock Text="隐藏" Height="22"/>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Name="menuEdit" Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                    <MenuItem.Header>
+                                        <TextBlock Text="适配屏幕" Height="22"/>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                    <MenuItem.Header>
+                                        <TextBlock Text="至于顶层" Height="22"/>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                    <MenuItem.Header>
+                                        <TextBlock Text="上移一层" Height="22"/>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                    <MenuItem.Header>
+                                        <TextBlock Text="下移一层" Height="22"/>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                    <MenuItem.Header>
+                                        <TextBlock Text="至于底层" Height="22"/>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                    <MenuItem.Header>
+                                        <TextBlock Text="重命名" Height="22"/>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="White" Style="{StaticResource MenuItemStyle}">
+                                    <MenuItem.Header>
+                                        <TextBlock Text="删除" Height="22"/>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                            </ContextMenu>
+                        </ItemsControl.ContextMenu>
                     </ItemsControl>
                 </ScrollViewer>  
             </Grid>
@@ -222,6 +273,7 @@
                                     HoverIcon="/Resources/plugins/danmushow1.png"
                                     PushIcon="/Resources/plugins/danmushow1.png"
                                     Content="弹幕显示" />
+                            
                             <ui:FXTopIconButton Style="{StaticResource topiconStyle}" 
                                     Icon="/Resources/plugins/danmushow.png"
                                     HoverIcon="/Resources/plugins/danmushow1.png"
