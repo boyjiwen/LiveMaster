@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,6 +48,8 @@ namespace ObsMaster.Dialog
         public bool bStrikeout { get; set; } = false;
 
         public System.Drawing.FontStyle FontStyleCollection { get; set; } = System.Drawing.FontStyle.Regular;
+
+        private Regex reNumber = new Regex("^[\\d]$");
 
         public int iResult { get; set; } = -1;
 
@@ -134,21 +137,33 @@ namespace ObsMaster.Dialog
                     sFontFamilyName = font.Name;
                     iFontSize = (int)font.Size;
                     FontTextBlock.Text = font.Name;
-                    FontTextBlock.FontFamily = new FontFamily(font.Name);
-                    FontTextBlock.FontSize = font.Size;
                     bBold = font.Bold;
                     bItalic = font.Italic;
                     bUnderline = font.Underline;
                     bStrikeout = font.Strikeout;
-                    if (bBold)
-                        FontTextBlock.FontWeight = FontWeights.Bold;
-                    if (bItalic)
-                        FontTextBlock.FontStyle = FontStyles.Italic;
-                    if (bUnderline)
-                        FontTextBlock.TextDecorations.Add(TextDecorations.Underline);
-                    if (bStrikeout)
-                        FontTextBlock.TextDecorations.Add(TextDecorations.Strikethrough);
                     FontStyleCollection = font.Style;
+
+                    FontTextBlock.FontFamily = new FontFamily(font.Name);
+                    FontTextBlock.FontSize = font.Size;
+                    PreviewTextBlock.FontFamily = new FontFamily(font.Name);
+                    PreviewTextBlock.FontSize = font.Size;
+                    FontTextBlock.FontWeight = bBold ? FontWeights.Bold : FontWeights.Normal;
+                    FontTextBlock.FontStyle = bItalic ? FontStyles.Italic : FontStyles.Normal;
+                    PreviewTextBlock.FontWeight = bBold ? FontWeights.Bold : FontWeights.Normal;
+                    PreviewTextBlock.FontStyle = bItalic ? FontStyles.Italic : FontStyles.Normal;
+
+                    FontTextBlock.TextDecorations?.Clear();
+                    PreviewTextBlock.TextDecorations?.Clear();
+                    if (bUnderline)
+                    {
+                        FontTextBlock.TextDecorations.Add(TextDecorations.Underline);
+                        PreviewTextBlock.TextDecorations.Add(TextDecorations.Underline);
+                    }
+                    if (bStrikeout)
+                    {
+                        FontTextBlock.TextDecorations.Add(TextDecorations.Strikethrough);
+                        PreviewTextBlock.TextDecorations.Add(TextDecorations.Strikethrough);
+                    }
                 }
             }
             catch { }
@@ -167,6 +182,7 @@ namespace ObsMaster.Dialog
                     ForegroundTextBlock.Text = background.ToString();
                     ForegroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
                     ForegroundColor = background;
+                    PreviewTextBlock.Foreground = ForegroundColor;
                 }
             }
             catch { }
@@ -203,6 +219,7 @@ namespace ObsMaster.Dialog
                     BackgroundTextBlock.Text = background.ToString();
                     BackgroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
                     BackgroundColor = background;
+                    PreviewTextBlock.Background = BackgroundColor;
                 }
             }
             catch { }
@@ -266,5 +283,192 @@ namespace ObsMaster.Dialog
                 GrayForeground = new SolidColorBrush(Color.FromRgb(68, 68, 68));
             return GrayForeground;
         }
+
+        private void VerticalCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PreviewRotateTransform.Angle = 90;
+            }
+            catch { }
+        }
+
+        private void VerticalCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PreviewRotateTransform.Angle = 0;
+            }
+            catch { }
+        }
+
+        private void OpacityTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if (OpacityTextBox.Text.Length > 3)
+                    OpacityTextBox.Text = "100";
+
+                int num = 100;
+                if (!int.TryParse(OpacityTextBox.Text, out num))
+                {
+                    num = 100;
+                    OpacityTextBox.Text = "100";
+                }
+                if (num > 100)
+                    num = 100;
+                if (num < 0)
+                    num = 0;
+
+                if (PreviewTextBlock != null)
+                    PreviewTextBlock.Opacity = num / 100.0;
+            }
+            catch { }
+        }
+
+        private void OpacityTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                e.Handled = !reNumber.IsMatch(e.Text);
+
+                if (OpacityTextBox.Text.Length > 3)
+                    e.Handled = true;
+            }
+            catch { }
+        }
+
+        private void BackgroundOpacityTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if (BackgroundOpacityTextBox.Text.Length > 3)
+                    BackgroundOpacityTextBox.Text = "100";
+
+                int num = 100;
+                if (!int.TryParse(BackgroundOpacityTextBox.Text, out num))
+                {
+                    num = 100;
+                    BackgroundOpacityTextBox.Text = "100";
+                }
+                if (num > 100)
+                    num = 100;
+                if (num < 0)
+                    num = 0;
+                //int alpha = 255 * (num / 100);
+                if (PreviewTextBlock?.Background != null)
+                    PreviewTextBlock.Background.Opacity = num / 100.0;
+            }
+            catch { }
+        }
+
+        // ============================自定义文本区=============================
+
+        private void CustomGrid_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                e.Handled = !reNumber.IsMatch(e.Text);
+            }
+            catch { }
+        }
+
+        private void HandleCustomGridWidthChange()
+        {
+            try
+            {
+                if (CustomGridSwitch.IsChecked != true)
+                    return;
+
+                int num = 100;
+                if (!int.TryParse(CustomGridWidth.Text, out num))
+                {
+                    num = 100;
+                    CustomGridWidth.Text = "100";
+                }
+                if (num < 0)
+                    num = 0;
+
+                textPreview.MaxWidth = num;
+            }
+            catch { }
+        }
+
+        private void HandleCustomGridHeightChange()
+        {
+            try
+            {
+                if (CustomGridSwitch.IsChecked != true)
+                    return;
+
+                int num = 100;
+                if (!int.TryParse(CustomGridHeight.Text, out num))
+                {
+                    num = 100;
+                    CustomGridHeight.Text = "100";
+                }
+                if (num < 0)
+                    num = 0;
+
+                textPreview.MaxHeight = num;
+            }
+            catch { }
+        }
+
+        private void CustomGridWidth_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HandleCustomGridWidthChange();
+        }
+
+        private void CustomGridHeight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HandleCustomGridHeightChange();
+        }
+
+        private void CustomGridAutoWrapCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PreviewTextBlock.TextWrapping = TextWrapping.Wrap;
+            }
+            catch { }
+        }
+
+        private void CustomGridAutoWrapCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PreviewTextBlock.TextWrapping = TextWrapping.NoWrap;
+            }
+            catch { }
+        }
+
+        private void CustomGridSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                HandleCustomGridWidthChange();
+                HandleCustomGridHeightChange();
+            }
+            catch { }
+        }
+
+        private void CustomGridSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                textPreview.MaxHeight = double.PositiveInfinity;
+                textPreview.MaxWidth = double.PositiveInfinity;
+                PreviewTextBlock.TextWrapping = TextWrapping.NoWrap;
+            }
+            catch { }
+        }
+
+        // ============================轮廓=============================
+
+
+
+        // ============================渐变=============================
+
     }
 }

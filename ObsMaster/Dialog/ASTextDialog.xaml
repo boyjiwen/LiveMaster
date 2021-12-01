@@ -29,7 +29,13 @@
         </Grid.RowDefinitions>
         <!--Text-->
         <Grid Background="Black">
-            <TextBlock x:Name="textPreview" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Grid x:Name="textPreview" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="PreviewTextBlock" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=Text,ElementName=DisplayContentTextBox}">
+                    <TextBlock.LayoutTransform>
+                        <RotateTransform x:Name="PreviewRotateTransform" Angle="0"/>
+                    </TextBlock.LayoutTransform>
+                </TextBlock>
+            </Grid>
         </Grid>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical">
@@ -91,7 +97,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="垂直排列" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
-                    <CheckBox x:Name="VerticalCheckBox" Grid.Column="1" VerticalAlignment="Center"/>
+                    <CheckBox x:Name="VerticalCheckBox" Grid.Column="1" VerticalAlignment="Center" Checked="VerticalCheckBox_Checked" Unchecked="VerticalCheckBox_Unchecked"/>
                 </Grid>
                 <!--色彩-->
                 <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
@@ -121,7 +127,8 @@
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
                         <TextBox x:Name="OpacityTextBox" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OpacityTextBox_PreviewTextInput" TextChanged="OpacityTextBox_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--渐变-->
@@ -205,9 +212,10 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="背景不透明度" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
-                        <TextBox x:Name="BackgroundOpacityTextBox" Text="0" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
+                        <TextBox x:Name="BackgroundOpacityTextBox" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OpacityTextBox_PreviewTextInput" TextChanged="BackgroundOpacityTextBox_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--水平对齐-->
@@ -325,7 +333,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="自定义文本区" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
-                    <CheckBox Grid.Column="1" x:Name="CustomGridSwitch" IsChecked="False" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Column="1" x:Name="CustomGridSwitch" IsChecked="False" VerticalAlignment="Center" Checked="CustomGridSwitch_Checked" Unchecked="CustomGridSwitch_Unchecked"/>
                 </Grid>
                 <!--宽度-->
                 <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=CustomGridSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
@@ -338,7 +346,8 @@
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
                         <TextBox x:Name="CustomGridWidth" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="CustomGrid_PreviewTextInput" TextChanged="CustomGridWidth_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--高度-->
@@ -352,7 +361,8 @@
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
                         <TextBox x:Name="CustomGridHeight" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="CustomGrid_PreviewTextInput" TextChanged="CustomGridHeight_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--自动换行-->
@@ -363,7 +373,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="自动换行" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
-                    <CheckBox x:Name="CustomGridAutoWrapCheckBox" Grid.Column="1" IsChecked="False" VerticalAlignment="Center"/>
+                    <CheckBox x:Name="CustomGridAutoWrapCheckBox" Grid.Column="1" IsChecked="False" VerticalAlignment="Center" Checked="CustomGridAutoWrapCheckBox_Checked" Unchecked="CustomGridAutoWrapCheckBox_Unchecked"/>
                 </Grid>
                 <!--滚动速度-->
                 <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0">
@@ -383,12 +393,12 @@
             </StackPanel>
         </ScrollViewer>
         <Grid Grid.Row="2" Height="42">
-            <fxui:FXTextButton HorizontalAlignment="Left" VerticalAlignment="Bottom"
+            <!--<fxui:FXTextButton HorizontalAlignment="Left" VerticalAlignment="Bottom"
                                Height="32" Width="96" Margin="8,0" Content="默认"
                                Background="Transparent" HoverBackground="#209546CE" PushBackground="#339546CE"
                                BorderBrush="#669546CE" HoverBorderBrush="#889546CE" PushBorderBrush="#669546CE"
                                Foreground="#E69546CE" HoverForeground="#E69546CE" PushForeground="#E69546CE"
-                               BorderThickness="1" BorderRadius="6"/>
+                               BorderThickness="1" BorderRadius="6"/>-->
             <fxui:FXTextButton HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                Height="32" Width="96" Margin="8,0,110,0" Content="确定"
                                Background="Transparent" HoverBackground="#209546CE" PushBackground="#339546CE"
