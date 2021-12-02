@@ -6,7 +6,8 @@
               xmlns:local="clr-namespace:ObsMaster.Dialog"
               xmlns:wnd="clr-namespace:HuyaFX.UI.Wnd" 
               xmlns:fxui="clr-namespace:HuyaFX.UI.Controls.Buttons"
-              xmlns:vt="clr-namespace:HuyaFX.UI.Converter"
+              xmlns:vt="clr-namespace:HuyaFX.UI.Converter" 
+              xmlns:ui="clr-namespace:ObsMaster.UI"
               Style="{DynamicResource SWWindowStyle}"
               WindowStartupLocation="CenterScreen"
               WindowControlsGridBackground="#e0e1ea"
@@ -29,12 +30,14 @@
         </Grid.RowDefinitions>
         <!--Text-->
         <Grid Background="Black">
-            <Grid x:Name="textPreview" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock x:Name="PreviewTextBlock" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=Text,ElementName=DisplayContentTextBox}">
-                    <TextBlock.LayoutTransform>
+            <Grid x:Name="textPreview" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                <ui:OutlinedTextBlock x:Name="PreviewTextBlock" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                      Fill="White" Stroke="Transparent" StrokeThickness="0" 
+                                      Text="{Binding Path=Text,ElementName=DisplayContentTextBox}">
+                    <ui:OutlinedTextBlock.LayoutTransform>
                         <RotateTransform x:Name="PreviewRotateTransform" Angle="0"/>
-                    </TextBlock.LayoutTransform>
-                </TextBlock>
+                    </ui:OutlinedTextBlock.LayoutTransform>
+                </ui:OutlinedTextBlock>
             </Grid>
         </Grid>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
@@ -128,7 +131,7 @@
                         <TextBox x:Name="OpacityTextBox" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OpacityTextBox_PreviewTextInput" TextChanged="OpacityTextBox_TextChanged"/>
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OnNumPreviewTextInput" TextChanged="OpacityTextBox_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--渐变-->
@@ -139,7 +142,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="渐变" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
-                    <CheckBox Grid.Column="1" x:Name="LinearGradientSwitch" IsChecked="False" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Column="1" x:Name="LinearGradientSwitch" IsChecked="False" VerticalAlignment="Center" Checked="LinearGradientSwitch_Checked" Unchecked="LinearGradientSwitch_Unchecked"/>
                 </Grid>
                 <!--渐变色-->
                 <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=LinearGradientSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
@@ -169,7 +172,8 @@
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
                         <TextBox x:Name="LinearGradientOpacityTextBox" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OnNumPreviewTextInput" TextChanged="LinearGradientOpacityTextBox_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--渐变方向-->
@@ -183,7 +187,8 @@
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
                         <TextBox x:Name="LinearGradientDirectionTextBox" Text="90" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OnNumPreviewTextInput" TextChanged="LinearGradientDirectionTextBox_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--背景颜色-->
@@ -215,7 +220,7 @@
                         <TextBox x:Name="BackgroundOpacityTextBox" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OpacityTextBox_PreviewTextInput" TextChanged="BackgroundOpacityTextBox_TextChanged"/>
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OnNumPreviewTextInput" TextChanged="BackgroundOpacityTextBox_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--水平对齐-->
@@ -254,7 +259,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="轮廓" Margin="0,0,12,0" HorizontalAlignment="Right" FontSize="14" FontWeight="Black" VerticalAlignment="Center"/>
-                    <CheckBox Grid.Column="1" x:Name="OutlineSwitch" IsChecked="False" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Column="1" x:Name="OutlineSwitch" IsChecked="False" VerticalAlignment="Center" Checked="OutlineSwitch_Checked" Unchecked="OutlineSwitch_Unchecked"/>
                 </Grid>
                 <!--轮廓大小-->
                 <Grid HorizontalAlignment="Stretch" Margin="0,12,20,0" Visibility="{Binding IsChecked,ElementName=OutlineSwitch,Converter={x:Static vt:BoolToVisibility.Instance}}">
@@ -267,7 +272,8 @@
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
                         <TextBox x:Name="OutlineSizeTextBox" Text="2" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OnNumPreviewTextInput" TextChanged="OutlineSizeTextBox_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--轮廓颜色-->
@@ -298,7 +304,8 @@
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
                         <TextBox x:Name="OutlineOpacityTextBox" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OnNumPreviewTextInput" TextChanged="OutlineOpacityTextBox_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--聊天模式-->
@@ -322,7 +329,8 @@
                     <Border Grid.Column="1" MinHeight="32" HorizontalAlignment="Stretch" BorderBrush="#66666666" BorderThickness="1" CornerRadius="6">
                         <TextBox x:Name="ChatModeLinesTextBox" Text="6" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OnNumPreviewTextInput"/>
                     </Border>
                 </Grid>
                 <!--使用自定义文本区-->
@@ -347,7 +355,7 @@
                         <TextBox x:Name="CustomGridWidth" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="CustomGrid_PreviewTextInput" TextChanged="CustomGridWidth_TextChanged"/>
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OnNumPreviewTextInput" TextChanged="CustomGridWidth_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--高度-->
@@ -362,7 +370,7 @@
                         <TextBox x:Name="CustomGridHeight" Text="100" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" 
                                  AcceptsReturn="True" MaxHeight="96" Padding="8,6,8,4" FontSize="14" VerticalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="CustomGrid_PreviewTextInput" TextChanged="CustomGridHeight_TextChanged"/>
+                                 InputMethod.IsInputMethodEnabled="False" PreviewTextInput="OnNumPreviewTextInput" TextChanged="CustomGridHeight_TextChanged"/>
                     </Border>
                 </Grid>
                 <!--自动换行-->

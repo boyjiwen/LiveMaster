@@ -53,6 +53,11 @@ namespace ObsMaster.Dialog
 
         public int iResult { get; set; } = -1;
 
+        // 预置颜色
+        private SolidColorBrush WhiteForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+        private SolidColorBrush BlackForeground = new SolidColorBrush(Color.FromRgb(44, 44, 44));
+        private SolidColorBrush GrayForeground = null;
+
         public ASTextDialog()
         {
             InitializeComponent();
@@ -96,31 +101,8 @@ namespace ObsMaster.Dialog
             Close();
         }
 
-        // 读取文本文件
-        private void OnClickReadFromTxt(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                StringBuilder txt = new StringBuilder();
-                OpenFileDialog openFile = new OpenFileDialog();
-                openFile.Filter = "文本文件(*.txt)|*.txt|(*.rtf)|*.rtf";
-                if (openFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    using (StreamReader sr = new StreamReader(openFile.FileName, Encoding.Default))
-                    {
-                        while (sr.Peek() > 0)
-                        {
-                            string temp = sr.ReadLine();
-                            if (temp == null)
-                                break;
-                            txt.Append(temp).Append("\r\n");
-                        }
-                    }
-                }
-                DisplayContentTextBox.Text = txt.ToString();
-            }
-            catch { }
-        }
+
+        #region 字体和字体颜色
 
         // 选择字体
         private void OnClickSelectFontFamily(object sender, RoutedEventArgs e)
@@ -169,6 +151,32 @@ namespace ObsMaster.Dialog
             catch { }
         }
 
+        // 读取文本文件
+        private void OnClickReadFromTxt(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                StringBuilder txt = new StringBuilder();
+                OpenFileDialog openFile = new OpenFileDialog();
+                openFile.Filter = "文本文件(*.txt)|*.txt|(*.rtf)|*.rtf";
+                if (openFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    using (StreamReader sr = new StreamReader(openFile.FileName, Encoding.Default))
+                    {
+                        while (sr.Peek() > 0)
+                        {
+                            string temp = sr.ReadLine();
+                            if (temp == null)
+                                break;
+                            txt.Append(temp).Append("\r\n");
+                        }
+                    }
+                }
+                DisplayContentTextBox.Text = txt.ToString();
+            }
+            catch { }
+        }
+
         // 选择字体颜色
         private void OnClickSelectForeground(object sender, RoutedEventArgs e)
         {
@@ -182,127 +190,45 @@ namespace ObsMaster.Dialog
                     ForegroundTextBlock.Text = background.ToString();
                     ForegroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
                     ForegroundColor = background;
-                    PreviewTextBlock.Foreground = ForegroundColor;
+
+                    if (LinearGradientSwitch?.IsChecked == true)
+                    {
+                        var fore = GetForegroundWithOpacity();
+                        var linear = GetLinearGradientWithOpacity();
+                        var dir = GetLinearGradientDirection();
+                        PreviewTextBlock.Fill = new LinearGradientBrush(fore.Color, linear.Color, dir);
+                    }
+                    else
+                    {
+                        var fore = GetForegroundWithOpacity();
+                        PreviewTextBlock.Fill = fore;
+                    }
                 }
-            }
-            catch { }
-        }
-
-        // 选择渐变颜色
-        private void OnClickSelectLinearGradientForeground(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ColorDialog pickColor = new ColorDialog();
-                if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    var background = ConvertColor(pickColor);
-                    LinearGradientForegroundBorder.Background = background;
-                    LinearGradientForegroundTextBlock.Text = background.ToString();
-                    LinearGradientForegroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
-                    LinearGradientForegroundColor = background;
-                }
-            }
-            catch { }
-        }
-
-        // 选择背景色
-        private void OnClickSelectBackground(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ColorDialog pickColor = new ColorDialog();
-                if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    var background = ConvertColor(pickColor);
-                    BackgroundBorder.Background = background;
-                    BackgroundTextBlock.Text = background.ToString();
-                    BackgroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
-                    BackgroundColor = background;
-                    PreviewTextBlock.Background = BackgroundColor;
-                }
-            }
-            catch { }
-        }
-
-        // 选择轮廓颜色
-        private void OnClickSelectOutlineColor(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ColorDialog pickColor = new ColorDialog();
-                if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    var background = ConvertColor(pickColor);
-                    OutlineColorBorder.Background = background;
-                    OutlineColorTextBlock.Text = background.ToString();
-                    OutlineColorTextBlock.Foreground = GetForegroundByBackground(background.Color);
-                    OutlineColor = background;
-                }
-            }
-            catch { }
-        }
-
-        // 从颜色选择窗口返回的颜色转换为SolidColorBrush
-        private SolidColorBrush ConvertColor(ColorDialog pickedColor)
-        {
-            try
-            {
-                return new SolidColorBrush(Color.FromRgb(
-                                           pickedColor.Color.R,
-                                           pickedColor.Color.G,
-                                           pickedColor.Color.B));
-            }
-            catch { }
-            return new SolidColorBrush(Colors.White);
-        }
-
-
-        // 根据背景色决定前景色文字用黑色还是白色
-        private SolidColorBrush WhiteForeground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-        private SolidColorBrush BlackForeground = new SolidColorBrush(Color.FromRgb(44, 44, 44));
-        private SolidColorBrush GrayForeground = null;
-        private SolidColorBrush GetForegroundByBackground(Color back)
-        {
-            try
-            {
-                int r = Convert.ToInt32(((Color)back).R);
-                int g = Convert.ToInt32(((Color)back).G);
-                int b = Convert.ToInt32(((Color)back).B);
-                if ((r + g + b) / 3 > 200)
-                {
-                    return BlackForeground;
-                }
-                else
-                {
-                    return WhiteForeground;
-                }
-            }
-            catch { }
-            if (GrayForeground == null)
-                GrayForeground = new SolidColorBrush(Color.FromRgb(68, 68, 68));
-            return GrayForeground;
-        }
-
-        private void VerticalCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                PreviewRotateTransform.Angle = 90;
-            }
-            catch { }
-        }
-
-        private void VerticalCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                PreviewRotateTransform.Angle = 0;
             }
             catch { }
         }
 
         private void OpacityTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if (LinearGradientSwitch?.IsChecked == false)
+                {
+                    var fore = GetForegroundWithOpacity();
+                    PreviewTextBlock.Fill = fore;
+                }
+                else if (LinearGradientSwitch?.IsChecked == true)
+                {
+                    var fore = GetForegroundWithOpacity();
+                    var linear = GetLinearGradientWithOpacity();
+                    var dir = GetLinearGradientDirection();
+                    PreviewTextBlock.Fill = new LinearGradientBrush(fore.Color, linear.Color, dir);
+                }
+            }
+            catch { }
+        }
+
+        private SolidColorBrush GetForegroundWithOpacity()
         {
             try
             {
@@ -320,20 +246,35 @@ namespace ObsMaster.Dialog
                 if (num < 0)
                     num = 0;
 
-                if (PreviewTextBlock != null)
-                    PreviewTextBlock.Opacity = num / 100.0;
+                var color = ForegroundColor.Color;
+                double opacity = num / 100.0;
+                color.A = (byte)(opacity >= 1 ? 255 : (int)(opacity * 256));
+                var fore = new SolidColorBrush(color);
+                return fore;
             }
             catch { }
+            return BlackForeground;
         }
 
-        private void OpacityTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        #endregion
+
+        #region 背景颜色
+
+        // 选择背景色
+        private void OnClickSelectBackground(object sender, RoutedEventArgs e)
         {
             try
             {
-                e.Handled = !reNumber.IsMatch(e.Text);
-
-                if (OpacityTextBox.Text.Length > 3)
-                    e.Handled = true;
+                ColorDialog pickColor = new ColorDialog();
+                if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var background = ConvertColor(pickColor);
+                    BackgroundBorder.Background = background;
+                    BackgroundTextBlock.Text = background.ToString();
+                    BackgroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
+                    BackgroundColor = background;
+                    textPreview.Background = BackgroundColor;
+                }
             }
             catch { }
         }
@@ -355,41 +296,34 @@ namespace ObsMaster.Dialog
                     num = 100;
                 if (num < 0)
                     num = 0;
-                //int alpha = 255 * (num / 100);
-                if (PreviewTextBlock?.Background != null)
-                    PreviewTextBlock.Background.Opacity = num / 100.0;
+
+                if (textPreview?.Background != null)
+                    textPreview.Background.Opacity = num / 100.0;
             }
             catch { }
         }
 
-        // ============================自定义文本区=============================
+        #endregion
 
-        private void CustomGrid_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            try
-            {
-                e.Handled = !reNumber.IsMatch(e.Text);
-            }
-            catch { }
-        }
+        #region 自定义文本区
 
         private void HandleCustomGridWidthChange()
         {
             try
             {
-                if (CustomGridSwitch.IsChecked != true)
-                    return;
-
-                int num = 100;
-                if (!int.TryParse(CustomGridWidth.Text, out num))
+                if (CustomGridSwitch?.IsChecked == true)
                 {
-                    num = 100;
-                    CustomGridWidth.Text = "100";
-                }
-                if (num < 0)
-                    num = 0;
+                    int num = 100;
+                    if (!int.TryParse(CustomGridWidth.Text, out num))
+                    {
+                        num = 100;
+                        CustomGridWidth.Text = "100";
+                    }
+                    if (num < 0)
+                        num = 0;
 
-                textPreview.MaxWidth = num;
+                    textPreview.MaxWidth = num;
+                }
             }
             catch { }
         }
@@ -398,19 +332,19 @@ namespace ObsMaster.Dialog
         {
             try
             {
-                if (CustomGridSwitch.IsChecked != true)
-                    return;
-
-                int num = 100;
-                if (!int.TryParse(CustomGridHeight.Text, out num))
+                if (CustomGridSwitch?.IsChecked == true)
                 {
-                    num = 100;
-                    CustomGridHeight.Text = "100";
-                }
-                if (num < 0)
-                    num = 0;
+                    int num = 100;
+                    if (!int.TryParse(CustomGridHeight.Text, out num))
+                    {
+                        num = 100;
+                        CustomGridHeight.Text = "100";
+                    }
+                    if (num < 0)
+                        num = 0;
 
-                textPreview.MaxHeight = num;
+                    textPreview.MaxHeight = num;
+                }
             }
             catch { }
         }
@@ -464,11 +398,326 @@ namespace ObsMaster.Dialog
             catch { }
         }
 
-        // ============================轮廓=============================
+        #endregion
 
+        #region 渐变
 
+        // 选择渐变颜色
+        private void OnClickSelectLinearGradientForeground(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ColorDialog pickColor = new ColorDialog();
+                if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var background = ConvertColor(pickColor);
+                    LinearGradientForegroundBorder.Background = background;
+                    LinearGradientForegroundTextBlock.Text = background.ToString();
+                    LinearGradientForegroundTextBlock.Foreground = GetForegroundByBackground(background.Color);
+                    LinearGradientForegroundColor = background;
 
-        // ============================渐变=============================
+                    UpdateLinearGradient();
+                }
+            }
+            catch { }
+        }
+
+        private int GetLinearGradientDirection()
+        {
+            try
+            {
+                if (LinearGradientDirectionTextBox.Text.Length > 3)
+                    LinearGradientDirectionTextBox.Text = "360";
+
+                int num = 90;
+                if (!int.TryParse(LinearGradientDirectionTextBox.Text, out num))
+                {
+                    num = 90;
+                    LinearGradientDirectionTextBox.Text = "90";
+                }
+                if (num < 0)
+                    num = 0;
+                if (num > 360)
+                    num = 360;
+
+                return num;
+            }
+            catch { }
+            return 90;
+        }
+
+        private SolidColorBrush GetLinearGradientWithOpacity()
+        {
+            try
+            {
+                if (LinearGradientOpacityTextBox.Text.Length > 3)
+                    LinearGradientOpacityTextBox.Text = "100";
+
+                int num = 100;
+                if (!int.TryParse(LinearGradientOpacityTextBox.Text, out num))
+                {
+                    num = 100;
+                    LinearGradientOpacityTextBox.Text = "100";
+                }
+                if (num < 0)
+                    num = 0;
+                if (num > 100)
+                    num = 100;
+
+                var color = LinearGradientForegroundColor.Color;
+                double opacity = num / 100.0;
+                color.A = (byte)(opacity >= 1 ? 255 : (int)(opacity * 256));
+                var fore = new SolidColorBrush(color);
+                return fore;
+            }
+            catch { }
+            return WhiteForeground;
+        }
+
+        private void LinearGradientSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                UpdateLinearGradient();
+            }
+            catch { }
+        }
+
+        private void LinearGradientSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PreviewTextBlock.Fill = ForegroundColor;
+            }
+            catch { }
+        }
+
+        private void LinearGradientOpacityTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (LinearGradientSwitch?.IsChecked == true)
+            {
+                UpdateLinearGradient();
+            }
+        }
+
+        private void LinearGradientDirectionTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (LinearGradientSwitch?.IsChecked == true)
+            {
+                UpdateLinearGradient();
+            }
+        }
+
+        private void UpdateLinearGradient()
+        {
+            try
+            {
+                if (PreviewTextBlock == null)
+                    return;
+
+                var fore = GetForegroundWithOpacity();
+                var linear = GetLinearGradientWithOpacity();
+                var dir = GetLinearGradientDirection();
+
+                PreviewTextBlock.Fill = new LinearGradientBrush(fore.Color, linear.Color, dir);
+            }
+            catch { }
+        }
+
+        #endregion
+
+        #region 轮廓
+
+        // 选择轮廓颜色
+        private void OnClickSelectOutlineColor(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ColorDialog pickColor = new ColorDialog();
+                if (pickColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var background = ConvertColor(pickColor);
+                    OutlineColorBorder.Background = background;
+                    OutlineColorTextBlock.Text = background.ToString();
+                    OutlineColorTextBlock.Foreground = GetForegroundByBackground(background.Color);
+                    OutlineColor = background;
+
+                    UpdateOutline();
+                }
+            }
+            catch { }
+        }
+
+        private int GetOutlineStroke()
+        {
+            try
+            {
+                if (OutlineSizeTextBox.Text.Length > 2)
+                    OutlineSizeTextBox.Text = "20";
+
+                int num = 20;
+                if (!int.TryParse(OutlineSizeTextBox.Text, out num))
+                {
+                    num = 20;
+                    OpacityTextBox.Text = "20";
+                }
+                if (num < 0)
+                    num = 0;
+                if (num > 20)
+                    num = 20;
+
+                return num;
+            }
+            catch { }
+            return 20;
+        }
+
+        private SolidColorBrush GetOutlineColorWithOpacity()
+        {
+            try
+            {
+                if (OutlineOpacityTextBox.Text.Length > 3)
+                    OutlineOpacityTextBox.Text = "100";
+
+                int num = 100;
+                if (!int.TryParse(OutlineOpacityTextBox.Text, out num))
+                {
+                    num = 100;
+                    OutlineOpacityTextBox.Text = "100";
+                }
+                if (num < 0)
+                    num = 0;
+                if (num > 100)
+                    num = 100;
+
+                var color = OutlineColor.Color;
+                double opacity = num / 100.0;
+                color.A = (byte)(opacity >= 1 ? 255 : (int)(opacity * 256));
+                var fore = new SolidColorBrush(color);
+                return fore;
+            }
+            catch { }
+            return WhiteForeground;
+        }
+
+        private void OutlineSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                UpdateOutline();
+            }
+            catch { }
+        }
+
+        private void OutlineSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PreviewTextBlock.StrokeThickness = 0;
+            }
+            catch { }
+        }
+
+        private void OutlineSizeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (OutlineSwitch?.IsChecked == true)
+            {
+                UpdateOutline();
+            }
+        }
+
+        private void OutlineOpacityTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (OutlineSwitch?.IsChecked == true)
+            {
+                UpdateOutline();
+            }
+        }
+
+        private void UpdateOutline()
+        {
+            try
+            {
+                if (PreviewTextBlock == null)
+                    return;
+
+                var size = GetOutlineStroke();
+                var color = GetOutlineColorWithOpacity();
+
+                PreviewTextBlock.StrokeThickness = size;
+                PreviewTextBlock.Stroke = color;
+            }
+            catch { }
+        }
+
+        #endregion
+
+        #region 垂直排列
+
+        private void VerticalCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PreviewRotateTransform.Angle = 90;
+            }
+            catch { }
+        }
+
+        private void VerticalCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PreviewRotateTransform.Angle = 0;
+            }
+            catch { }
+        }
+
+        #endregion
+
+        // 限制输入数字
+        private void OnNumPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                e.Handled = !reNumber.IsMatch(e.Text);
+            }
+            catch { }
+        }
+
+        // 从颜色选择窗口返回的颜色转换为SolidColorBrush
+        private SolidColorBrush ConvertColor(ColorDialog pickedColor)
+        {
+            try
+            {
+                return new SolidColorBrush(Color.FromRgb(
+                                           pickedColor.Color.R,
+                                           pickedColor.Color.G,
+                                           pickedColor.Color.B));
+            }
+            catch { }
+            return new SolidColorBrush(Colors.White);
+        }
+
+        // 根据背景色决定前景色文字用黑色还是白色
+        private SolidColorBrush GetForegroundByBackground(Color back)
+        {
+            try
+            {
+                int r = Convert.ToInt32(((Color)back).R);
+                int g = Convert.ToInt32(((Color)back).G);
+                int b = Convert.ToInt32(((Color)back).B);
+
+                if ((r + g + b) / 3 > 200)
+                    return BlackForeground;
+                else
+                    return WhiteForeground;
+            }
+            catch { }
+
+            if (GrayForeground == null)
+                GrayForeground = new SolidColorBrush(Color.FromRgb(68, 68, 68));
+            return GrayForeground;
+        }
 
     }
 }
