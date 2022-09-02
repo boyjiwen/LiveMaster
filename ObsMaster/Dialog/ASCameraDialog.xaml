@@ -53,7 +53,7 @@
                     <!--<Button Style="{StaticResource btnStyle}" Content="激活"/>
                     <Button Style="{StaticResource btnStyle}" Content="配置视频"/>
                     <Button Style="{StaticResource btnStyle}" Content="配置Crossbar"/>-->
-                    <CheckBox Content="当不显示时禁用" VerticalAlignment="Center" Cursor="Hand"/>
+                    <CheckBox Content="开启绿屏" VerticalAlignment="Center" Cursor="Hand"/>
                 </StackPanel>
                 <!--<Grid  Margin="0 6 0 0">
                     <Grid.ColumnDefinitions>
